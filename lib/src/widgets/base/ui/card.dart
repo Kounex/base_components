@@ -16,12 +16,14 @@ class BaseCard extends StatefulWidget {
   final Widget? below;
 
   final bool constrained;
+  final CrossAxisAlignment constrainedAlignment;
 
   final Color? backgroundColor;
   final bool paintBorder;
   final Color? borderColor;
 
   final String? title;
+  final TextStyle? titleStyle;
   final Widget? titleWidget;
 
   final Widget? trailingTitleWidget;
@@ -50,10 +52,12 @@ class BaseCard extends StatefulWidget {
     this.below,
     this.centerChild = true,
     this.constrained = true,
+    this.constrainedAlignment = CrossAxisAlignment.start,
     this.backgroundColor,
     this.paintBorder = false,
     this.borderColor,
     this.title,
+    this.titleStyle,
     this.titleWidget,
     this.trailingTitleWidget,
     this.paddingChild,
@@ -142,7 +146,8 @@ class _BaseCardState extends State<BaseCard> {
                       child: this.widget.titleWidget == null
                           ? Text(
                               this.widget.title!,
-                              style: Theme.of(context).textTheme.headlineSmall,
+                              style: this.widget.titleStyle ??
+                                  Theme.of(context).textTheme.headlineSmall,
                             )
                           : this.widget.titleWidget!),
                   if (this.widget.initialExpanded != null ||
@@ -217,7 +222,7 @@ class _BaseCardState extends State<BaseCard> {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: Breakpoint.sm.width),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: this.constrainedAlignment,
           children: [
             if (this.widget.above != null) this.widget.above!,
             card,
