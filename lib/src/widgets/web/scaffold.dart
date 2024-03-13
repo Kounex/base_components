@@ -1,7 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import '../../../base_components.dart';
+import '../../utils/design_system.dart';
+import '../animation/fader.dart';
 
 class WebScaffold extends StatelessWidget {
   final Iterable<Widget> children;
