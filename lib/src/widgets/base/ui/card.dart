@@ -222,7 +222,7 @@ class _BaseCardState extends State<BaseCard> {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: Breakpoint.sm.width),
         child: Column(
-          crossAxisAlignment: this.constrainedAlignment,
+          crossAxisAlignment: this.widget.constrainedAlignment,
           children: [
             if (this.widget.above != null) this.widget.above!,
             card,
