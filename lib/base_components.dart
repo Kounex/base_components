@@ -60,3 +60,4 @@ export 'src/widgets/dialog/info.dart';
 export 'src/widgets/dialog/input.dart';
 export 'src/widgets/flutter_modified/translucent_sliver_app_bar.dart';
 export 'src/widgets/themed/cupertino_sliver_navigation_bar.dart';
+export 'src/widgets/web/scaffold.dart';
