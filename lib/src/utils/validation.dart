@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class ValidationUtils {
   static bool _empty(String? text) => text == null || text.trim().isEmpty;
 
@@ -54,8 +56,8 @@ class ValidationUtils {
       }
       return null;
     }
-    if (!email!.trim().contains('@') ||
-        !email.trim().contains('.') ||
+    if (email!.trim().characters.where((char) => char == '@').length != 1 ||
+        email.trim().characters.where((char) => char == '.').length != 1 ||
         email.trim().split('@')[0].isEmpty ||
         email.trim().split('@')[1].split('.')[0].isEmpty ||
         email.trim().split('.')[1].length < 2) {
