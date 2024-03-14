@@ -10,6 +10,7 @@ class BaseCard extends StatefulWidget {
 
   final bool? initialExpanded;
   final bool? expanded;
+  final bool expandable;
   final void Function(bool expanded)? onExpand;
 
   final Widget? above;
@@ -47,6 +48,7 @@ class BaseCard extends StatefulWidget {
     required this.child,
     this.initialExpanded,
     this.expanded,
+    this.expandable = true,
     this.onExpand,
     this.above,
     this.below,
@@ -167,13 +169,15 @@ class _BaseCardState extends State<BaseCard> {
                             curve: Curves.easeInCubic,
                             child: InkWell(
                               borderRadius: BorderRadius.circular(32),
-                              onTap: () => setState(() {
-                                _expandedTurn++;
-                                this
-                                    .widget
-                                    .onExpand
-                                    ?.call(_expandedTurn % 2 == 0);
-                              }),
+                              onTap: this.widget.expandable
+                                  ? () => setState(() {
+                                        _expandedTurn++;
+                                        this
+                                            .widget
+                                            .onExpand
+                                            ?.call(_expandedTurn % 2 == 0);
+                                      })
+                                  : null,
                               // behavior: HitTestBehavior.opaque,
                               child: const SizedBox(
                                 height: 32.0,
