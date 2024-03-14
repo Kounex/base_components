@@ -32,6 +32,11 @@ class _Size {
   double get x48 => 48;
   double get x52 => 52;
   double get x64 => 64;
+  double get x92 => 92;
+  double get x128 => 128;
+  double get x172 => 172;
+  double get x256 => 256;
+  double get x512 => 512;
 }
 
 class _Border {
