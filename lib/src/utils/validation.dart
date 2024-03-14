@@ -59,7 +59,7 @@ class ValidationUtils {
         email.trim().split('@')[0].isEmpty ||
         email.trim().split('@')[1].split('.')[0].isEmpty ||
         email.trim().split('.')[1].length < 2) {
-      return 'Not a valid emai!';
+      return 'Not a valid email!';
     }
     return null;
   }
