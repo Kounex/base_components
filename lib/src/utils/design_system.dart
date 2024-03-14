@@ -23,6 +23,9 @@ class _Spacing {
 class _Size {
   const _Size();
 
+  double get x4 => 4;
+  double get x8 => 8;
+  double get x12 => 12;
   double get x16 => 16;
   double get x18 => 18;
   double get x42 => 42;
