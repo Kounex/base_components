@@ -33,6 +33,7 @@ class CustomValidationTextEditingController extends TextEditingController {
 
 class BaseAdaptiveTextField extends StatefulWidget {
   final CustomValidationTextEditingController controller;
+  final bool expands;
   final String? placeholder;
   final FocusNode? focusNode;
   final TextStyle? style;
@@ -65,6 +66,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
   const BaseAdaptiveTextField({
     super.key,
     required this.controller,
+    this.expands = false,
     this.placeholder,
     this.focusNode,
     this.style,
@@ -166,6 +168,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
               focusNode: this.widget.focusNode,
               controller: this.widget.controller,
+              expands: this.widget.expands,
               style: this.widget.style,
               cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
               placeholder: this.widget.placeholder,
@@ -186,6 +189,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               child: TextFormField(
                 focusNode: this.widget.focusNode,
                 controller: this.widget.controller,
+                expands: this.widget.expands,
                 style: this.widget.style,
                 cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                 decoration: InputDecoration(
