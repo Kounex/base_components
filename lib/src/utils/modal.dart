@@ -57,7 +57,10 @@ class ModalUtils {
       showAdaptiveDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) => dialog,
+        builder: (context) => ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: Breakpoint.xsm.width),
+          child: dialog,
+        ),
       );
 
   static Future<T?> showBaseFixedModalBottomSheet<T>({
