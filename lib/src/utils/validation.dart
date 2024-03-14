@@ -59,8 +59,7 @@ class ValidationUtils {
     if (email!.trim().characters.where((char) => char == '@').length != 1 ||
         email.trim().split('@')[0].isEmpty ||
         email.trim().split('@')[1].split('.')[0].isEmpty ||
-        email.trim().split('@')[1].split('.')[1].isEmpty ||
-        email.trim().split('.')[1].length < 2) {
+        email.trim().split('@')[1].split('.')[1].length < 2) {
       return 'Not a valid email!';
     }
     return null;
