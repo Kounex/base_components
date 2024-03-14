@@ -62,8 +62,9 @@ class WebScaffold extends StatelessWidget {
                         (context, index) =>
                             index == 0 || index == children.length + 1
                                 ? SizedBox(
-                                    height: this.verticalPadding ??
-                                        DesignSystem.spacing.x24,
+                                    height: (this.verticalPadding ??
+                                            DesignSystem.spacing.x24) +
+                                        MediaQuery.paddingOf(context).top,
                                   )
                                 : children.elementAt(index - 1),
                         childCount: children.length + 2,
