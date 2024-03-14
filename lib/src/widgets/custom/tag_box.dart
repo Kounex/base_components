@@ -28,7 +28,7 @@ class TagBox extends StatelessWidget {
     this.child,
     this.height = 24.0,
     this.width,
-    this.expand = true,
+    this.expand = false,
   }) : assert(icon != null || label != null || child != null);
 
   @override
