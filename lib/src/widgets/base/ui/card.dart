@@ -179,11 +179,14 @@ class _BaseCardState extends State<BaseCard> {
                                       })
                                   : null,
                               // behavior: HitTestBehavior.opaque,
-                              child: const SizedBox(
+                              child: SizedBox(
                                 height: 32.0,
                                 width: 32.0,
                                 child: Icon(
                                   CupertinoIcons.chevron_up,
+                                  color: !this.widget.expandable
+                                      ? Theme.of(context).disabledColor
+                                      : null,
                                 ),
                               ),
                             ),
