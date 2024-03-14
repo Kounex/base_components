@@ -39,11 +39,11 @@ class ConfirmationDialog extends StatelessWidget {
       bodyWidget: this.bodyWidget,
       enableDontShowAgainOption: this.enableDontShowAgainOption,
       actions: [
-        DialogActionConfig(
+        BaseDialogAction(
           child: Text(this.noText),
           isDefaultAction: true,
         ),
-        DialogActionConfig(
+        BaseDialogAction(
           onPressed: this.onYes,
           popOnAction: this.popDialogOnOk,
           child: Text(this.yesText),

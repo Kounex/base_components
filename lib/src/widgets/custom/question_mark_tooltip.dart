@@ -14,15 +14,16 @@ class QuestionMarkTooltip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => ModalUtils.showBaseDialog(
-              context,
-              InfoDialog(
-                body: this.message,
-              ),
-            ),
-        child: const Icon(
-          CupertinoIcons.question_circle_fill,
-        ));
+      onTap: () => ModalUtils.showBaseDialog(
+        context,
+        InfoDialog(
+          body: this.message,
+        ),
+      ),
+      child: const Icon(
+        CupertinoIcons.question_circle_fill,
+      ),
+    );
     // return CustomTooltip(
     //   message: this.message,
     //   padding: EdgeInsets.all(12.0),

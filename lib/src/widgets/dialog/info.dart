@@ -26,7 +26,7 @@ class InfoDialog extends StatelessWidget {
       body: this.body,
       enableDontShowAgainOption: this.enableDontShowAgainOption,
       actions: [
-        DialogActionConfig(
+        BaseDialogAction(
           isDefaultAction: false,
           onPressed: (isDontShowAgainChecked) =>
               this.onPressed?.call(isDontShowAgainChecked),

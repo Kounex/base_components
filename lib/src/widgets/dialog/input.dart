@@ -74,11 +74,11 @@ class _InputDialogState extends State<InputDialog> {
         ],
       ),
       actions: [
-        DialogActionConfig(
+        BaseDialogAction(
           isDestructiveAction: true,
           child: const Text('Cancel'),
         ),
-        DialogActionConfig(
+        BaseDialogAction(
           child: const Text('Save'),
           popOnAction: false,
           onPressed: (_) {

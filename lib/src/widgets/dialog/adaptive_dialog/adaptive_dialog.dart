@@ -1,10 +1,7 @@
+import 'package:base_components/base_components.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/design_system.dart';
-import '../../base/ui/checkbox.dart';
-import 'adaptive_dialog_action.dart';
-
-class DialogActionConfig {
+class BaseDialogAction {
   final Widget child;
 
   final bool isDestructiveAction;
@@ -14,7 +11,7 @@ class DialogActionConfig {
 
   final void Function(bool isDontShowAgainChecked)? onPressed;
 
-  DialogActionConfig({
+  BaseDialogAction({
     required this.child,
     this.isDestructiveAction = false,
     this.isDefaultAction = false,
@@ -32,7 +29,7 @@ class BaseAdaptiveDialog extends StatefulWidget {
 
   final bool enableDontShowAgainOption;
 
-  final List<DialogActionConfig>? actions;
+  final List<BaseDialogAction>? actions;
 
   const BaseAdaptiveDialog({
     super.key,
@@ -58,18 +55,24 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
           (this.widget.title != null
               ? Padding(
                   padding: EdgeInsets.only(
-                    bottom: DesignSystem.isApple(context) ? 8.0 : 0.0,
+                    bottom: DesignSystem.isApple(context)
+                        ? DesignSystem.spacing.x8
+                        : 0.0,
                   ),
                   child: Text(this.widget.title!),
                 )
               : null),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24.0) +
-          EdgeInsets.only(
-            top: this.widget.title == null && this.widget.titleWidget == null
-                ? 24.0
-                : 16.0,
-            bottom: 12.0,
-          ),
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: DesignSystem.spacing.x24) +
+              EdgeInsets.only(
+                top:
+                    this.widget.title == null && this.widget.titleWidget == null
+                        ? DesignSystem.spacing.x24
+                        : DesignSystem.spacing.x16,
+                bottom: DesignSystem.isApple(context)
+                    ? DesignSystem.spacing.x12
+                    : 0,
+              ),
       backgroundColor: Theme.of(context).cardColor,
       elevation: 0,
       content: Column(
@@ -78,7 +81,7 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
           this.widget.bodyWidget ?? Text(this.widget.body!),
           if (this.widget.enableDontShowAgainOption)
             Padding(
-              padding: const EdgeInsets.only(top: 24.0),
+              padding: EdgeInsets.only(top: DesignSystem.spacing.x24),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Material(
