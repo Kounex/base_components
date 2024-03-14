@@ -37,6 +37,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
   final String? placeholder;
   final FocusNode? focusNode;
   final TextStyle? style;
+  final TextAlignVertical? textAlignVertical;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final double bottomPadding;
@@ -70,6 +71,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
     this.placeholder,
     this.focusNode,
     this.style,
+    this.textAlignVertical,
     this.keyboardType = TextInputType.text,
     this.inputFormatters,
     this.bottomPadding = 6.0,
@@ -171,6 +173,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
                 controller: this.widget.controller,
                 expands: this.widget.expands,
                 style: this.widget.style,
+                textAlignVertical: this.widget.textAlignVertical,
                 cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                 placeholder: this.widget.placeholder,
                 keyboardType: this.widget.keyboardType,
@@ -194,6 +197,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
                   controller: this.widget.controller,
                   expands: this.widget.expands,
                   style: this.widget.style,
+                  textAlignVertical: this.widget.textAlignVertical,
                   cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                   decoration: InputDecoration(
                     hintText: this.widget.placeholder,
