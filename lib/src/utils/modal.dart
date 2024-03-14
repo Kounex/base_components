@@ -57,9 +57,11 @@ class ModalUtils {
       showAdaptiveDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) => ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: Breakpoint.xsm.width),
-          child: dialog,
+        builder: (context) => Align(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: Breakpoint.xsm.width),
+            child: dialog,
+          ),
         ),
       );
 
