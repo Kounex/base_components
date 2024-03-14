@@ -1,9 +1,12 @@
 class ValidationUtils {
-  static bool _required(String? text) => text == null || text.trim().isEmpty;
+  static bool _empty(String? text) => text == null || text.trim().isEmpty;
 
-  static String? name(String? name, {int minLength = 3}) {
-    if (_required(name)) {
-      return 'Field is required!';
+  static String? name(String? name, {bool required = true, int minLength = 3}) {
+    if (_empty(name)) {
+      if (required) {
+        return 'Field is required!';
+      }
+      return null;
     }
     if (name!.trim().length < minLength) {
       return 'At least $minLength characters!';
@@ -11,9 +14,13 @@ class ValidationUtils {
     return null;
   }
 
-  static String? number(String? number, {bool shouldBeInt = false}) {
-    if (_required(number)) {
-      return 'Field is required!';
+  static String? number(String? number,
+      {bool required = true, bool shouldBeInt = false}) {
+    if (_empty(number)) {
+      if (required) {
+        return 'Field is required!';
+      }
+      return null;
     }
     if (num.tryParse(number!.trim())?.isNaN ?? true) {
       return 'Must be a number!';
@@ -26,13 +33,33 @@ class ValidationUtils {
     return null;
   }
 
-  static String? url(String? url) {
-    if (_required(url)) {
-      return 'Field is required!';
+  static String? url(String? url, {bool required = true}) {
+    if (_empty(url)) {
+      if (required) {
+        return 'Field is required!';
+      }
+      return null;
     }
-    if (!url!.toLowerCase().startsWith('https://') &&
-        !url.toLowerCase().startsWith('http://')) {
+    if (!url!.trim().toLowerCase().startsWith('https://') &&
+        !url.trim().toLowerCase().startsWith('http://')) {
       return 'Not a valid URL!';
+    }
+    return null;
+  }
+
+  static String? email(String? email, {bool required = true}) {
+    if (_empty(email)) {
+      if (required) {
+        return 'Field is required!';
+      }
+      return null;
+    }
+    if (!email!.trim().contains('@') ||
+        !email.trim().contains('.') ||
+        email.trim().split('@')[0].isEmpty ||
+        email.trim().split('@')[1].split('.')[0].isEmpty ||
+        email.trim().split('.')[1].length < 2) {
+      return 'Not a valid emai!';
     }
     return null;
   }
