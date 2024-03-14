@@ -69,11 +69,10 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
                     this.widget.title == null && this.widget.titleWidget == null
                         ? DesignSystem.spacing.x24
                         : DesignSystem.spacing.x16,
-                bottom: DesignSystem.isApple(context)
-                    ? DesignSystem.spacing.x12
-                    : 0,
+                bottom: DesignSystem.spacing.x12,
               ),
       backgroundColor: Theme.of(context).cardColor,
+      actionsPadding: EdgeInsets.all(DesignSystem.spacing.x12),
       elevation: 0,
       content: Column(
         mainAxisSize: MainAxisSize.min,
