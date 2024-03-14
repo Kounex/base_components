@@ -174,8 +174,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               placeholder: this.widget.placeholder,
               keyboardType: this.widget.keyboardType,
               inputFormatters: _textInputFormatter(),
-              minLines: this.widget.minLines,
-              maxLines: this.widget.maxLines ?? this.widget.minLines,
+              minLines: this.widget.expands ? null : this.widget.minLines,
+              maxLines: this.widget.expands
+                  ? null
+                  : this.widget.maxLines ?? this.widget.minLines,
               autocorrect: this.widget.autocorrect,
               obscureText: this.widget.obscureText,
               enabled: this.widget.enabled,
@@ -219,8 +221,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
                 ),
                 keyboardType: this.widget.keyboardType,
                 inputFormatters: _textInputFormatter(),
-                minLines: this.widget.minLines,
-                maxLines: this.widget.maxLines ?? this.widget.minLines,
+                minLines: this.widget.expands ? null : this.widget.minLines,
+                maxLines: this.widget.expands
+                    ? null
+                    : this.widget.maxLines ?? this.widget.minLines,
                 autocorrect: this.widget.autocorrect,
                 obscureText: this.widget.obscureText,
                 enabled: this.widget.enabled,
