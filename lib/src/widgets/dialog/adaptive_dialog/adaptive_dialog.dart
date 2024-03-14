@@ -72,7 +72,6 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
                 bottom: DesignSystem.spacing.x12,
               ),
       backgroundColor: Theme.of(context).cardColor,
-      actionsPadding: EdgeInsets.all(DesignSystem.spacing.x12),
       elevation: 0,
       content: Column(
         mainAxisSize: MainAxisSize.min,
