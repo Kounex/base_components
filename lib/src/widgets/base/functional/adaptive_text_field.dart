@@ -181,7 +181,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               child: Padding(
                 padding: EdgeInsets.only(
                   top: DesignSystem.spacing.x2,
-                  right: DesignSystem.spacing.x12,
+                  right: DesignSystem.spacing.x8,
                 ),
                 child: Icon(
                   CupertinoIcons.clear_circled_solid,
