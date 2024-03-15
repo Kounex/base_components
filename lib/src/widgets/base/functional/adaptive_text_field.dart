@@ -179,7 +179,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           ? IconButton(
               onPressed: () => this.widget.controller.clear(),
               icon: const Icon(CupertinoIcons.clear_circled_solid),
-              iconSize: DesignSystem.size.x18,
+              iconSize: DesignSystem.size.x16,
               visualDensity: VisualDensity.compact,
               padding: const EdgeInsets.all(0),
               constraints: BoxConstraints(
