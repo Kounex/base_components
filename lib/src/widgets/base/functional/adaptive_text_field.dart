@@ -181,6 +181,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               icon: const Icon(CupertinoIcons.clear_circled_solid),
               iconSize: DesignSystem.size.x18,
               visualDensity: VisualDensity.compact,
+              padding: EdgeInsets.all(DesignSystem.size.x4),
               constraints: BoxConstraints(
                 minHeight: DesignSystem.size.x42,
                 minWidth: DesignSystem.size.x42,
