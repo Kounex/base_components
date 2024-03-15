@@ -1,9 +1,7 @@
+import 'package:base_components/base_components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../../utils/design_system.dart';
-import '../../animation/fader.dart';
 
 class CustomValidationTextEditingController extends TextEditingController {
   bool submitted = false;
@@ -181,6 +179,8 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           ? IconButton(
               onPressed: () => this.widget.controller.clear(),
               icon: const Icon(CupertinoIcons.clear_circled_solid),
+              iconSize: DesignSystem.size.x12,
+              visualDensity: VisualDensity.compact,
             )
           : const SizedBox(),
     );
