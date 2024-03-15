@@ -6,6 +6,7 @@ import '../../../utils/design_system.dart';
 class BasePlaceholder extends StatelessWidget {
   final String text;
   final IconData? icon;
+  final double? iconSize;
   final bool useIcon;
 
   final TextAlign textAlign;
@@ -14,6 +15,7 @@ class BasePlaceholder extends StatelessWidget {
     super.key,
     required this.text,
     this.icon,
+    this.iconSize,
     this.useIcon = true,
     this.textAlign = TextAlign.center,
   });
@@ -26,7 +28,7 @@ class BasePlaceholder extends StatelessWidget {
         if (this.useIcon) ...[
           Icon(
             this.icon ?? FluentIcons.mail_inbox_dismiss_24_filled,
-            size: DesignSystem.size.x64,
+            size: this.iconSize ?? DesignSystem.size.x64,
             color: Theme.of(context).disabledColor,
           ),
           SizedBox(height: DesignSystem.spacing.x12),
