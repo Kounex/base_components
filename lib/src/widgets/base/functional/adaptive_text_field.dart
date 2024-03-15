@@ -180,7 +180,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               onTap: () => this.widget.controller.clear(),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: DesignSystem.spacing.x4,
+                  top: DesignSystem.spacing.x2,
                   right: DesignSystem.spacing.x12,
                 ),
                 child: Icon(
