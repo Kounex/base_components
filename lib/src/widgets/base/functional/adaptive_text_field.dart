@@ -170,7 +170,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
 
   @override
   Widget build(BuildContext context) {
-    Widget clearButton = AnimatedSwitcher(
+    final Widget clearButton = AnimatedSwitcher(
       duration: DesignSystem.animation.defaultDurationMS250,
       child: _focusNode.hasFocus
           ? IconButton(
@@ -183,7 +183,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     Widget textField =
         switch (this.widget.platform ?? Theme.of(context).platform) {
       TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
-          focusNode: this.widget.focusNode,
+          focusNode: _focusNode,
           controller: this.widget.controller,
           expands: this.widget.expands,
           style: this.widget.style,
@@ -209,7 +209,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
       _ => Padding(
           padding: EdgeInsets.only(bottom: DesignSystem.spacing.x4),
           child: TextFormField(
-            focusNode: this.widget.focusNode,
+            focusNode: _focusNode,
             controller: this.widget.controller,
             expands: this.widget.expands,
             style: this.widget.style,
