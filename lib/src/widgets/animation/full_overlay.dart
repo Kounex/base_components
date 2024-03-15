@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class FullOverlay extends StatefulWidget {
   final Widget content;
   final Duration animationDuration;
-  final Duration showDuration;
+  final Duration? showDuration;
 
   const FullOverlay({
-    Key? key,
+    super.key,
     required this.content,
     required this.animationDuration,
-    required this.showDuration,
+    this.showDuration,
   });
 
   @override
@@ -38,7 +38,9 @@ class FullOverlayState extends State<FullOverlay>
         .animate(CurvedAnimation(curve: Curves.easeIn, parent: _controller));
 
     _controller.forward();
-    _closeTimer = Timer(this.widget.showDuration, () => this.closeOverlay());
+    if (this.widget.showDuration != null) {
+      _closeTimer = Timer(this.widget.showDuration!, () => this.closeOverlay());
+    }
   }
 
   Future<void> closeOverlay() async {

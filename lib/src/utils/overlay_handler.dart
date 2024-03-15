@@ -23,6 +23,7 @@ class OverlayUtils {
   static Future<void> showStatusOverlay({
     required BuildContext context,
     required Widget content,
+    bool temporalOverlay = true,
     Duration showDuration = kShowDuration,
     Duration delayDuration = const Duration(milliseconds: 250),
     bool replaceIfActive = false,
@@ -46,7 +47,7 @@ class OverlayUtils {
       _delayTimer = Timer(delayDuration, () {
         _currentOverlayEntry = OverlayUtils._getStatusOverlay(
           content: content,
-          showDuration: showDuration,
+          showDuration: temporalOverlay ? showDuration : null,
         );
         Overlay.of(context, rootOverlay: true).insert(_currentOverlayEntry!);
       });
@@ -87,7 +88,7 @@ class OverlayUtils {
   /// manually
   static OverlayEntry _getStatusOverlay({
     required Widget content,
-    required Duration showDuration,
+    Duration? showDuration,
   }) =>
       OverlayEntry(
         builder: (context) => Material(
