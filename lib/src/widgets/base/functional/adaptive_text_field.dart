@@ -51,6 +51,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
   final Widget? prefix;
   final Widget? suffix;
   final Widget? suffixIcon;
+  final bool clearButton;
 
   /// By default, the error text space beneath a text field is not used when
   /// there is no error meaning that if an error is present, the text will
@@ -86,6 +87,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.suffixIcon,
+    this.clearButton = false,
     this.errorPaddingAlways = false,
     this.platform,
     this.onChanged,
@@ -99,8 +101,12 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
   String? _validationText;
   late VoidCallback _textEditingListener;
 
+  late final FocusNode _focusNode;
+
   @override
   void initState() {
+    _focusNode = this.widget.focusNode ?? FocusNode();
+
     _textEditingListener = () {
       if (this.widget.controller.submitted && _validationText == null) {
         String? tempVal =
@@ -164,6 +170,16 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
 
   @override
   Widget build(BuildContext context) {
+    Widget clearButton = AnimatedSwitcher(
+      duration: DesignSystem.animation.defaultDurationMS250,
+      child: _focusNode.hasFocus
+          ? IconButton(
+              onPressed: () => this.widget.controller.clear(),
+              icon: const Icon(CupertinoIcons.clear_circled_solid),
+            )
+          : const SizedBox(),
+    );
+
     Widget textField =
         switch (this.widget.platform ?? Theme.of(context).platform) {
       TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
@@ -185,7 +201,9 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           enabled: this.widget.enabled,
           readOnly: this.widget.readOnly,
           prefix: this.widget.prefix,
-          suffix: this.widget.suffix ?? this.widget.suffixIcon,
+          suffix: this.widget.clearButton
+              ? clearButton
+              : this.widget.suffix ?? this.widget.suffixIcon,
           onChanged: this.widget.onChanged,
         ),
       _ => Padding(
@@ -201,7 +219,8 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               hintText: this.widget.placeholder,
               labelText: this.widget.labelText,
               prefix: this.widget.prefix,
-              suffix: this.widget.suffix,
+              suffix:
+                  this.widget.clearButton ? clearButton : this.widget.suffix,
               suffixIcon: this.widget.suffixIcon,
               enabledBorder: _validationText != null
                   ? UnderlineInputBorder(
