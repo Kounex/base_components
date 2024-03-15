@@ -165,7 +165,6 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         switch (this.widget.platform ?? Theme.of(context).platform) {
           TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
