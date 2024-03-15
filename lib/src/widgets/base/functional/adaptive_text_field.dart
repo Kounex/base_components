@@ -179,7 +179,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           ? InkWell(
               onTap: () => this.widget.controller.clear(),
               child: Padding(
-                padding: EdgeInsets.all(DesignSystem.spacing.x4),
+                padding: EdgeInsets.only(
+                  top: DesignSystem.spacing.x4,
+                  right: DesignSystem.spacing.x12,
+                ),
                 child: Icon(
                   CupertinoIcons.clear_circled_solid,
                   size: DesignSystem.size.x18,
