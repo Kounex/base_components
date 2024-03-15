@@ -1,11 +1,10 @@
+import 'package:base_components/base_components.dart';
 import 'package:flutter/material.dart';
-
-const double kBaseConstrainedMaxWidth = 640.0;
 
 class BaseConstrainedBox extends StatelessWidget {
   final Widget? child;
 
-  final double maxWidth;
+  final double? maxWidth;
 
   final bool hasBasePadding;
 
@@ -14,7 +13,7 @@ class BaseConstrainedBox extends StatelessWidget {
   const BaseConstrainedBox({
     super.key,
     required this.child,
-    this.maxWidth = kBaseConstrainedMaxWidth,
+    this.maxWidth,
     this.hasBasePadding = false,
     this.padding,
   });
@@ -25,7 +24,8 @@ class BaseConstrainedBox extends StatelessWidget {
       padding: this.padding ??
           EdgeInsets.symmetric(horizontal: this.hasBasePadding ? 24.0 : 0),
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: this.maxWidth),
+        constraints:
+            BoxConstraints(maxWidth: this.maxWidth ?? Breakpoint.sm.width),
         child: this.child,
       ),
     );

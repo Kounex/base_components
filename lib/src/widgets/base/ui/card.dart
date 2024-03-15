@@ -1,8 +1,6 @@
+import 'package:base_components/base_components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/design_system.dart';
-import 'divider.dart';
 
 class BaseCard extends StatefulWidget {
   final Widget child;
@@ -226,8 +224,7 @@ class _BaseCardState extends State<BaseCard> {
     if (!this.widget.constrained) return card;
 
     return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: Breakpoint.sm.width),
+      child: BaseConstrainedBox(
         child: Column(
           crossAxisAlignment: this.widget.constrainedAlignment,
           children: [
