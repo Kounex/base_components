@@ -167,16 +167,63 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
-          child: switch (this.widget.platform ?? Theme.of(context).platform) {
-            TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
+        switch (this.widget.platform ?? Theme.of(context).platform) {
+          TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
+              focusNode: this.widget.focusNode,
+              controller: this.widget.controller,
+              expands: this.widget.expands,
+              style: this.widget.style,
+              textAlignVertical: this.widget.textAlignVertical,
+              cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+              placeholder: this.widget.placeholder,
+              keyboardType: this.widget.keyboardType,
+              inputFormatters: _textInputFormatter(),
+              minLines: this.widget.expands ? null : this.widget.minLines,
+              maxLines: this.widget.expands
+                  ? null
+                  : this.widget.maxLines ?? this.widget.minLines,
+              autocorrect: this.widget.autocorrect,
+              obscureText: this.widget.obscureText,
+              enabled: this.widget.enabled,
+              readOnly: this.widget.readOnly,
+              prefix: this.widget.prefix,
+              suffix: this.widget.suffix ?? this.widget.suffixIcon,
+              onChanged: this.widget.onChanged,
+            ),
+          _ => Padding(
+              padding: EdgeInsets.only(bottom: DesignSystem.spacing.x4),
+              child: TextFormField(
                 focusNode: this.widget.focusNode,
                 controller: this.widget.controller,
                 expands: this.widget.expands,
                 style: this.widget.style,
                 textAlignVertical: this.widget.textAlignVertical,
                 cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
-                placeholder: this.widget.placeholder,
+                decoration: InputDecoration(
+                  hintText: this.widget.placeholder,
+                  labelText: this.widget.labelText,
+                  prefix: this.widget.prefix,
+                  suffix: this.widget.suffix,
+                  suffixIcon: this.widget.suffixIcon,
+                  enabledBorder: _validationText != null
+                      ? UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.error),
+                        )
+                      : null,
+                  focusedBorder: _validationText != null
+                      ? UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.error),
+                        )
+                      : null,
+                  border: _validationText != null
+                      ? UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.error),
+                        )
+                      : null,
+                ),
                 keyboardType: this.widget.keyboardType,
                 inputFormatters: _textInputFormatter(),
                 minLines: this.widget.expands ? null : this.widget.minLines,
@@ -187,59 +234,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
                 obscureText: this.widget.obscureText,
                 enabled: this.widget.enabled,
                 readOnly: this.widget.readOnly,
-                prefix: this.widget.prefix,
-                suffix: this.widget.suffix ?? this.widget.suffixIcon,
                 onChanged: this.widget.onChanged,
               ),
-            _ => Padding(
-                padding: EdgeInsets.only(bottom: DesignSystem.spacing.x4),
-                child: TextFormField(
-                  focusNode: this.widget.focusNode,
-                  controller: this.widget.controller,
-                  expands: this.widget.expands,
-                  style: this.widget.style,
-                  textAlignVertical: this.widget.textAlignVertical,
-                  cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
-                  decoration: InputDecoration(
-                    hintText: this.widget.placeholder,
-                    labelText: this.widget.labelText,
-                    prefix: this.widget.prefix,
-                    suffix: this.widget.suffix,
-                    suffixIcon: this.widget.suffixIcon,
-                    enabledBorder: _validationText != null
-                        ? UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.error),
-                          )
-                        : null,
-                    focusedBorder: _validationText != null
-                        ? UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.error),
-                          )
-                        : null,
-                    border: _validationText != null
-                        ? UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.error),
-                          )
-                        : null,
-                  ),
-                  keyboardType: this.widget.keyboardType,
-                  inputFormatters: _textInputFormatter(),
-                  minLines: this.widget.expands ? null : this.widget.minLines,
-                  maxLines: this.widget.expands
-                      ? null
-                      : this.widget.maxLines ?? this.widget.minLines,
-                  autocorrect: this.widget.autocorrect,
-                  obscureText: this.widget.obscureText,
-                  enabled: this.widget.enabled,
-                  readOnly: this.widget.readOnly,
-                  onChanged: this.widget.onChanged,
-                ),
-              ),
-          },
-        ),
+            ),
+        },
         this.widget.bottom ?? const SizedBox(),
         ...[
           if (_validationText != null || this.widget.errorPaddingAlways)
