@@ -176,15 +176,11 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     final Widget clearButton = AnimatedSwitcher(
       duration: DesignSystem.animation.defaultDurationMS250,
       child: _focusNode.hasFocus
-          ? IconButton(
-              onPressed: () => this.widget.controller.clear(),
-              icon: const Icon(CupertinoIcons.clear_circled_solid),
-              iconSize: DesignSystem.size.x16,
-              visualDensity: VisualDensity.compact,
-              padding: const EdgeInsets.all(0),
-              constraints: BoxConstraints(
-                minHeight: DesignSystem.size.x32,
-                minWidth: DesignSystem.size.x32,
+          ? InkWell(
+              onTap: () => this.widget.controller.clear(),
+              child: Icon(
+                CupertinoIcons.clear_circled_solid,
+                size: DesignSystem.size.x18,
               ),
             )
           : const SizedBox(),
