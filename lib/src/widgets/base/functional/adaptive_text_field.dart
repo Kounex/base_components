@@ -164,106 +164,113 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    Widget textField =
         switch (this.widget.platform ?? Theme.of(context).platform) {
-          TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
-              focusNode: this.widget.focusNode,
-              controller: this.widget.controller,
-              expands: this.widget.expands,
-              style: this.widget.style,
-              textAlignVertical: this.widget.textAlignVertical,
-              cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
-              placeholder: this.widget.placeholder,
-              keyboardType: this.widget.keyboardType,
-              inputFormatters: _textInputFormatter(),
-              minLines: this.widget.expands ? null : this.widget.minLines,
-              maxLines: this.widget.expands
-                  ? null
-                  : this.widget.maxLines ?? this.widget.minLines,
-              autocorrect: this.widget.autocorrect,
-              obscureText: this.widget.obscureText,
-              enabled: this.widget.enabled,
-              readOnly: this.widget.readOnly,
+      TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
+          focusNode: this.widget.focusNode,
+          controller: this.widget.controller,
+          expands: this.widget.expands,
+          style: this.widget.style,
+          textAlignVertical: this.widget.textAlignVertical,
+          cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+          placeholder: this.widget.placeholder,
+          keyboardType: this.widget.keyboardType,
+          inputFormatters: _textInputFormatter(),
+          minLines: this.widget.expands ? null : this.widget.minLines,
+          maxLines: this.widget.expands
+              ? null
+              : this.widget.maxLines ?? this.widget.minLines,
+          autocorrect: this.widget.autocorrect,
+          obscureText: this.widget.obscureText,
+          enabled: this.widget.enabled,
+          readOnly: this.widget.readOnly,
+          prefix: this.widget.prefix,
+          suffix: this.widget.suffix ?? this.widget.suffixIcon,
+          onChanged: this.widget.onChanged,
+        ),
+      _ => Padding(
+          padding: EdgeInsets.only(bottom: DesignSystem.spacing.x4),
+          child: TextFormField(
+            focusNode: this.widget.focusNode,
+            controller: this.widget.controller,
+            expands: this.widget.expands,
+            style: this.widget.style,
+            textAlignVertical: this.widget.textAlignVertical,
+            cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+            decoration: InputDecoration(
+              hintText: this.widget.placeholder,
+              labelText: this.widget.labelText,
               prefix: this.widget.prefix,
-              suffix: this.widget.suffix ?? this.widget.suffixIcon,
-              onChanged: this.widget.onChanged,
+              suffix: this.widget.suffix,
+              suffixIcon: this.widget.suffixIcon,
+              enabledBorder: _validationText != null
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error),
+                    )
+                  : null,
+              focusedBorder: _validationText != null
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error),
+                    )
+                  : null,
+              border: _validationText != null
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error),
+                    )
+                  : null,
             ),
-          _ => Padding(
-              padding: EdgeInsets.only(bottom: DesignSystem.spacing.x4),
-              child: TextFormField(
-                focusNode: this.widget.focusNode,
-                controller: this.widget.controller,
-                expands: this.widget.expands,
-                style: this.widget.style,
-                textAlignVertical: this.widget.textAlignVertical,
-                cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
-                decoration: InputDecoration(
-                  hintText: this.widget.placeholder,
-                  labelText: this.widget.labelText,
-                  prefix: this.widget.prefix,
-                  suffix: this.widget.suffix,
-                  suffixIcon: this.widget.suffixIcon,
-                  enabledBorder: _validationText != null
-                      ? UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error),
-                        )
-                      : null,
-                  focusedBorder: _validationText != null
-                      ? UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error),
-                        )
-                      : null,
-                  border: _validationText != null
-                      ? UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error),
-                        )
-                      : null,
-                ),
-                keyboardType: this.widget.keyboardType,
-                inputFormatters: _textInputFormatter(),
-                minLines: this.widget.expands ? null : this.widget.minLines,
-                maxLines: this.widget.expands
-                    ? null
-                    : this.widget.maxLines ?? this.widget.minLines,
-                autocorrect: this.widget.autocorrect,
-                obscureText: this.widget.obscureText,
-                enabled: this.widget.enabled,
-                readOnly: this.widget.readOnly,
-                onChanged: this.widget.onChanged,
-              ),
-            ),
-        },
+            keyboardType: this.widget.keyboardType,
+            inputFormatters: _textInputFormatter(),
+            minLines: this.widget.expands ? null : this.widget.minLines,
+            maxLines: this.widget.expands
+                ? null
+                : this.widget.maxLines ?? this.widget.minLines,
+            autocorrect: this.widget.autocorrect,
+            obscureText: this.widget.obscureText,
+            enabled: this.widget.enabled,
+            readOnly: this.widget.readOnly,
+            onChanged: this.widget.onChanged,
+          ),
+        ),
+    };
+
+    if (this.widget.expands) {
+      textField = Expanded(
+        child: textField,
+      );
+    }
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        textField,
         this.widget.bottom ?? const SizedBox(),
-        ...[
-          if (_validationText != null || this.widget.errorPaddingAlways)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 2.0,
-                  left: DesignSystem.isApple(context)
-                      ? DesignSystem.spacing.x4
-                      : 0,
-                  bottom: this.widget.bottomPadding,
-                ),
-                child: Fader(
-                  child: Text(
-                    _validationText ?? '',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: CupertinoColors.destructiveRed,
-                        ),
-                    // style: const TextStyle(
-                    //   color: CupertinoColors.destructiveRed,
-                    // ),
-                  ),
+        if (_validationText != null || this.widget.errorPaddingAlways)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 2.0,
+                left:
+                    DesignSystem.isApple(context) ? DesignSystem.spacing.x4 : 0,
+                bottom: this.widget.bottomPadding,
+              ),
+              child: Fader(
+                child: Text(
+                  _validationText ?? '',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: CupertinoColors.destructiveRed,
+                      ),
+                  // style: const TextStyle(
+                  //   color: CupertinoColors.destructiveRed,
+                  // ),
                 ),
               ),
             ),
-        ],
+          ),
       ],
     );
   }
