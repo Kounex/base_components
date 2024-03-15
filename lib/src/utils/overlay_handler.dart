@@ -47,7 +47,6 @@ class OverlayUtils {
       _delayTimer = Timer(delayDuration, () {
         _currentOverlayEntry = OverlayUtils._getStatusOverlay(
           content: content,
-          showDuration: temporalOverlay ? showDuration : null,
         );
         Overlay.of(context, rootOverlay: true).insert(_currentOverlayEntry!);
       });
@@ -56,12 +55,14 @@ class OverlayUtils {
       /// animations and the delay to remove it (if it hasn't already been removed
       /// manually from anywhere with the [closeAnyOverlay] function where all timers
       /// are canceled as well)
-      _currentOverlayTimer = Timer(
-          Duration(
-              milliseconds: delayDuration.inMilliseconds +
-                  showDuration.inMilliseconds +
-                  2 * kAnimationDuration.inMilliseconds),
-          () => OverlayUtils.closeAnyOverlay());
+      if (temporalOverlay) {
+        _currentOverlayTimer = Timer(
+            Duration(
+                milliseconds: delayDuration.inMilliseconds +
+                    showDuration.inMilliseconds +
+                    2 * kAnimationDuration.inMilliseconds),
+            () => OverlayUtils.closeAnyOverlay());
+      }
     }
   }
 
@@ -86,17 +87,13 @@ class OverlayUtils {
   /// Function which actually returns the [OverlayEntry] used in
   /// [OverlayHelper.showStatusOverlay] and doesn't need to be called
   /// manually
-  static OverlayEntry _getStatusOverlay({
-    required Widget content,
-    Duration? showDuration,
-  }) =>
+  static OverlayEntry _getStatusOverlay({required Widget content}) =>
       OverlayEntry(
         builder: (context) => Material(
           type: MaterialType.transparency,
           child: FullOverlay(
             key: _fullOverlayKey,
             content: content,
-            showDuration: showDuration,
             animationDuration: kAnimationDuration,
           ),
         ),
