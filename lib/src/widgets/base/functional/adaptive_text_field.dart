@@ -178,9 +178,12 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
       child: _focusNode.hasFocus
           ? InkWell(
               onTap: () => this.widget.controller.clear(),
-              child: Icon(
-                CupertinoIcons.clear_circled_solid,
-                size: DesignSystem.size.x18,
+              child: Padding(
+                padding: EdgeInsets.all(DesignSystem.spacing.x4),
+                child: Icon(
+                  CupertinoIcons.clear_circled_solid,
+                  size: DesignSystem.size.x18,
+                ),
               ),
             )
           : const SizedBox(),
