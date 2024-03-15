@@ -23,8 +23,6 @@ class FullOverlayState extends State<FullOverlay>
   late Animation<double> _blur;
   late Animation<double> _opacity;
 
-  late Timer _closeTimer;
-
   @override
   void initState() {
     super.initState();
@@ -34,10 +32,11 @@ class FullOverlayState extends State<FullOverlay>
         .animate(CurvedAnimation(curve: Curves.easeIn, parent: _controller));
     _opacity = Tween<double>(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(curve: Curves.easeIn, parent: _controller));
+
+    _controller.forward();
   }
 
   Future<void> closeOverlay() async {
-    _closeTimer.cancel();
     if (this.mounted) {
       await _controller.reverse();
     }
