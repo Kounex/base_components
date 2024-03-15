@@ -165,6 +165,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
           child: switch (this.widget.platform ?? Theme.of(context).platform) {
