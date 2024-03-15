@@ -105,7 +105,12 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
 
   @override
   void initState() {
-    _focusNode = this.widget.focusNode ?? FocusNode();
+    _focusNode = (this.widget.focusNode ?? FocusNode())
+      ..addListener(() {
+        if (mounted) {
+          setState(() {});
+        }
+      });
 
     _textEditingListener = () {
       if (this.widget.controller.submitted && _validationText == null) {
