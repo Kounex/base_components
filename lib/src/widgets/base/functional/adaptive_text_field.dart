@@ -289,7 +289,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               child: Padding(
                 padding: EdgeInsets.only(
                   top: 2.0,
-                  left: DesignSystem.isApple(context)
+                  left: DesignSystem.isApple(
+                    context,
+                    platform: this.widget.platform,
+                  )
                       ? DesignSystem.spacing.x4
                       : 0,
                   bottom: this.widget.bottomPadding,
