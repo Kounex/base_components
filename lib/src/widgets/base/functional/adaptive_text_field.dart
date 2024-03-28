@@ -289,17 +289,19 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
                     DesignSystem.isApple(context) ? DesignSystem.spacing.x4 : 0,
                 bottom: this.widget.bottomPadding,
               ),
-              child: Fader(
-                child: Text(
-                  _validationText ?? '',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: CupertinoColors.destructiveRed,
+              child: _validationText != null
+                  ? Fader(
+                      child: Text(
+                        _validationText!,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: CupertinoColors.destructiveRed,
+                            ),
+                        // style: const TextStyle(
+                        //   color: CupertinoColors.destructiveRed,
+                        // ),
                       ),
-                  // style: const TextStyle(
-                  //   color: CupertinoColors.destructiveRed,
-                  // ),
-                ),
-              ),
+                    )
+                  : const Text(''),
             ),
           ),
       ],
