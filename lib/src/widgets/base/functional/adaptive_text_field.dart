@@ -274,37 +274,35 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
       );
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        textField,
-        this.widget.bottom ?? const SizedBox(),
-        if (_validationText != null || this.widget.errorPaddingAlways)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: 2.0,
-                left:
-                    DesignSystem.isApple(context) ? DesignSystem.spacing.x4 : 0,
-                bottom: this.widget.bottomPadding,
-              ),
-              child: _validationText != null
-                  ? Fader(
-                      child: Text(
-                        _validationText!,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              color: CupertinoColors.destructiveRed,
-                            ),
-                        // style: const TextStyle(
-                        //   color: CupertinoColors.destructiveRed,
-                        // ),
-                      ),
-                    )
-                  : const Text(''),
-            ),
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: CupertinoColors.destructiveRed,
           ),
-      ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          textField,
+          this.widget.bottom ?? const SizedBox(),
+          if (_validationText != null || this.widget.errorPaddingAlways)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 2.0,
+                  left: DesignSystem.isApple(context)
+                      ? DesignSystem.spacing.x4
+                      : 0,
+                  bottom: this.widget.bottomPadding,
+                ),
+                child: _validationText != null
+                    ? Fader(
+                        child: Text(_validationText!),
+                      )
+                    : const Text(''),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
