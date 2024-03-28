@@ -63,6 +63,8 @@ class BaseAdaptiveTextField extends StatefulWidget {
 
   final void Function(String text)? onChanged;
 
+  final void Function(String text)? onSubmitted;
+
   const BaseAdaptiveTextField({
     super.key,
     required this.controller,
@@ -89,6 +91,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
     this.errorPaddingAlways = false,
     this.platform,
     this.onChanged,
+    this.onSubmitted,
   });
 
   @override
@@ -217,6 +220,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
               ? clearButton
               : this.widget.suffix ?? this.widget.suffixIcon,
           onChanged: this.widget.onChanged,
+          onSubmitted: this.widget.onSubmitted,
         ),
       _ => Padding(
           padding: EdgeInsets.only(bottom: DesignSystem.spacing.x4),
@@ -264,6 +268,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
             enabled: this.widget.enabled,
             readOnly: this.widget.readOnly,
             onChanged: this.widget.onChanged,
+            onFieldSubmitted: this.widget.onSubmitted,
           ),
         ),
     };
