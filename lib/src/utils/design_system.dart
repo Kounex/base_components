@@ -20,6 +20,9 @@ class _Spacing {
   double get x64 => 64;
   double get x92 => 92;
   double get x128 => 128;
+  double get x164 => 164;
+  double get x192 => 192;
+  double get x256 => 256;
 }
 
 class _Size {
