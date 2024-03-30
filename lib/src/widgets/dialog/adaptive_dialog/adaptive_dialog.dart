@@ -73,29 +73,31 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
               ),
       backgroundColor: Theme.of(context).cardColor,
       elevation: 0,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          this.widget.bodyWidget ?? Text(this.widget.body!),
-          if (this.widget.enableDontShowAgainOption)
-            Padding(
-              padding: EdgeInsets.only(top: DesignSystem.spacing.x24),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: BaseCheckbox(
-                    value: _isDontShowChecked,
-                    text: 'Don\'t show this again',
-                    smallText: true,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    onChanged: (checked) =>
-                        setState(() => _isDontShowChecked = checked!),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            this.widget.bodyWidget ?? Text(this.widget.body!),
+            if (this.widget.enableDontShowAgainOption)
+              Padding(
+                padding: EdgeInsets.only(top: DesignSystem.spacing.x24),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: BaseCheckbox(
+                      value: _isDontShowChecked,
+                      text: 'Don\'t show this again',
+                      smallText: true,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      onChanged: (checked) =>
+                          setState(() => _isDontShowChecked = checked!),
+                    ),
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
       actions: this
           .widget
