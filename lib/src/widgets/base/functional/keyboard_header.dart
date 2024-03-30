@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
-class KeyboardNumberHeader extends StatelessWidget {
+class BaseKeyboardHeader extends StatelessWidget {
   final Widget child;
   final FocusNode focusNode;
 
   final void Function()? onDone;
 
-  const KeyboardNumberHeader({
-    Key? key,
+  const BaseKeyboardHeader({
+    super.key,
     required this.child,
     required this.focusNode,
     this.onDone,

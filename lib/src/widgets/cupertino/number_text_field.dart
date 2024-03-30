@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../base/functional/keyboard_number_header.dart';
+import '../base/functional/keyboard_header.dart';
 
 class CupertinoNumberTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -66,7 +66,7 @@ class _CupertinoNumberTextFieldState extends State<CupertinoNumberTextField> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: this.widget.width,
-      child: KeyboardNumberHeader(
+      child: BaseKeyboardHeader(
         focusNode: _focusNode,
         onDone: _onDone,
         child: CupertinoTextField(
