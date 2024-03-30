@@ -1,11 +1,12 @@
+import 'package:base_components/base_components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/design_system.dart';
 
 class BaseButton extends StatelessWidget {
   final String? text;
   final Widget? child;
+
+  final bool loading;
 
   final Widget? icon;
 
@@ -26,6 +27,7 @@ class BaseButton extends StatelessWidget {
     super.key,
     this.text,
     this.child,
+    this.loading = false,
     this.icon,
     this.secondary = false,
     this.color,
@@ -37,7 +39,15 @@ class BaseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ButtonStyle style = ElevatedButton.styleFrom(
+    final child = switch (true) {
+      _ when this.loading => BaseProgressIndicator(size: DesignSystem.size.x24),
+      _ => this.child ??
+          FittedBox(
+            child: Text(this.text!),
+          ),
+    };
+
+    final ButtonStyle style = ElevatedButton.styleFrom(
       padding: this.padding,
       elevation: 0,
       backgroundColor: this.isDestructive
@@ -68,19 +78,13 @@ class BaseButton extends StatelessWidget {
         ? ElevatedButton.icon(
             style: style,
             icon: this.icon!,
-            label: this.child ??
-                FittedBox(
-                  child: Text(this.text!),
-                ),
-            onPressed: onPressed,
+            label: child,
+            onPressed: this.loading ? null : this.onPressed,
           )
         : ElevatedButton(
             style: style,
-            onPressed: this.onPressed,
-            child: this.child ??
-                FittedBox(
-                  child: Text(this.text!),
-                ),
+            onPressed: this.loading ? null : this.onPressed,
+            child: child,
           );
   }
 }
