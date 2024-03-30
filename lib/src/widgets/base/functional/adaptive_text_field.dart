@@ -32,6 +32,7 @@ class CustomValidationTextEditingController extends TextEditingController {
 class BaseAdaptiveTextField extends StatefulWidget {
   final CustomValidationTextEditingController controller;
   final bool expands;
+  final EdgeInsets scrollPadding;
   final String? placeholder;
   final FocusNode? focusNode;
   final TextStyle? style;
@@ -69,6 +70,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
     super.key,
     required this.controller,
     this.expands = false,
+    this.scrollPadding = const EdgeInsets.all(20.0),
     this.placeholder,
     this.focusNode,
     this.style,
@@ -201,6 +203,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           focusNode: _focusNode,
           controller: this.widget.controller,
           expands: this.widget.expands,
+          scrollPadding: this.widget.scrollPadding,
           style: this.widget.style,
           textAlignVertical: this.widget.textAlignVertical,
           cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
@@ -228,6 +231,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
             focusNode: _focusNode,
             controller: this.widget.controller,
             expands: this.widget.expands,
+            scrollPadding: this.widget.scrollPadding,
             style: this.widget.style,
             textAlignVertical: this.widget.textAlignVertical,
             cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
