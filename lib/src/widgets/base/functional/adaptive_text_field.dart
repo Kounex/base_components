@@ -101,13 +101,18 @@ class BaseAdaptiveTextField extends StatefulWidget {
 }
 
 class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
-  String? _validationText;
   late VoidCallback _textEditingListener;
-
   late final FocusNode _focusNode;
+
+  String? _validationText;
+
+  late bool _clearButtonVisible;
 
   @override
   void initState() {
+    _clearButtonVisible =
+        this.widget.clearButton && this.widget.controller.text.isNotEmpty;
+
     _focusNode = (this.widget.focusNode ?? FocusNode())
       ..addListener(() {
         if (mounted) {
@@ -116,6 +121,11 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
       });
 
     _textEditingListener = () {
+      if (_clearButtonVisible != this.widget.clearButton &&
+          this.widget.controller.text.isNotEmpty) {
+        setState(() => _clearButtonVisible = !_clearButtonVisible);
+      }
+
       if (this.widget.controller.submitted && _validationText == null) {
         String? tempVal =
             this.widget.controller.check?.call(this.widget.controller.text);
@@ -180,9 +190,12 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
   Widget build(BuildContext context) {
     final Widget clearButton = AnimatedSwitcher(
       duration: DesignSystem.animation.defaultDurationMS250,
-      child: _focusNode.hasFocus
+      child: _focusNode.hasFocus && _clearButtonVisible
           ? InkWell(
-              onTap: () => this.widget.controller.clear(),
+              onTap: () {
+                this.widget.controller.clear();
+                _focusNode.requestFocus();
+              },
               child: Padding(
                 padding: EdgeInsets.only(
                   top: DesignSystem.spacing.x2,
@@ -208,6 +221,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           textAlignVertical: this.widget.textAlignVertical,
           cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
           placeholder: this.widget.placeholder,
+          padding: const EdgeInsets.all(7.0) +
+              EdgeInsets.only(
+                right: _clearButtonVisible ? DesignSystem.spacing.x48 : 0,
+              ),
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
           minLines: this.widget.expands ? null : this.widget.minLines,
@@ -238,6 +255,13 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
             decoration: InputDecoration(
               hintText: this.widget.placeholder,
               labelText: this.widget.labelText,
+
+              /// TODO: Currently only handling one case, [contentPadding] has
+              /// different behaviour based on other properties. Need to adjust
+              contentPadding: const EdgeInsets.all(12.0) +
+                  EdgeInsets.only(
+                    right: _clearButtonVisible ? DesignSystem.spacing.x48 : 0,
+                  ),
               prefix: this.widget.prefix,
               suffix:
                   this.widget.clearButton ? clearButton : this.widget.suffix,
