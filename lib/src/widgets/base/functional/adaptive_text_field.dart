@@ -121,8 +121,8 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
       });
 
     _textEditingListener = () {
-      if (_clearButtonVisible != this.widget.clearButton &&
-          this.widget.controller.text.isNotEmpty) {
+      if (_clearButtonVisible !=
+          (this.widget.clearButton && this.widget.controller.text.isNotEmpty)) {
         setState(() => _clearButtonVisible = !_clearButtonVisible);
       }
 
