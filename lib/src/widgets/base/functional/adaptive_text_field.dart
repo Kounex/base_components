@@ -221,10 +221,6 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           textAlignVertical: this.widget.textAlignVertical,
           cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
           placeholder: this.widget.placeholder,
-          padding: const EdgeInsets.all(7.0) +
-              EdgeInsets.only(
-                right: _clearButtonVisible ? DesignSystem.spacing.x48 : 0,
-              ),
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
           minLines: this.widget.expands ? null : this.widget.minLines,
@@ -255,13 +251,6 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
             decoration: InputDecoration(
               hintText: this.widget.placeholder,
               labelText: this.widget.labelText,
-
-              /// TODO: Currently only handling one case, [contentPadding] has
-              /// different behaviour based on other properties. Need to adjust
-              contentPadding: const EdgeInsets.all(12.0) +
-                  EdgeInsets.only(
-                    right: _clearButtonVisible ? DesignSystem.spacing.x48 : 0,
-                  ),
               prefix: this.widget.prefix,
               suffix:
                   this.widget.clearButton ? clearButton : this.widget.suffix,
