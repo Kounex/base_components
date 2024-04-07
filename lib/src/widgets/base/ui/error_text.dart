@@ -12,7 +12,7 @@ class BaseErrorText extends StatelessWidget {
   const BaseErrorText(
     this.error, {
     super.key,
-    this.center = false,
+    this.center = true,
     this.useThemeError = false,
   });
 
