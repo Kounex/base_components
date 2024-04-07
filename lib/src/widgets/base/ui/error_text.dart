@@ -9,9 +9,9 @@ class BaseErrorText extends StatelessWidget {
   /// and if [true] we will use [Theme.of(context).colorScheme.error]
   final bool useThemeError;
 
-  const BaseErrorText({
+  const BaseErrorText(
+    this.error, {
     super.key,
-    required this.error,
     this.center = false,
     this.useThemeError = false,
   });
