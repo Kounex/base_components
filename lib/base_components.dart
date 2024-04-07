@@ -37,6 +37,7 @@ export 'src/widgets/base/ui/divider.dart';
 export 'src/widgets/base/ui/dropdown.dart';
 export 'src/widgets/base/ui/enumeration_block/enumeration_block.dart';
 export 'src/widgets/base/ui/enumeration_block/enumeration_entry.dart';
+export 'src/widgets/base/ui/error_text.dart';
 export 'src/widgets/base/ui/icon_button.dart';
 export 'src/widgets/base/ui/image.dart';
 export 'src/widgets/base/ui/on_off_indicator.dart';
