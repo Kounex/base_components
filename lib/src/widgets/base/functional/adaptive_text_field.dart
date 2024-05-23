@@ -17,8 +17,14 @@ class CustomValidationTextEditingController extends TextEditingController {
     super.text,
   });
 
+  /// Submits and checks if it's currently valid
   bool get isValid {
     this.submit();
+    return this.check?.call(this.text) == null;
+  }
+
+  /// Only checks if it's currently valid without submitting
+  bool get valid {
     return this.check?.call(this.text) == null;
   }
 
@@ -223,7 +229,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           placeholder: this.widget.placeholder,
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
-          decoration: !this.widget.controller.isValid
+          decoration: !this.widget.controller.submitted
               ? BoxDecoration(
                   border: Border.all(color: CupertinoColors.destructiveRed),
                 )
