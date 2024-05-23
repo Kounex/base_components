@@ -3,6 +3,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// const values taken from text_field.dart as they are private...
+const BorderSide _kDefaultRoundedBorderSide = BorderSide(
+  color: CupertinoDynamicColor.withBrightness(
+    color: Color(0x33000000),
+    darkColor: Color(0x33FFFFFF),
+  ),
+  width: 0.0,
+);
+
+const Border _kDefaultRoundedBorder = Border(
+  top: _kDefaultRoundedBorderSide,
+  bottom: _kDefaultRoundedBorderSide,
+  left: _kDefaultRoundedBorderSide,
+  right: _kDefaultRoundedBorderSide,
+);
+
+const BoxDecoration _kDefaultRoundedBorderDecoration = BoxDecoration(
+  color: CupertinoDynamicColor.withBrightness(
+    color: CupertinoColors.white,
+    darkColor: CupertinoColors.black,
+  ),
+  border: _kDefaultRoundedBorder,
+  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+);
+
 class CustomValidationTextEditingController extends TextEditingController {
   bool submitted = false;
 
@@ -230,7 +255,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
           decoration: !this.widget.controller.submitted
-              ? BoxDecoration(
+              ? _kDefaultRoundedBorderDecoration.copyWith(
                   border: Border.all(color: CupertinoColors.destructiveRed),
                 )
               : null,
