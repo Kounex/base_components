@@ -256,12 +256,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           placeholder: this.widget.placeholder,
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
-          decoration: this.widget.cupertinoErrorBorder &&
-                  this.widget.controller.submitted &&
-                  !this.widget.controller.valid
+          decoration: _validationText != null
               ? _kDefaultRoundedBorderDecoration.copyWith(
                   border: Border.all(
-                    color: CupertinoColors.destructiveRed,
+                    color: Theme.of(context).colorScheme.error,
                     width: 0.0,
                   ),
                 )
@@ -275,12 +273,14 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           enabled: this.widget.enabled,
           readOnly: this.widget.readOnly,
           prefix: this.widget.prefix,
-          clearButtonMode: this.widget.clearButton
-              ? OverlayVisibilityMode.editing
-              : OverlayVisibilityMode.never,
-          suffix: !this.widget.clearButton
-              ? (this.widget.suffix ?? this.widget.suffixIcon)
-              : null,
+          // clearButtonMode: this.widget.clearButton
+          //     ? OverlayVisibilityMode.editing
+          //     : OverlayVisibilityMode.never,
+          // suffix: !this.widget.clearButton
+          //     ? this.widget.suffix ?? this.widget.suffixIcon,
+          suffix: this.widget.clearButton
+              ? clearButton
+              : this.widget.suffix ?? this.widget.suffixIcon,
           onChanged: this.widget.onChanged,
           onSubmitted: this.widget.onSubmitted,
         ),
@@ -344,7 +344,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
 
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            color: CupertinoColors.destructiveRed,
+            color: Theme.of(context).colorScheme.error,
           ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
