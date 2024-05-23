@@ -82,6 +82,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
   final Widget? suffix;
   final Widget? suffixIcon;
   final bool clearButton;
+  final bool cupertinoErrorBorder;
 
   /// By default, the error text space beneath a text field is not used when
   /// there is no error meaning that if an error is present, the text will
@@ -123,6 +124,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
     this.clearButton = false,
     this.errorPaddingAlways = false,
     this.platform,
+    this.cupertinoErrorBorder = true,
     this.onChanged,
     this.onSubmitted,
   });
@@ -254,12 +256,16 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           placeholder: this.widget.placeholder,
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
-          decoration:
-              this.widget.controller.submitted && !this.widget.controller.valid
-                  ? _kDefaultRoundedBorderDecoration.copyWith(
-                      border: Border.all(color: CupertinoColors.destructiveRed),
-                    )
-                  : _kDefaultRoundedBorderDecoration,
+          decoration: this.widget.cupertinoErrorBorder &&
+                  this.widget.controller.submitted &&
+                  !this.widget.controller.valid
+              ? _kDefaultRoundedBorderDecoration.copyWith(
+                  border: Border.all(
+                    color: CupertinoColors.destructiveRed,
+                    width: 0.0,
+                  ),
+                )
+              : _kDefaultRoundedBorderDecoration,
           minLines: this.widget.expands ? null : this.widget.minLines,
           maxLines: this.widget.expands
               ? null
