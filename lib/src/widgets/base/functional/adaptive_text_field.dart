@@ -275,9 +275,12 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           enabled: this.widget.enabled,
           readOnly: this.widget.readOnly,
           prefix: this.widget.prefix,
-          suffix: this.widget.clearButton
-              ? clearButton
-              : this.widget.suffix ?? this.widget.suffixIcon,
+          clearButtonMode: this.widget.clearButton
+              ? OverlayVisibilityMode.editing
+              : OverlayVisibilityMode.never,
+          suffix: !this.widget.clearButton
+              ? (this.widget.suffix ?? this.widget.suffixIcon)
+              : null,
           onChanged: this.widget.onChanged,
           onSubmitted: this.widget.onSubmitted,
         ),
