@@ -254,11 +254,12 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           placeholder: this.widget.placeholder,
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
-          decoration: !this.widget.controller.submitted
-              ? _kDefaultRoundedBorderDecoration.copyWith(
-                  border: Border.all(color: CupertinoColors.destructiveRed),
-                )
-              : null,
+          decoration:
+              this.widget.controller.submitted && !this.widget.controller.valid
+                  ? _kDefaultRoundedBorderDecoration.copyWith(
+                      border: Border.all(color: CupertinoColors.destructiveRed),
+                    )
+                  : null,
           minLines: this.widget.expands ? null : this.widget.minLines,
           maxLines: this.widget.expands
               ? null
