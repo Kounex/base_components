@@ -6,7 +6,8 @@ import '../ui/result.dart';
 class BaseFutureBuilder<T> extends StatelessWidget {
   final Future<T>? future;
 
-  final String? loading;
+  final Widget? loading;
+  final String? loadingText;
 
   final Widget Function(T? data) data;
 
@@ -14,6 +15,7 @@ class BaseFutureBuilder<T> extends StatelessWidget {
     super.key,
     this.future,
     this.loading,
+    this.loadingText,
     required this.data,
   });
 
@@ -37,9 +39,10 @@ class BaseFutureBuilder<T> extends StatelessWidget {
         //   return Center(child: BaseResult(icon: BaseResultIcon.Missing, text: '',),);
         // }
         return Center(
-          child: BaseProgressIndicator(
-            text: this.loading ?? 'Fetching...',
-          ),
+          child: this.loading ??
+              BaseProgressIndicator(
+                text: this.loadingText ?? 'Fetching...',
+              ),
         );
       },
     );

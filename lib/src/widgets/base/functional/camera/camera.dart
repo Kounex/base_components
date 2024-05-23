@@ -33,7 +33,7 @@ class _BaseCameraState extends State<BaseCamera> {
         children: [
           BaseFutureBuilder(
             future: _cameras,
-            loading: 'Accessing cameras...',
+            loadingText: 'Accessing cameras...',
             data: (cameras) => cameras != null && cameras.isNotEmpty
                 ? BaseCameraUI(
                     cameras: cameras,
