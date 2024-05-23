@@ -223,6 +223,11 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           placeholder: this.widget.placeholder,
           keyboardType: this.widget.keyboardType,
           inputFormatters: _textInputFormatter(),
+          decoration: !this.widget.controller.isValid
+              ? BoxDecoration(
+                  border: Border.all(color: CupertinoColors.destructiveRed),
+                )
+              : null,
           minLines: this.widget.expands ? null : this.widget.minLines,
           maxLines: this.widget.expands
               ? null
