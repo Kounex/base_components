@@ -259,7 +259,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
                   ? _kDefaultRoundedBorderDecoration.copyWith(
                       border: Border.all(color: CupertinoColors.destructiveRed),
                     )
-                  : null,
+                  : _kDefaultRoundedBorderDecoration,
           minLines: this.widget.expands ? null : this.widget.minLines,
           maxLines: this.widget.expands
               ? null
