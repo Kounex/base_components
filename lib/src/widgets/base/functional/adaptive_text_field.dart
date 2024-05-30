@@ -218,24 +218,26 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
   Widget build(BuildContext context) {
     final Widget clearButton = AnimatedSwitcher(
       duration: DesignSystem.animation.defaultDurationMS250,
-      child: _focusNode.hasFocus && _clearButtonVisible
-          ? InkWell(
-              onTap: () {
-                this.widget.controller.clear();
-                _focusNode.requestFocus();
-              },
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: DesignSystem.spacing.x2,
-                  right: DesignSystem.spacing.x8,
+      child: ExcludeFocus(
+        child: _focusNode.hasFocus && _clearButtonVisible
+            ? InkWell(
+                onTap: () {
+                  this.widget.controller.clear();
+                  _focusNode.requestFocus();
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: DesignSystem.spacing.x2,
+                    right: DesignSystem.spacing.x8,
+                  ),
+                  child: Icon(
+                    CupertinoIcons.clear_circled_solid,
+                    size: DesignSystem.size.x18,
+                  ),
                 ),
-                child: Icon(
-                  CupertinoIcons.clear_circled_solid,
-                  size: DesignSystem.size.x18,
-                ),
-              ),
-            )
-          : const SizedBox(),
+              )
+            : const SizedBox(),
+      ),
     );
 
     Widget textField =
@@ -345,34 +347,28 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
         mainAxisSize: MainAxisSize.min,
         children: [
           textField,
-          ExcludeFocus(
-            child: Column(
-              children: [
-                this.widget.bottom ?? const SizedBox(),
-                if (_validationText != null || this.widget.errorPaddingAlways)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 2.0,
-                        left: DesignSystem.isApple(
-                          context,
-                          platform: this.widget.platform,
-                        )
-                            ? DesignSystem.spacing.x4
-                            : 0,
-                        bottom: this.widget.bottomPadding,
-                      ),
-                      child: _validationText != null
-                          ? Fader(
-                              child: Text(_validationText!),
-                            )
-                          : const Text(''),
-                    ),
-                  ),
-              ],
+          this.widget.bottom ?? const SizedBox(),
+          if (_validationText != null || this.widget.errorPaddingAlways)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 2.0,
+                  left: DesignSystem.isApple(
+                    context,
+                    platform: this.widget.platform,
+                  )
+                      ? DesignSystem.spacing.x4
+                      : 0,
+                  bottom: this.widget.bottomPadding,
+                ),
+                child: _validationText != null
+                    ? Fader(
+                        child: Text(_validationText!),
+                      )
+                    : const Text(''),
+              ),
             ),
-          ),
         ],
       ),
     );
