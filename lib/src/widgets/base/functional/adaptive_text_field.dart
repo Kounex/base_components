@@ -146,12 +146,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     _clearButtonVisible =
         this.widget.clearButton && this.widget.controller.text.isNotEmpty;
 
-    _focusNode = (this.widget.focusNode ?? FocusNode())
-      ..addListener(() {
-        if (mounted) {
-          setState(() {});
-        }
-      });
+    _focusNode = this.widget.focusNode ?? FocusNode();
 
     _textEditingListener = () {
       if (_clearButtonVisible !=
@@ -352,24 +347,26 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
           textField,
           this.widget.bottom ?? const SizedBox(),
           if (_validationText != null || this.widget.errorPaddingAlways)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 2.0,
-                  left: DesignSystem.isApple(
-                    context,
-                    platform: this.widget.platform,
-                  )
-                      ? DesignSystem.spacing.x4
-                      : 0,
-                  bottom: this.widget.bottomPadding,
+            ExcludeFocus(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 2.0,
+                    left: DesignSystem.isApple(
+                      context,
+                      platform: this.widget.platform,
+                    )
+                        ? DesignSystem.spacing.x4
+                        : 0,
+                    bottom: this.widget.bottomPadding,
+                  ),
+                  child: _validationText != null
+                      ? Fader(
+                          child: Text(_validationText!),
+                        )
+                      : const Text(''),
                 ),
-                child: _validationText != null
-                    ? Fader(
-                        child: Text(_validationText!),
-                      )
-                    : const Text(''),
               ),
             ),
         ],
