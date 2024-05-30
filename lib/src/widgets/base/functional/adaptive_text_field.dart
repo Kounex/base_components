@@ -345,30 +345,34 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
         mainAxisSize: MainAxisSize.min,
         children: [
           textField,
-          this.widget.bottom ?? const SizedBox(),
-          if (_validationText != null || this.widget.errorPaddingAlways)
-            ExcludeFocus(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 2.0,
-                    left: DesignSystem.isApple(
-                      context,
-                      platform: this.widget.platform,
-                    )
-                        ? DesignSystem.spacing.x4
-                        : 0,
-                    bottom: this.widget.bottomPadding,
-                  ),
-                  child: _validationText != null
-                      ? Fader(
-                          child: Text(_validationText!),
+          ExcludeFocus(
+            child: Column(
+              children: [
+                this.widget.bottom ?? const SizedBox(),
+                if (_validationText != null || this.widget.errorPaddingAlways)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 2.0,
+                        left: DesignSystem.isApple(
+                          context,
+                          platform: this.widget.platform,
                         )
-                      : const Text(''),
-                ),
-              ),
+                            ? DesignSystem.spacing.x4
+                            : 0,
+                        bottom: this.widget.bottomPadding,
+                      ),
+                      child: _validationText != null
+                          ? Fader(
+                              child: Text(_validationText!),
+                            )
+                          : const Text(''),
+                    ),
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );
