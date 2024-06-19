@@ -47,16 +47,27 @@ class WebScaffold extends StatelessWidget {
               SliverList(
                 delegate: fadeIn
                     ? SliverChildListDelegate.fixed(
-                        List.from(
-                          children.mapIndexed(
-                            (index, child) => Fader(
-                              delay: this.staggered
-                                  ? Duration(milliseconds: 75 * index)
-                                  : Duration.zero,
-                              child: child,
+                        [
+                          SizedBox(
+                            height: (this.verticalPadding ??
+                                    DesignSystem.spacing.x24) +
+                                MediaQuery.paddingOf(context).top,
+                          ),
+                          ...List.from(
+                            children.mapIndexed(
+                              (index, child) => Fader(
+                                delay: this.staggered
+                                    ? Duration(milliseconds: 75 * index)
+                                    : Duration.zero,
+                                child: child,
+                              ),
                             ),
                           ),
-                        ),
+                          SizedBox(
+                            height: this.verticalPadding ??
+                                DesignSystem.spacing.x24,
+                          ),
+                        ],
                       )
                     : SliverChildBuilderDelegate(
                         (context, index) =>
