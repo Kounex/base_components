@@ -40,7 +40,7 @@ class _AnimatedColorState extends State<AnimatedColor> {
   void didUpdateWidget(covariant AnimatedColor oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (this.widget.color != oldWidget.color) {
+    if (this.widget.color != _currentColor) {
       setState(() {
         _prevColor = _currentColor;
         _currentColor = this.widget.color;
