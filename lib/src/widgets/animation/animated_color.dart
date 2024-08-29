@@ -8,6 +8,8 @@ class AnimatedColor extends StatefulWidget {
   final Color color;
 
   final Widget? child;
+  final Widget Function(BuildContext context, Color color, Widget? child)?
+      builder;
 
   final Duration? duration;
 
@@ -15,6 +17,7 @@ class AnimatedColor extends StatefulWidget {
     super.key,
     required this.color,
     this.child,
+    this.builder,
     this.duration,
   });
 
@@ -49,15 +52,16 @@ class _AnimatedColorState extends State<AnimatedColor> {
       duration:
           this.widget.duration ?? DesignSystem.animation.defaultDurationMS250,
       tween: SmoothColorTween(begin: _prevColor, end: _currentColor),
-      builder: (context, color, child) {
-        return SizedBox.expand(
-          child: Container(
-            alignment: Alignment.center,
-            color: color,
-            child: child,
-          ),
-        );
-      },
+      builder: this.widget.builder ??
+          (context, color, child) {
+            return SizedBox.expand(
+              child: Container(
+                alignment: Alignment.center,
+                color: color,
+                child: child,
+              ),
+            );
+          },
       child: this.widget.child,
     );
   }
