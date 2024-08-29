@@ -41,8 +41,10 @@ class _AnimatedColorState extends State<AnimatedColor> {
     super.didUpdateWidget(oldWidget);
 
     if (this.widget.color != oldWidget.color) {
-      _prevColor = _currentColor;
-      _currentColor = this.widget.color;
+      setState(() {
+        _prevColor = _currentColor;
+        _currentColor = this.widget.color;
+      });
     }
   }
 
