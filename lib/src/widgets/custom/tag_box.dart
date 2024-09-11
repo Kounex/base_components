@@ -11,6 +11,7 @@ class TagBox extends StatelessWidget {
   final Color? labelColor;
 
   final Widget? child;
+  final MainAxisAlignment alignment;
 
   final double height;
   final double? width;
@@ -26,6 +27,7 @@ class TagBox extends StatelessWidget {
     this.labelStyle,
     this.labelColor,
     this.child,
+    this.alignment = MainAxisAlignment.start,
     this.height = 24.0,
     this.width,
     this.expand = false,
@@ -59,6 +61,7 @@ class TagBox extends StatelessWidget {
         child: this.child ??
             Row(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: this.alignment,
               children: [
                 if (this.icon != null) ...[
                   this.icon!,
