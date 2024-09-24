@@ -48,7 +48,7 @@ class WebScaffold extends StatelessWidget {
               horizontal: this.horizontalPadding ?? DesignSystem.spacing.x24),
           child: Center(
             child: BaseConstrainedBox(
-              maxWidth: this.maxWidth ?? double.infinity,
+              maxWidth: this.constrained ? this.maxWidth : double.infinity,
               child: CustomScrollView(
                 slivers: [
                   SliverList(
