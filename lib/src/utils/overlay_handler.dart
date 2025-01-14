@@ -21,13 +21,17 @@ class OverlayUtils {
   /// will close any other overlay which may be active right now and display the new one then, otherwise
   /// the new overlay will be inserted on top
   static Future<void> showStatusOverlay({
-    required BuildContext context,
+    BuildContext? context,
+    GlobalKey<OverlayState>? overlayKey,
     required Widget content,
     bool temporalOverlay = true,
     Duration showDuration = kShowDuration,
     Duration delayDuration = const Duration(milliseconds: 250),
     bool replaceIfActive = false,
   }) async {
+    assert(context != null || overlayKey != null,
+        'Either a BuildContext or the key of your own Overlay has to be provided!');
+
     /// If a overlay is currently shown and [replaceIfActive] is false, we skip
     /// this function since we don't want to stack overlays and we didn't set
     /// [replaceIfActive]
@@ -48,7 +52,8 @@ class OverlayUtils {
         _currentOverlayEntry = OverlayUtils._getStatusOverlay(
           content: content,
         );
-        Overlay.of(context, rootOverlay: true).insert(_currentOverlayEntry!);
+        (overlayKey?.currentState ?? Overlay.of(context!, rootOverlay: true))
+            .insert(_currentOverlayEntry!);
       });
 
       /// Calculating the maximum amount of time an overlay will be shown with all
