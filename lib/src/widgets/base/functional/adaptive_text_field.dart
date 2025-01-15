@@ -82,6 +82,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
   final Widget? suffix;
   final Widget? suffixIcon;
   final bool clearButton;
+  final bool clearButtonVisibleWithoutFocus;
   final bool cupertinoErrorBorder;
 
   /// By default, the error text space beneath a text field is not used when
@@ -122,6 +123,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
     this.suffix,
     this.suffixIcon,
     this.clearButton = false,
+    this.clearButtonVisibleWithoutFocus = false,
     this.errorPaddingAlways = false,
     this.platform,
     this.cupertinoErrorBorder = true,
@@ -219,7 +221,10 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     final Widget clearButton = AnimatedSwitcher(
       duration: DesignSystem.animation.defaultDurationMS250,
       child: ExcludeFocus(
-        child: _focusNode.hasFocus && _clearButtonVisible
+        child: (!this.widget.clearButtonVisibleWithoutFocus
+                    ? _focusNode.hasFocus
+                    : true) &&
+                _clearButtonVisible
             ? InkWell(
                 onTap: () {
                   this.widget.controller.clear();
