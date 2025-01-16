@@ -137,6 +137,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
 
 class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
   late VoidCallback _textEditingListener;
+  late VoidCallback _focusNodeListener;
   late final FocusNode _focusNode;
 
   String? _validationText;
@@ -149,6 +150,12 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
         this.widget.clearButton && this.widget.controller.text.isNotEmpty;
 
     _focusNode = this.widget.focusNode ?? FocusNode();
+
+    _focusNodeListener = () {
+      if (!_focusNode.hasPrimaryFocus && _clearButtonVisible) {
+        _clearButtonVisible = false;
+      }
+    };
 
     _textEditingListener = () {
       if (_clearButtonVisible !=
@@ -172,6 +179,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     };
 
     this.widget.controller.addListener(_textEditingListener);
+    _focusNode.addListener(_focusNodeListener);
     super.initState();
   }
 
@@ -192,6 +200,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
   @override
   void dispose() {
     this.widget.controller.removeListener(_textEditingListener);
+    _focusNode.removeListener(_focusNodeListener);
     super.dispose();
   }
 
