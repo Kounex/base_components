@@ -152,14 +152,17 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     _focusNode = this.widget.focusNode ?? FocusNode();
 
     _focusNodeListener = () {
-      if (!_focusNode.hasPrimaryFocus && _clearButtonVisible) {
+      if (!_focusNode.hasPrimaryFocus &&
+          _clearButtonVisible &&
+          !this.widget.clearButtonVisibleWithoutFocus) {
         _clearButtonVisible = false;
+      } else if (_focusNode.hasPrimaryFocus && _clearButtonReqMet()) {
+        _clearButtonVisible = true;
       }
     };
 
     _textEditingListener = () {
-      if (_clearButtonVisible !=
-          (this.widget.clearButton && this.widget.controller.text.isNotEmpty)) {
+      if (_clearButtonVisible != _clearButtonReqMet()) {
         setState(() => _clearButtonVisible = !_clearButtonVisible);
       }
 
@@ -203,6 +206,9 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     _focusNode.removeListener(_focusNodeListener);
     super.dispose();
   }
+
+  bool _clearButtonReqMet() =>
+      this.widget.clearButton && this.widget.controller.text.isNotEmpty;
 
   List<TextInputFormatter>? _textInputFormatter() {
     if (this.widget.inputFormatters != null) {
