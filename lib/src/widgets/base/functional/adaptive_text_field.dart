@@ -123,7 +123,7 @@ class BaseAdaptiveTextField extends StatefulWidget {
     this.suffix,
     this.suffixIcon,
     this.clearButton = false,
-    this.clearButtonVisibleWithoutFocus = false,
+    this.clearButtonVisibleWithoutFocus = true,
     this.errorPaddingAlways = false,
     this.platform,
     this.cupertinoErrorBorder = true,
