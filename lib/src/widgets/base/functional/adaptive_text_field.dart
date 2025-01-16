@@ -155,9 +155,9 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
       if (!_focusNode.hasPrimaryFocus &&
           _clearButtonVisible &&
           !this.widget.clearButtonVisibleWithoutFocus) {
-        _clearButtonVisible = false;
+        setState(() => _clearButtonVisible = false);
       } else if (_focusNode.hasPrimaryFocus && _clearButtonReqMet()) {
-        _clearButtonVisible = true;
+        setState(() => _clearButtonVisible = true);
       }
     };
 
