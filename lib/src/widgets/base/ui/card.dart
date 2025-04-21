@@ -9,6 +9,7 @@ class BaseCard extends StatefulWidget {
   final bool? initialExpanded;
   final bool? expanded;
   final bool expandable;
+  final bool expandOnHeaderClick;
   final void Function(bool expanded)? onExpand;
 
   final Widget? above;
@@ -46,7 +47,8 @@ class BaseCard extends StatefulWidget {
     required this.child,
     this.initialExpanded,
     this.expanded,
-    this.expandable = true,
+    this.expandable = false,
+    this.expandOnHeaderClick = false,
     this.onExpand,
     this.above,
     this.below,
@@ -98,6 +100,13 @@ class _BaseCardState extends State<BaseCard> {
     }
   }
 
+  void _expand() => this.widget.expandable
+      ? () => setState(() {
+            _expandedTurn++;
+            this.widget.onExpand?.call(_expandedTurn % 2 == 0);
+          })
+      : null;
+
   @override
   Widget build(BuildContext context) {
     Widget card = Card(
@@ -113,7 +122,7 @@ class _BaseCardState extends State<BaseCard> {
             ? BorderSide(color: this.widget.borderColor ?? Colors.transparent)
             : BorderSide.none,
       ),
-      color: this.widget.backgroundColor ?? Theme.of(context).cardColor,
+      color: this.widget.backgroundColor ?? Theme.of(context).cardTheme.color,
       elevation: this.widget.elevation,
       margin: EdgeInsets.only(
         top: this.widget.topPadding ?? DesignSystem.spacing.x18,
@@ -130,68 +139,63 @@ class _BaseCardState extends State<BaseCard> {
             : CrossAxisAlignment.start,
         children: [
           if (this.widget.titleWidget != null || this.widget.title != null)
-            Padding(
-              padding: this.widget.titlePadding ??
-                  EdgeInsets.only(
-                    left: DesignSystem.spacing.x24,
-                    right: DesignSystem.spacing.x24,
-                    top: DesignSystem.spacing.x12,
-                    bottom: DesignSystem.spacing.x12,
-                  ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      child: this.widget.titleWidget == null
-                          ? Text(
-                              this.widget.title!,
-                              style: this.widget.titleStyle ??
-                                  Theme.of(context).textTheme.headlineSmall,
-                            )
-                          : this.widget.titleWidget!),
-                  if (this.widget.initialExpanded != null ||
-                      this.widget.expanded != null ||
-                      this.widget.trailingTitleWidget != null)
-                    Row(
-                      children: [
-                        if (this.widget.trailingTitleWidget
-                            case var trailingTitleWidget?)
-                          trailingTitleWidget,
-                        if (this.widget.initialExpanded != null ||
-                            this.widget.expanded != null)
-                          AnimatedRotation(
-                            duration:
-                                DesignSystem.animation.defaultDurationMS250,
-                            turns: _expandedTurn / 2,
-                            curve: Curves.easeInCubic,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(32),
-                              onTap: this.widget.expandable
-                                  ? () => setState(() {
-                                        _expandedTurn++;
-                                        this
-                                            .widget
-                                            .onExpand
-                                            ?.call(_expandedTurn % 2 == 0);
-                                      })
-                                  : null,
-                              // behavior: HitTestBehavior.opaque,
-                              child: SizedBox(
-                                height: 32.0,
-                                width: 32.0,
-                                child: Icon(
-                                  CupertinoIcons.chevron_up,
-                                  color: !this.widget.expandable
-                                      ? Theme.of(context).disabledColor
-                                      : null,
+            GestureDetector(
+              onTap: _expand,
+              child: Padding(
+                padding: this.widget.titlePadding ??
+                    EdgeInsets.only(
+                      left: DesignSystem.spacing.x24,
+                      right: DesignSystem.spacing.x24,
+                      top: DesignSystem.spacing.x12,
+                      bottom: DesignSystem.spacing.x12,
+                    ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        child: this.widget.titleWidget == null
+                            ? Text(
+                                this.widget.title!,
+                                style: this.widget.titleStyle ??
+                                    Theme.of(context).textTheme.headlineSmall,
+                              )
+                            : this.widget.titleWidget!),
+                    if (this.widget.initialExpanded != null ||
+                        this.widget.expanded != null ||
+                        this.widget.trailingTitleWidget != null)
+                      Row(
+                        children: [
+                          if (this.widget.trailingTitleWidget
+                              case var trailingTitleWidget?)
+                            trailingTitleWidget,
+                          if (this.widget.initialExpanded != null ||
+                              this.widget.expanded != null)
+                            AnimatedRotation(
+                              duration:
+                                  DesignSystem.animation.defaultDurationMS250,
+                              turns: _expandedTurn / 2,
+                              curve: Curves.easeInCubic,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(32),
+                                onTap: _expand,
+                                // behavior: HitTestBehavior.opaque,
+                                child: SizedBox(
+                                  height: 32.0,
+                                  width: 32.0,
+                                  child: Icon(
+                                    CupertinoIcons.chevron_up,
+                                    color: !this.widget.expandable
+                                        ? Theme.of(context).disabledColor
+                                        : null,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                      ],
-                    ),
-                ],
+                            )
+                        ],
+                      ),
+                  ],
+                ),
               ),
             ),
           AnimatedAlign(

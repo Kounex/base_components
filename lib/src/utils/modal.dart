@@ -190,7 +190,8 @@ class ModalUtils {
     Widget child = Container(
       decoration: BoxDecoration(
         color: Theme.of(context)
-            .cardColor
+            .cardTheme
+            .color!
             .withOpacity(blurryBackground ? DesignSystem.opacityForBlur : 1),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(DesignSystem.border.radius12),

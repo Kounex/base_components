@@ -68,7 +68,7 @@ class BaseButton extends StatelessWidget {
         surroundingColor: this.isDestructive
             ? CupertinoColors.destructiveRed
             : this.secondary
-                ? Theme.of(context).cardColor
+                ? Theme.of(context).cardTheme.color
                 : this.color ??
                     Theme.of(context).buttonTheme.colorScheme!.secondary,
       ),

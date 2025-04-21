@@ -71,7 +71,7 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
                         : DesignSystem.spacing.x16,
                 bottom: DesignSystem.spacing.x12,
               ),
-      backgroundColor: Theme.of(context).cardColor,
+      backgroundColor: Theme.of(context).cardTheme.color,
       elevation: 0,
       content: SingleChildScrollView(
         child: Column(

@@ -12,6 +12,7 @@ class DescribedBox extends StatelessWidget {
   final double? width;
 
   const DescribedBox({
+    super.key,
     Key? key,
     this.label,
     this.child,
@@ -42,7 +43,7 @@ class DescribedBox extends StatelessWidget {
             offset: const Offset(-2, -7),
             child: Container(
               padding: const EdgeInsets.only(right: 4.0, bottom: 2.0),
-              color: labelBackgroundColor ?? Theme.of(context).cardColor,
+              color: labelBackgroundColor ?? Theme.of(context).cardTheme.color,
               child: Text(
                 this.label!,
                 style: Theme.of(context)

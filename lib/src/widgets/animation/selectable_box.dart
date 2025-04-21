@@ -49,7 +49,7 @@ class SelectableBox extends StatelessWidget {
               color: this.selected
                   ? this.colorSelected ??
                       Theme.of(context).buttonTheme.colorScheme!.secondary
-                  : this.colorUnselected ?? Theme.of(context).cardColor,
+                  : this.colorUnselected ?? Theme.of(context).cardTheme.color,
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: this.child ??
@@ -72,7 +72,8 @@ class SelectableBox extends StatelessWidget {
                 color: (this.selectedStateBoxBorder ?? this.selected)
                     ? this.colorSelected ??
                         Theme.of(context).buttonTheme.colorScheme!.secondary
-                    : this.colorUnselected ?? Theme.of(context).cardColor,
+                    : this.colorUnselected ??
+                        Theme.of(context).cardTheme.color!,
               ),
               borderRadius: BorderRadius.circular(12.0),
             ),

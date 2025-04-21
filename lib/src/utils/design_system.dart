@@ -120,7 +120,7 @@ final class DesignSystem {
   static Color surroundingAwareAccent(
       {BuildContext? context, Color? surroundingColor}) {
     assert(context != null || surroundingColor != null);
-    return (surroundingColor ?? Theme.of(context!).cardColor)
+    return (surroundingColor ?? Theme.of(context!).cardTheme.color!)
                 .computeLuminance() <
             0.3
         ? Colors.white
