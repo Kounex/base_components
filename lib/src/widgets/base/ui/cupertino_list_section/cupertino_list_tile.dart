@@ -11,6 +11,7 @@ class BaseCupertinoListTile extends StatelessWidget {
   final Widget? leading;
 
   final IconData? leadingIcon;
+  final bool leadingIconBorder;
   final Color? leadingIconColor;
   final Color? leadingIconBackgroundColor;
 
@@ -25,6 +26,7 @@ class BaseCupertinoListTile extends StatelessWidget {
       this.onTap,
       this.leading,
       this.leadingIcon,
+      this.leadingIconBorder = false,
       this.leadingIconColor,
       this.leadingIconBackgroundColor,
       this.leadingSize,
@@ -41,6 +43,7 @@ class BaseCupertinoListTile extends StatelessWidget {
                   iconColor: this.leadingIconColor ?? Colors.white,
                   backgroundColor:
                       this.leadingIconBackgroundColor ?? Colors.blue,
+                  border: this.leadingIconBorder,
                 )
               : null),
       backgroundColor: Theme.of(context).cardTheme.color,
