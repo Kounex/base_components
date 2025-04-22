@@ -34,6 +34,7 @@ class _Size {
   double get x16 => 16;
   double get x18 => 18;
   double get x24 => 24;
+  double get x28 => 28;
   double get x32 => 32;
   double get x42 => 42;
   double get x48 => 48;

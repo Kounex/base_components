@@ -17,6 +17,7 @@ class BaseCupertinoListTile extends StatelessWidget {
   final Color? leadingIconBackgroundColor;
 
   final double? leadingSize;
+  final double leadingToTitle;
 
   final Widget? additionalInfo;
 
@@ -31,6 +32,7 @@ class BaseCupertinoListTile extends StatelessWidget {
       this.leadingIconColor,
       this.leadingIconBackgroundColor,
       this.leadingSize,
+      this.leadingToTitle = 16.0,
       this.additionalInfo});
 
   @override
@@ -48,7 +50,10 @@ class BaseCupertinoListTile extends StatelessWidget {
                 )
               : null),
       backgroundColor: Theme.of(context).cardTheme.color,
-      leadingSize: this.leadingSize ?? DesignSystem.size.x32,
+      leadingSize: this.leadingSize ?? DesignSystem.size.x28,
+      leadingToTitle: this.leadingIcon != null
+          ? DesignSystem.spacing.x4
+          : this.leadingToTitle,
       additionalInfo: this.additionalInfo,
       title: this.title,
       subtitle: this.subtitle,
