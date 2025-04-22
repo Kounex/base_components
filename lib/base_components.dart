@@ -33,6 +33,8 @@ export 'src/widgets/base/ui/card.dart';
 export 'src/widgets/base/ui/checkbox.dart';
 export 'src/widgets/base/ui/chip.dart';
 export 'src/widgets/base/ui/constrained_box.dart';
+export 'src/widgets/base/ui/cupertino_list_section/cupertino_list_section.dart';
+export 'src/widgets/base/ui/cupertino_list_section/cupertino_list_tile.dart';
 export 'src/widgets/base/ui/divider.dart';
 export 'src/widgets/base/ui/dropdown.dart';
 export 'src/widgets/base/ui/enumeration_block/enumeration_block.dart';
