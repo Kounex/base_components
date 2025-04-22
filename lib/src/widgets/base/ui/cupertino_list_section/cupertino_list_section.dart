@@ -8,16 +8,23 @@ class BaseCupertinoListSection extends StatelessWidget {
   final List<Widget>? customChildren;
 
   final bool hasLeading;
+  final double? dividerMargin;
 
   const BaseCupertinoListSection(
-      {super.key, this.tiles, this.customChildren, this.hasLeading = true});
+      {super.key,
+      this.tiles,
+      this.customChildren,
+      this.hasLeading = true,
+      this.dividerMargin});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoListSection.insetGrouped(
       backgroundColor: Colors.transparent,
       margin: EdgeInsets.zero,
-      additionalDividerMargin: DesignSystem.spacing.x32,
+      additionalDividerMargin: this.hasLeading
+          ? this.dividerMargin ?? DesignSystem.spacing.x32
+          : null,
       hasLeading: this.hasLeading,
       children: this.customChildren ?? this.tiles,
     );
