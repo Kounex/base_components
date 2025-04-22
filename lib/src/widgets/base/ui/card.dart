@@ -17,6 +17,7 @@ class BaseCard extends StatefulWidget {
 
   final bool constrained;
   final CrossAxisAlignment constrainedAlignment;
+  final MainAxisSize? mainAxisSize;
 
   final Color? backgroundColor;
   final bool paintBorder;
@@ -55,6 +56,7 @@ class BaseCard extends StatefulWidget {
     this.centerChild = true,
     this.constrained = true,
     this.constrainedAlignment = CrossAxisAlignment.start,
+    this.mainAxisSize,
     this.backgroundColor,
     this.paintBorder = false,
     this.borderColor,
@@ -137,6 +139,7 @@ class _BaseCardState extends State<BaseCard> {
         crossAxisAlignment: this.widget.centerChild
             ? CrossAxisAlignment.center
             : CrossAxisAlignment.start,
+        mainAxisSize: this.widget.mainAxisSize ?? MainAxisSize.min,
         children: [
           if (this.widget.titleWidget != null || this.widget.title != null)
             GestureDetector(
