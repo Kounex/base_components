@@ -139,6 +139,7 @@ class _BaseCardState extends State<BaseCard> {
         crossAxisAlignment: this.widget.centerChild
             ? CrossAxisAlignment.center
             : CrossAxisAlignment.start,
+        mainAxisSize: this.widget.mainAxisSize ?? MainAxisSize.min,
         children: [
           if (this.widget.titleWidget != null || this.widget.title != null)
             GestureDetector(
