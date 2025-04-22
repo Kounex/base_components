@@ -20,8 +20,8 @@ class BaseCupertinoListTileIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: this.size ?? DesignSystem.size.x24,
-      height: this.size ?? DesignSystem.size.x24,
+      width: this.size ?? DesignSystem.size.x32,
+      height: this.size ?? DesignSystem.size.x32,
       decoration: BoxDecoration(
         color: backgroundColor,
         border: Border.all(
