@@ -1,3 +1,4 @@
+import 'package:base_components/src/widgets/base/ui/cupertino_list_section/cupertino_list_tile_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,11 @@ class BaseCupertinoListTile extends StatelessWidget {
   final void Function()? onTap;
 
   final Widget? leading;
+
   final IconData? leadingIcon;
+  final Color? leadingIconColor;
+  final Color? leadingIconBackgroundColor;
+
   final double? leadingSize;
 
   final Widget? additionalInfo;
@@ -20,6 +25,8 @@ class BaseCupertinoListTile extends StatelessWidget {
       this.onTap,
       this.leading,
       this.leadingIcon,
+      this.leadingIconColor,
+      this.leadingIconBackgroundColor,
       this.leadingSize,
       this.additionalInfo});
 
@@ -28,7 +35,14 @@ class BaseCupertinoListTile extends StatelessWidget {
     return CupertinoListTile(
       onTap: this.onTap,
       leading: this.leading ??
-          (this.leadingIcon != null ? Icon(this.leadingIcon) : null),
+          (this.leadingIcon != null
+              ? BaseCupertinoListTileIcon(
+                  this.leadingIcon!,
+                  iconColor: this.leadingIconColor ?? Colors.white,
+                  backgroundColor:
+                      this.leadingIconBackgroundColor ?? Colors.blue,
+                )
+              : null),
       backgroundColor: Theme.of(context).cardTheme.color,
       leadingSize: this.leadingSize ?? 20,
       additionalInfo: this.additionalInfo,
