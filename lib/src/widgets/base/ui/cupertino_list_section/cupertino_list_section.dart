@@ -23,7 +23,7 @@ class BaseCupertinoListSection extends StatelessWidget {
       backgroundColor: Colors.transparent,
       margin: EdgeInsets.zero,
       dividerMargin: this.hasLeading
-          ? this.dividerMargin ?? DesignSystem.spacing.x32
+          ? this.dividerMargin ?? DesignSystem.spacing.x28
           : 14.0,
       hasLeading: this.hasLeading,
       children: this.customChildren ?? this.tiles,
