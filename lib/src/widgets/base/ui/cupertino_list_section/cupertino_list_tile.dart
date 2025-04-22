@@ -1,3 +1,4 @@
+import 'package:base_components/base_components.dart';
 import 'package:base_components/src/widgets/base/ui/cupertino_list_section/cupertino_list_tile_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class BaseCupertinoListTile extends StatelessWidget {
                 )
               : null),
       backgroundColor: Theme.of(context).cardTheme.color,
-      leadingSize: this.leadingSize ?? 24,
+      leadingSize: this.leadingSize ?? DesignSystem.size.x32,
       additionalInfo: this.additionalInfo,
       title: this.title,
       subtitle: this.subtitle,
