@@ -21,7 +21,7 @@ class BaseCupertinoListSection extends StatelessWidget {
     return CupertinoListSection.insetGrouped(
       backgroundColor: Colors.transparent,
       margin: EdgeInsets.zero,
-      dividerMargin: this.hasLeading ? this.dividerMargin ?? 23.0 : 14.0,
+      dividerMargin: this.hasLeading ? this.dividerMargin ?? 23.0 : 7.0,
       hasLeading: this.hasLeading,
       children: this.customChildren ?? this.tiles,
     );
