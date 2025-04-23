@@ -50,12 +50,10 @@ class BaseCupertinoListTile extends StatelessWidget {
                 )
               : null),
       backgroundColor: Theme.of(context).cardTheme.color,
-      leadingSize: this.leading != null || this.leadingIcon != null
-          ? this.leadingSize ?? DesignSystem.size.x28
-          : 0,
-      // leadingToTitle: this.leadingIcon != null
-      //     ? DesignSystem.spacing.x8
-      //     : this.leadingToTitle,
+      leadingSize: this.leadingSize ?? DesignSystem.size.x28,
+      leadingToTitle: this.leadingIcon == null && this.leading == null
+          ? DesignSystem.spacing.x8
+          : this.leadingToTitle,
       additionalInfo: this.additionalInfo,
       title: this.title,
       subtitle: this.subtitle,
