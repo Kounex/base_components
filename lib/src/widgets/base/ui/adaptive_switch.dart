@@ -28,17 +28,17 @@ class BaseAdaptiveSwitch extends StatelessWidget {
       onPointerDown: !this.enabled && this.disabledChangeInfo != null
           ? (_) => ModalUtils.showBaseDialog(
                 context,
-                InfoDialog(body: this.disabledChangeInfo!),
+                BaseInfoDialog(body: this.disabledChangeInfo!),
               )
           : null,
       child: DesignSystem.isApple(context)
           ? CupertinoSwitch(
               value: this.value,
-              activeColor: this.activeColor ??
+              activeTrackColor: this.activeColor ??
                   Theme.of(context)
                       .switchTheme
                       .trackColor!
-                      .resolve({MaterialState.selected}),
+                      .resolve({WidgetState.selected}),
               onChanged: this.enabled ? this.onChanged : null,
             )
           : Switch(

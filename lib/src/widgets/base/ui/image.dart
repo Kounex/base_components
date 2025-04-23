@@ -117,7 +117,7 @@ class BaseImage extends StatelessWidget {
           GestureDetector(
             onTap: () => ModalUtils.showBaseDialog(
               context,
-              ConfirmationDialog(
+              BaseConfirmationDialog(
                 title: 'Delete Image',
                 body: 'Are you sure you want to delete this image?',
                 onYes: (_) => this.onAction,

@@ -16,7 +16,7 @@ class QuestionMarkTooltip extends StatelessWidget {
     return GestureDetector(
       onTap: () => ModalUtils.showBaseDialog(
         context,
-        InfoDialog(
+        BaseInfoDialog(
           body: this.message,
         ),
       ),

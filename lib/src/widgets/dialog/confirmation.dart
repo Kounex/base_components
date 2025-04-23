@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'adaptive_dialog/adaptive_dialog.dart';
 
-class ConfirmationDialog extends StatelessWidget {
+class BaseConfirmationDialog extends StatelessWidget {
   final String title;
   final String? body;
   final Widget? bodyWidget;
@@ -17,7 +17,7 @@ class ConfirmationDialog extends StatelessWidget {
 
   final void Function(bool isDontShowAgainChecked) onYes;
 
-  const ConfirmationDialog({
+  const BaseConfirmationDialog({
     super.key,
     required this.title,
     this.body,

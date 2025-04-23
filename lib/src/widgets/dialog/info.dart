@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'adaptive_dialog/adaptive_dialog.dart';
 
-class InfoDialog extends StatelessWidget {
+class BaseInfoDialog extends StatelessWidget {
   final String? title;
   final String body;
 
@@ -11,7 +11,7 @@ class InfoDialog extends StatelessWidget {
 
   final Function(bool isDontShowAgainChecked)? onPressed;
 
-  const InfoDialog({
+  const BaseInfoDialog({
     super.key,
     required this.body,
     this.title,
