@@ -97,8 +97,8 @@ class _BaseInputDialogState extends State<BaseInputDialog> {
             }
             if (valid) {
               this.widget.onSave?.call(_controller.textAtSubmission.isNotEmpty
-                  ? null
-                  : _controller.textAtSubmission);
+                  ? _controller.textAtSubmission
+                  : null);
               Navigator.of(context).pop();
             }
           },
