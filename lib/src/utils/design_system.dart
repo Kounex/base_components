@@ -62,7 +62,12 @@ class _Border {
 class _Animation {
   const _Animation();
 
+  Duration get defaultDurationMS150 => const Duration(milliseconds: 150);
+  Duration get defaultDurationMS200 => const Duration(milliseconds: 200);
   Duration get defaultDurationMS250 => const Duration(milliseconds: 250);
+  Duration get defaultDurationMS300 => const Duration(milliseconds: 300);
+  Duration get defaultDurationMS400 => const Duration(milliseconds: 400);
+  Duration get defaultDurationMS500 => const Duration(milliseconds: 500);
 }
 
 enum Breakpoint {
