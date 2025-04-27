@@ -37,8 +37,8 @@ class BaseAdaptiveSwitch extends StatelessWidget {
               activeTrackColor: this.activeColor ??
                   Theme.of(context)
                       .switchTheme
-                      .trackColor!
-                      .resolve({WidgetState.selected}),
+                      .trackColor
+                      ?.resolve({WidgetState.selected}),
               onChanged: this.enabled ? this.onChanged : null,
             )
           : Switch(
