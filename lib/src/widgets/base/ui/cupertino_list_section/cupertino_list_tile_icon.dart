@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 class BaseCupertinoListTileIcon extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;
-  final Color iconColor;
   final double? size;
+  final Color iconColor;
+  final double? iconSize;
   final bool border;
 
   const BaseCupertinoListTileIcon(
     this.icon, {
     super.key,
     this.backgroundColor = Colors.blue,
-    this.iconColor = Colors.white,
     this.size,
+    this.iconColor = Colors.white,
+    this.iconSize,
     this.border = false,
   });
 
@@ -30,7 +32,8 @@ class BaseCupertinoListTileIcon extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(DesignSystem.border.radius6),
       ),
-      child: Center(child: Icon(icon, size: size, color: iconColor)),
+      child:
+          Center(child: Icon(icon, size: iconSize ?? size, color: iconColor)),
     );
   }
 }
