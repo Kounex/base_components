@@ -26,8 +26,10 @@ class BaseProgressIndicator extends StatefulWidget {
 
   final String? text;
 
+  final Color? color;
+
   BaseProgressIndicator({
-    Key? key,
+    super.key,
     this.text,
     this.countdownInSeconds,
     this.onCountdownDone,
@@ -36,6 +38,7 @@ class BaseProgressIndicator extends StatefulWidget {
     this.valueUpdateDuration = const Duration(milliseconds: 1000),
     this.size = 32.0,
     this.strokeWidth = 2.0,
+    this.color,
   })  : assert(text != null && text.isNotEmpty || text == null),
         assert(
           countdownInSeconds != null
@@ -48,8 +51,7 @@ class BaseProgressIndicator extends StatefulWidget {
                                   valueUpdateSteps)
                               .toDouble()
                   : true,
-        ),
-        super(key: key);
+        );
 
   @override
   State<BaseProgressIndicator> createState() => _BaseProgressIndicatorState();
@@ -117,7 +119,7 @@ class _BaseProgressIndicatorState extends State<BaseProgressIndicator> {
           height: this.widget.size,
           width: this.widget.size,
           child: CircularProgressIndicator(
-            color: Theme.of(context).colorScheme.secondary,
+            color: this.widget.color ?? Theme.of(context).colorScheme.secondary,
             strokeWidth: this.widget.strokeWidth,
             value: _tempValue ?? this.widget.value,
           ),
