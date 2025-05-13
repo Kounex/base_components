@@ -45,6 +45,7 @@ class _BaseVersionTextState extends State<BaseVersionText> {
         '-',
         style: style,
       ),
+      error: (error) => const Text('-'),
       data: (versionText) => Text(
         versionText ?? '-',
         style: style,
