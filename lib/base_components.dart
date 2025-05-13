@@ -48,6 +48,7 @@ export 'src/widgets/base/ui/placeholder_text.dart';
 export 'src/widgets/base/ui/progress_indicator.dart';
 export 'src/widgets/base/ui/result.dart';
 export 'src/widgets/base/ui/text_button.dart';
+export 'src/widgets/base/ui/version_text.dart';
 export 'src/widgets/cupertino/dropdown.dart';
 export 'src/widgets/cupertino/number_text_field.dart';
 export 'src/widgets/custom/column_separated.dart';
