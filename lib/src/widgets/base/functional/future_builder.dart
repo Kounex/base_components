@@ -11,12 +11,15 @@ class BaseFutureBuilder<T> extends StatelessWidget {
 
   final Widget Function(T? data) data;
 
+  final Widget Function(Object? error)? error;
+
   const BaseFutureBuilder({
     super.key,
     this.future,
     this.loading,
     this.loadingText,
     required this.data,
+    this.error,
   });
 
   @override
@@ -29,10 +32,11 @@ class BaseFutureBuilder<T> extends StatelessWidget {
             return this.data(snapshot.data);
           }
           return Center(
-            child: BaseResult(
-              icon: BaseResultIcon.negative,
-              text: snapshot.error!.toString(),
-            ),
+            child: this.error?.call(snapshot.error) ??
+                BaseResult(
+                  icon: BaseResultIcon.negative,
+                  text: snapshot.error!.toString(),
+                ),
           );
         }
         // if (snapshot.connectionState == ConnectionState.none) {

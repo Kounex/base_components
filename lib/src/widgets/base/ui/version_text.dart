@@ -46,7 +46,7 @@ class _BaseVersionTextState extends State<BaseVersionText> {
         style: style,
       ),
       data: (versionText) => Text(
-        versionText ?? '???',
+        versionText ?? '-',
         style: style,
       ),
     );
