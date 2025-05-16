@@ -11,6 +11,9 @@ class BaseInputDialog extends StatefulWidget {
   final String? inputText;
   final String? inputPlaceholder;
 
+  final bool clearButton;
+  final bool clearButtonVisibleWithoutFocus;
+
   final String? deleteText;
   final String? cancelText;
   final String? saveText;
@@ -34,6 +37,8 @@ class BaseInputDialog extends StatefulWidget {
     this.inputText,
     this.inputPlaceholder,
     this.inputCheck,
+    this.clearButton = true,
+    this.clearButtonVisibleWithoutFocus = true,
   });
 
   @override
@@ -70,6 +75,9 @@ class _BaseInputDialogState extends State<BaseInputDialog> {
             child: BaseAdaptiveTextField(
               controller: _controller,
               placeholder: this.widget.inputPlaceholder,
+              clearButton: this.widget.clearButton,
+              clearButtonVisibleWithoutFocus:
+                  this.widget.clearButtonVisibleWithoutFocus,
             ),
           ),
         ],
