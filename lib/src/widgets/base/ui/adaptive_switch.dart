@@ -7,17 +7,15 @@ import '../../dialog/info.dart';
 
 class BaseAdaptiveSwitch extends StatelessWidget {
   final bool value;
-  final bool enabled;
   final Color? activeColor;
-  final dynamic Function(bool) onChanged;
+  final dynamic Function(bool)? onChanged;
   final String? disabledChangeInfo;
 
   const BaseAdaptiveSwitch({
     super.key,
     required this.value,
-    this.enabled = true,
     this.activeColor,
-    required this.onChanged,
+    this.onChanged,
     this.disabledChangeInfo,
   });
 
@@ -25,7 +23,7 @@ class BaseAdaptiveSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Listener(
       behavior: HitTestBehavior.deferToChild,
-      onPointerDown: !this.enabled && this.disabledChangeInfo != null
+      onPointerDown: this.onChanged == null && this.disabledChangeInfo != null
           ? (_) => ModalUtils.showBaseDialog(
                 context,
                 BaseInfoDialog(body: this.disabledChangeInfo!),
@@ -39,22 +37,11 @@ class BaseAdaptiveSwitch extends StatelessWidget {
                       .switchTheme
                       .trackColor
                       ?.resolve({WidgetState.selected}),
-              onChanged: this.enabled ? this.onChanged : null,
+              onChanged: this.onChanged,
             )
           : Switch(
               value: this.value,
-              // activeColor: this.activeColor ??
-              //     Theme.of(context)
-              //         .switchTheme
-              //         .trackColor!
-              //         .resolve({MaterialState.selected}),
-              // activeTrackColor: (this.activeColor ??
-              //         Theme.of(context)
-              //             .switchTheme
-              //             .trackColor!
-              //             .resolve({MaterialState.selected}))!
-              //     .withOpacity(0.5),
-              onChanged: this.enabled ? this.onChanged : null,
+              onChanged: this.onChanged,
             ),
     );
   }
