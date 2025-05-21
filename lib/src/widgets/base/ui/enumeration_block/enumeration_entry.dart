@@ -25,9 +25,6 @@ class EnumerationEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double enumerationSize = this.enumerationSize ??
-        Theme.of(context).textTheme.bodyLarge!.fontSize!;
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -40,14 +37,14 @@ class EnumerationEntry extends StatelessWidget {
             child: this.order != null
                 ? Text(
                     '${this.order.toString()}.',
-                    style: TextStyle(fontSize: enumerationSize),
                   )
                 : Container(
-                    height: DesignSystem.size.x8,
-                    width: DesignSystem.size.x8,
+                    height: enumerationSize ?? DesignSystem.size.x8,
+                    width: enumerationSize ?? DesignSystem.size.x8,
                     decoration: BoxDecoration(
                       color: Theme.of(context).textTheme.bodyMedium!.color,
-                      borderRadius: BorderRadius.circular(DesignSystem.size.x8),
+                      borderRadius: BorderRadius.circular(
+                          enumerationSize ?? DesignSystem.size.x8),
                     ))),
         Flexible(
           child: this.text != null

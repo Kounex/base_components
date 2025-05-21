@@ -8,6 +8,8 @@ class EnumerationBlock extends StatelessWidget {
 
   final bool ordered;
   final List<String>? entries;
+  final double? enumerationSize;
+
   final List<EnumerationEntry>? customEntries;
 
   final double entrySpacing;
@@ -17,6 +19,7 @@ class EnumerationBlock extends StatelessWidget {
     this.title,
     this.ordered = false,
     this.entries,
+    this.enumerationSize,
     this.customEntries,
     this.entrySpacing = 4.0,
   });
@@ -25,7 +28,9 @@ class EnumerationBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> usedEntries = List.from(
       (this.entries?.mapIndexed((index, text) => EnumerationEntry(
-                  text: text, order: this.ordered ? index : null)) ??
+                  text: text,
+                  enumerationSize: this.enumerationSize,
+                  order: this.ordered ? index : null)) ??
               this.customEntries ??
               [])
           .expand((entry) => [
