@@ -43,11 +43,11 @@ class EnumerationEntry extends StatelessWidget {
                     style: TextStyle(fontSize: enumerationSize),
                   )
                 : Container(
-                    height: DesignSystem.size.x12,
-                    width: DesignSystem.size.x12,
+                    height: DesignSystem.size.x8,
+                    width: DesignSystem.size.x8,
                     decoration: BoxDecoration(
                       color: Theme.of(context).textTheme.bodyMedium!.color,
-                      borderRadius: BorderRadius.circular(double.infinity),
+                      borderRadius: BorderRadius.circular(DesignSystem.size.x8),
                     ))),
         Flexible(
           child: this.text != null
