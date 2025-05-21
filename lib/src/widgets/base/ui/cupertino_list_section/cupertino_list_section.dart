@@ -40,7 +40,8 @@ class BaseCupertinoListSection extends StatelessWidget {
                   child: Text(
                     this.footerText!,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).disabledColor,
+                          color: CupertinoColors.secondaryLabel
+                              .resolveFrom(context),
                         ),
                   ),
                 )
