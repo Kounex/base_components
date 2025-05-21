@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:base_components/src/utils/design_system.dart';
 import 'package:flutter/material.dart';
 
 class EnumerationEntry extends StatelessWidget {
@@ -14,7 +13,7 @@ class EnumerationEntry extends StatelessWidget {
   final int level;
 
   const EnumerationEntry({
-    Key? key,
+    super.key,
     this.text,
     this.customEntry,
     this.enumerationTopPadding = 0,
@@ -22,8 +21,7 @@ class EnumerationEntry extends StatelessWidget {
     this.order,
     this.levelSpacing = 12.0,
     this.level = 1,
-  })  : assert(text != null || customEntry != null && level > 0),
-        super(key: key);
+  }) : assert(text != null || customEntry != null && level > 0);
 
   @override
   Widget build(BuildContext context) {
@@ -31,28 +29,26 @@ class EnumerationEntry extends StatelessWidget {
         Theme.of(context).textTheme.bodyLarge!.fontSize!;
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            top: this.enumerationTopPadding,
-            left: this.levelSpacing * this.level,
-            right: 12.0,
-          ),
-          child: this.order != null
-              ? Text(
-                  '${this.order.toString()}.',
-                  style: TextStyle(fontSize: enumerationSize),
-                )
-              : Transform.scale(
-                  scale: 3.0,
-                  origin: const Offset(1, 1),
-                  child: Text(
-                    '·',
+            padding: EdgeInsets.only(
+              top: this.enumerationTopPadding,
+              left: this.levelSpacing * this.level,
+              right: 12.0,
+            ),
+            child: this.order != null
+                ? Text(
+                    '${this.order.toString()}.',
                     style: TextStyle(fontSize: enumerationSize),
-                  ),
-                ),
-        ),
+                  )
+                : Container(
+                    height: DesignSystem.size.x12,
+                    width: DesignSystem.size.x12,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).textTheme.bodyMedium!.color,
+                      borderRadius: BorderRadius.circular(double.infinity),
+                    ))),
         Flexible(
           child: this.text != null
               ? Text(
