@@ -7,6 +7,7 @@ class EnumerationEntry extends StatelessWidget {
 
   final double enumerationTopPadding;
   final double? enumerationSize;
+  final CrossAxisAlignment enumerationAlignment;
 
   final int? order;
   final double levelSpacing;
@@ -18,6 +19,7 @@ class EnumerationEntry extends StatelessWidget {
     this.customEntry,
     this.enumerationTopPadding = 0,
     this.enumerationSize,
+    this.enumerationAlignment = CrossAxisAlignment.start,
     this.order,
     this.levelSpacing = 12.0,
     this.level = 1,
@@ -26,7 +28,7 @@ class EnumerationEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: this.enumerationAlignment,
       children: [
         Padding(
             padding: EdgeInsets.only(

@@ -9,6 +9,7 @@ class EnumerationBlock extends StatelessWidget {
   final bool ordered;
   final List<String>? entries;
   final double? enumerationSize;
+  final CrossAxisAlignment enumerationAlignment;
 
   final List<EnumerationEntry>? customEntries;
 
@@ -21,6 +22,7 @@ class EnumerationBlock extends StatelessWidget {
     this.entries,
     this.enumerationSize,
     this.customEntries,
+    this.enumerationAlignment = CrossAxisAlignment.start,
     this.entrySpacing = 4.0,
   });
 
