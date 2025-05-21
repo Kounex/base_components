@@ -1,3 +1,4 @@
+import 'package:base_components/src/utils/design_system.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +72,7 @@ class _BaseInputDialogState extends State<BaseInputDialog> {
         children: [
           Text(this.widget.body),
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: EdgeInsets.only(top: DesignSystem.spacing.x8),
             child: BaseAdaptiveTextField(
               controller: _controller,
               placeholder: this.widget.inputPlaceholder,

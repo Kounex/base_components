@@ -9,12 +9,17 @@ class BaseCupertinoListSection extends StatelessWidget {
   final bool hasLeading;
   final double? dividerMargin;
 
+  final Widget? header;
+  final Widget? footer;
+
   const BaseCupertinoListSection(
       {super.key,
       this.tiles,
       this.customChildren,
       this.hasLeading = true,
-      this.dividerMargin});
+      this.dividerMargin,
+      this.header,
+      this.footer});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +28,8 @@ class BaseCupertinoListSection extends StatelessWidget {
       margin: EdgeInsets.zero,
       dividerMargin: this.hasLeading ? this.dividerMargin ?? 23.0 : 0,
       hasLeading: this.hasLeading,
+      header: this.header,
+      footer: this.footer,
       children: this.customChildren ?? this.tiles,
     );
   }
