@@ -64,10 +64,10 @@ class BaseCupertinoListSection extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               tile,
-              if (index < children.length - 1)
+              if (index < children.length - 1) ...[
+                SizedBox(height: DesignSystem.spacing.x4),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: DesignSystem.spacing.x4,
                       left: this.hasLeading
                           ? DesignSystem.spacing.x64 + DesignSystem.spacing.x2
                           : DesignSystem.spacing.x24),
@@ -77,6 +77,7 @@ class BaseCupertinoListSection extends StatelessWidget {
                     thickness: 0.5,
                   ),
                 ),
+              ],
             ],
           )
         ],
