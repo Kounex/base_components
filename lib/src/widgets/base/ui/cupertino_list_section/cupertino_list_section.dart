@@ -60,20 +60,25 @@ class BaseCupertinoListSection extends StatelessWidget {
               : null),
       children: [
         for (final (index, tile) in children.indexed) ...[
-          tile,
-          if (index < children.length - 1)
-            Padding(
-              padding: EdgeInsets.only(
-                  top: DesignSystem.spacing.x4,
-                  left: this.hasLeading
-                      ? DesignSystem.spacing.x64 + DesignSystem.spacing.x2
-                      : DesignSystem.spacing.x24),
-              child: Divider(
-                color: CupertinoColors.separator.resolveFrom(context),
-                height: 0,
-                thickness: 0.5,
-              ),
-            ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              tile,
+              if (index < children.length - 1)
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: DesignSystem.spacing.x4,
+                      left: this.hasLeading
+                          ? DesignSystem.spacing.x64 + DesignSystem.spacing.x2
+                          : DesignSystem.spacing.x24),
+                  child: Divider(
+                    color: CupertinoColors.separator.resolveFrom(context),
+                    height: 0,
+                    thickness: 0.5,
+                  ),
+                ),
+            ],
+          )
         ],
       ],
     );
