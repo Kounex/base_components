@@ -7,6 +7,10 @@ class BaseCupertinoListSection extends StatelessWidget {
   final List<BaseCupertinoListTile>? tiles;
   final List<Widget>? customChildren;
 
+  final Color? backgroundColor;
+
+  final bool useSeparators;
+
   final bool hasLeading;
   final double? dividerMargin;
 
@@ -19,18 +23,26 @@ class BaseCupertinoListSection extends StatelessWidget {
       {super.key,
       this.tiles,
       this.customChildren,
+      this.backgroundColor,
+      this.useSeparators = true,
       this.hasLeading = true,
       this.dividerMargin,
       this.header,
       this.footer,
-      this.footerText});
+      this.footerText})
+      : assert(tiles != null || customChildren != null);
 
   @override
   Widget build(BuildContext context) {
+    final children = (this.customChildren ?? this.tiles)!;
+
     return CupertinoListSection.insetGrouped(
       backgroundColor: Colors.transparent,
       margin: EdgeInsets.zero,
-      dividerMargin: this.hasLeading ? (this.dividerMargin ?? 23.0) : 0,
+      // dividerMargin: this.hasLeading ? (this.dividerMargin ?? 23.0) : 0,
+      dividerMargin: 0,
+      additionalDividerMargin: 0,
+      separatorColor: backgroundColor ?? Theme.of(context).cardColor,
       hasLeading: this.hasLeading,
       header: this.header,
       footer: this.footer ??
@@ -46,7 +58,20 @@ class BaseCupertinoListSection extends StatelessWidget {
                   ),
                 )
               : null),
-      children: this.customChildren ?? this.tiles,
+      children: [
+        for (final (index, tile) in children.indexed) ...[
+          tile,
+          if (index < children.length - 1)
+            Padding(
+              padding: EdgeInsets.only(left: this.hasLeading ? 64 : 28),
+              child: const Divider(
+                color: CupertinoColors.opaqueSeparator,
+                height: 0,
+                thickness: 0.5,
+              ),
+            ),
+        ],
+      ],
     );
   }
 }
