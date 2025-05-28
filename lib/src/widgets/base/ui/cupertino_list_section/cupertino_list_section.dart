@@ -64,7 +64,7 @@ class BaseCupertinoListSection extends StatelessWidget {
           if (index < children.length - 1)
             Padding(
               padding: EdgeInsets.only(
-                  top: DesignSystem.spacing.x2,
+                  top: DesignSystem.spacing.x4,
                   left: this.hasLeading
                       ? DesignSystem.spacing.x64 + DesignSystem.spacing.x2
                       : DesignSystem.spacing.x24),

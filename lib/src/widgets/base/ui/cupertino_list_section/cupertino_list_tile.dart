@@ -41,21 +41,36 @@ class BaseCupertinoListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoListTile(
       onTap: this.onTap,
-      leading: this.leading ??
-          (this.leadingIcon != null
-              ? BaseCupertinoListTileIcon(
-                  this.leadingIcon!,
-                  iconColor: this.leadingIconColor ?? Colors.white,
-                  backgroundColor:
-                      this.leadingIconBackgroundColor ?? Colors.blue,
-                  border: this.leadingIconBorder,
-                )
-              : null),
+      // leading: this.leading ??
+      //     (this.leadingIcon != null
+      //         ? BaseCupertinoListTileIcon(
+      //             this.leadingIcon!,
+      //             iconColor: this.leadingIconColor ?? Colors.white,
+      //             backgroundColor:
+      //                 this.leadingIconBackgroundColor ?? Colors.blue,
+      //             border: this.leadingIconBorder,
+      //           )
+      //         : null),
       backgroundColor:
           this.backgroundColor ?? Theme.of(context).cardTheme.color,
       leadingSize: this.leadingSize ?? DesignSystem.size.x28,
       additionalInfo: this.additionalInfo,
-      title: this.title,
+      title: Row(
+        children: [
+          this.leading ??
+              (this.leadingIcon != null
+                  ? BaseCupertinoListTileIcon(
+                      this.leadingIcon!,
+                      iconColor: this.leadingIconColor ?? Colors.white,
+                      backgroundColor:
+                          this.leadingIconBackgroundColor ?? Colors.blue,
+                      border: this.leadingIconBorder,
+                    )
+                  : const SizedBox()),
+          SizedBox(width: DesignSystem.spacing.x12),
+          this.title,
+        ],
+      ),
       subtitle: this.subtitle,
     );
   }
