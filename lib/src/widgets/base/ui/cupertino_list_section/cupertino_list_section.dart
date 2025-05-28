@@ -40,10 +40,10 @@ class BaseCupertinoListSection extends StatelessWidget {
       backgroundColor: Colors.transparent,
       margin: EdgeInsets.zero,
       // dividerMargin: this.hasLeading ? (this.dividerMargin ?? 23.0) : 0,
+      // hasLeading: this.hasLeading,
       dividerMargin: 0,
       additionalDividerMargin: 0,
       separatorColor: backgroundColor ?? Theme.of(context).cardColor,
-      hasLeading: this.hasLeading,
       header: this.header,
       footer: this.footer ??
           (this.footerText != null
@@ -63,7 +63,11 @@ class BaseCupertinoListSection extends StatelessWidget {
           tile,
           if (index < children.length - 1)
             Padding(
-              padding: EdgeInsets.only(left: this.hasLeading ? 64 : 28),
+              padding: EdgeInsets.only(
+                  top: DesignSystem.spacing.x2,
+                  left: this.hasLeading
+                      ? DesignSystem.spacing.x64 + DesignSystem.spacing.x2
+                      : DesignSystem.spacing.x24),
               child: const Divider(
                 color: CupertinoColors.opaqueSeparator,
                 height: 0,
