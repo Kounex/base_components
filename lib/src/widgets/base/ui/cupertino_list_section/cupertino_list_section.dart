@@ -7,6 +7,8 @@ class BaseCupertinoListSection extends StatelessWidget {
   final List<BaseCupertinoListTile>? tiles;
   final List<Widget>? customChildren;
 
+  final Color? backgroundColor;
+
   final bool hasLeading;
   final double? dividerMargin;
 
@@ -19,6 +21,7 @@ class BaseCupertinoListSection extends StatelessWidget {
       {super.key,
       this.tiles,
       this.customChildren,
+      this.backgroundColor,
       this.hasLeading = true,
       this.dividerMargin,
       this.header,
@@ -29,6 +32,7 @@ class BaseCupertinoListSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoListSection.insetGrouped(
       backgroundColor: Colors.transparent,
+      decoration: BoxDecoration(color: this.backgroundColor),
       margin: EdgeInsets.zero,
       dividerMargin: this.hasLeading ? (this.dividerMargin ?? 23.0) : 0,
       hasLeading: this.hasLeading,
