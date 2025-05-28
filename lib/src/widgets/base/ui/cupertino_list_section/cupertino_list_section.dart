@@ -68,8 +68,8 @@ class BaseCupertinoListSection extends StatelessWidget {
                   left: this.hasLeading
                       ? DesignSystem.spacing.x64 + DesignSystem.spacing.x2
                       : DesignSystem.spacing.x24),
-              child: const Divider(
-                color: CupertinoColors.opaqueSeparator,
+              child: Divider(
+                color: CupertinoColors.separator.resolveFrom(context),
                 height: 0,
                 thickness: 0.5,
               ),
