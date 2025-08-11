@@ -139,7 +139,9 @@ class _BaseCardState extends State<BaseCard> {
           if (this.widget.titleWidget != null || this.widget.title != null)
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: this.widget.expandOnHeaderClick ? _expand : null,
+              onTap: this.widget.expandable && this.widget.expandOnHeaderClick
+                  ? _expand
+                  : null,
               child: Padding(
                 padding: this.widget.titlePadding ??
                     EdgeInsets.only(
