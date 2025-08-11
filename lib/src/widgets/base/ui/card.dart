@@ -200,7 +200,12 @@ class _BaseCardState extends State<BaseCard> {
             ),
           AnimatedAlign(
             duration: DesignSystem.animation.defaultDurationMS250,
-            heightFactor: _expandedTurn % 2 == 0 ? 1.0 : 0.0,
+            heightFactor:
+                !this.widget.expandable && this.widget.onExpand == null
+                    ? 1.0
+                    : _expandedTurn % 2 == 0
+                        ? 1.0
+                        : 0.0,
             alignment: const Alignment(0, -1),
             curve: Curves.easeInCubic,
             child: AnimatedOpacity(
