@@ -143,7 +143,8 @@ class _BaseCardState extends State<BaseCard> {
         children: [
           if (this.widget.titleWidget != null || this.widget.title != null)
             GestureDetector(
-              onTap: _expand,
+              behavior: HitTestBehavior.translucent,
+              onTap: this.widget.expandOnHeaderClick ? _expand : null,
               child: Padding(
                 padding: this.widget.titlePadding ??
                     EdgeInsets.only(
@@ -181,7 +182,9 @@ class _BaseCardState extends State<BaseCard> {
                               curve: Curves.easeInCubic,
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(32),
-                                onTap: _expand,
+                                onTap: !this.widget.expandOnHeaderClick
+                                    ? _expand
+                                    : null,
                                 // behavior: HitTestBehavior.opaque,
                                 child: SizedBox(
                                   height: 32.0,
