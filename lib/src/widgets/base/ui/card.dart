@@ -6,8 +6,7 @@ class BaseCard extends StatefulWidget {
   final Widget child;
   final bool centerChild;
 
-  final bool? initialExpanded;
-  final bool? expanded;
+  final bool expanded;
   final bool expandable;
   final bool expandOnHeaderClick;
   final void Function(bool expanded)? onExpand;
@@ -46,8 +45,7 @@ class BaseCard extends StatefulWidget {
   const BaseCard({
     super.key,
     required this.child,
-    this.initialExpanded,
-    this.expanded,
+    this.expanded = false,
     this.expandable = false,
     this.expandOnHeaderClick = false,
     this.onExpand,
@@ -86,10 +84,7 @@ class _BaseCardState extends State<BaseCard> {
   void initState() {
     super.initState();
 
-    if (this.widget.initialExpanded != null || this.widget.expanded != null) {
-      _expandedTurn =
-          (this.widget.initialExpanded ?? this.widget.expanded != null) ? 0 : 1;
-    }
+    _expandedTurn = this.widget.expanded ? 0 : 1;
   }
 
   @override
@@ -165,16 +160,13 @@ class _BaseCardState extends State<BaseCard> {
                                     Theme.of(context).textTheme.headlineSmall,
                               )
                             : this.widget.titleWidget!),
-                    if (this.widget.initialExpanded != null ||
-                        this.widget.expanded != null ||
-                        this.widget.trailingTitleWidget != null)
+                    if (this.widget.trailingTitleWidget != null)
                       Row(
                         children: [
                           if (this.widget.trailingTitleWidget
                               case var trailingTitleWidget?)
                             trailingTitleWidget,
-                          if (this.widget.initialExpanded != null ||
-                              this.widget.expanded != null)
+                          if (this.widget.expandable)
                             AnimatedRotation(
                               duration:
                                   DesignSystem.animation.defaultDurationMS250,
@@ -191,7 +183,7 @@ class _BaseCardState extends State<BaseCard> {
                                   width: 32.0,
                                   child: Icon(
                                     CupertinoIcons.chevron_up,
-                                    color: !this.widget.expandable
+                                    color: this.widget.onExpand == null
                                         ? Theme.of(context).disabledColor
                                         : null,
                                   ),
