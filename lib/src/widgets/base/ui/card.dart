@@ -160,39 +160,38 @@ class _BaseCardState extends State<BaseCard> {
                                     Theme.of(context).textTheme.headlineSmall,
                               )
                             : this.widget.titleWidget!),
-                    if (this.widget.trailingTitleWidget != null)
-                      Row(
-                        children: [
-                          if (this.widget.trailingTitleWidget
-                              case var trailingTitleWidget?)
-                            trailingTitleWidget,
-                          if (this.widget.expandable)
-                            AnimatedRotation(
-                              duration:
-                                  DesignSystem.animation.defaultDurationMS250,
-                              turns: _expandedTurn / 2,
-                              curve: Curves.easeInCubic,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(32),
-                                onTap: !this.widget.expandOnHeaderClick
-                                    ? _expand
-                                    : null,
-                                // behavior: HitTestBehavior.opaque,
-                                child: SizedBox(
-                                  height: 32.0,
-                                  width: 32.0,
-                                  child: Icon(
-                                    CupertinoIcons.chevron_up,
-                                    color: this.widget.onExpand == null &&
-                                            !this.widget.expandable
-                                        ? Theme.of(context).disabledColor
-                                        : null,
-                                  ),
+                    Row(
+                      children: [
+                        if (this.widget.trailingTitleWidget
+                            case var trailingTitleWidget?)
+                          trailingTitleWidget,
+                        if (this.widget.expandable)
+                          AnimatedRotation(
+                            duration:
+                                DesignSystem.animation.defaultDurationMS250,
+                            turns: _expandedTurn / 2,
+                            curve: Curves.easeInCubic,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(32),
+                              onTap: !this.widget.expandOnHeaderClick
+                                  ? _expand
+                                  : null,
+                              // behavior: HitTestBehavior.opaque,
+                              child: SizedBox(
+                                height: 32.0,
+                                width: 32.0,
+                                child: Icon(
+                                  CupertinoIcons.chevron_up,
+                                  color: this.widget.onExpand == null &&
+                                          !this.widget.expandable
+                                      ? Theme.of(context).disabledColor
+                                      : null,
                                 ),
                               ),
-                            )
-                        ],
-                      ),
+                            ),
+                          )
+                      ],
+                    ),
                   ],
                 ),
               ),
