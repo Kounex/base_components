@@ -183,7 +183,8 @@ class _BaseCardState extends State<BaseCard> {
                                   width: 32.0,
                                   child: Icon(
                                     CupertinoIcons.chevron_up,
-                                    color: this.widget.onExpand == null
+                                    color: this.widget.onExpand == null &&
+                                            !this.widget.expandable
                                         ? Theme.of(context).disabledColor
                                         : null,
                                   ),
