@@ -98,10 +98,10 @@ class _BaseCardState extends State<BaseCard> {
   }
 
   void _expand() => this.widget.expandable
-      ? () => setState(() {
-            _expandedTurn++;
-            this.widget.onExpand?.call(_expandedTurn % 2 == 0);
-          })
+      ? setState(() {
+          _expandedTurn++;
+          this.widget.onExpand?.call(_expandedTurn % 2 == 0);
+        })
       : null;
 
   @override
