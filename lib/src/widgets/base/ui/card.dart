@@ -6,7 +6,7 @@ class BaseCard extends StatefulWidget {
   final Widget child;
   final bool centerChild;
 
-  final bool expanded;
+  final bool? expanded;
   final bool expandable;
   final bool expandOnHeaderClick;
   final void Function(bool expanded)? onExpand;
@@ -45,7 +45,7 @@ class BaseCard extends StatefulWidget {
   const BaseCard({
     super.key,
     required this.child,
-    this.expanded = false,
+    this.expanded,
     this.expandable = false,
     this.expandOnHeaderClick = false,
     this.onExpand,
@@ -84,7 +84,8 @@ class _BaseCardState extends State<BaseCard> {
   void initState() {
     super.initState();
 
-    _expandedTurn = this.widget.expanded ? 0 : 1;
+    _expandedTurn =
+        this.widget.expanded != null && this.widget.expanded! ? 0 : 1;
   }
 
   @override
@@ -99,10 +100,15 @@ class _BaseCardState extends State<BaseCard> {
 
   void _expand() => this.widget.expandable
       ? setState(() {
-          _expandedTurn++;
+          if (this.widget.expanded == null) {
+            _expandedTurn++;
+          }
           this.widget.onExpand?.call(_expandedTurn % 2 == 0);
         })
       : null;
+
+  bool _expandedIfExpandable() =>
+      !this.widget.expandable || _expandedTurn % 2 == 0;
 
   @override
   Widget build(BuildContext context) {
@@ -179,16 +185,10 @@ class _BaseCardState extends State<BaseCard> {
                                   ? _expand
                                   : null,
                               // behavior: HitTestBehavior.opaque,
-                              child: SizedBox(
+                              child: const SizedBox(
                                 height: 32.0,
                                 width: 32.0,
-                                child: Icon(
-                                  CupertinoIcons.chevron_up,
-                                  color: this.widget.onExpand == null &&
-                                          !this.widget.expandable
-                                      ? Theme.of(context).disabledColor
-                                      : null,
-                                ),
+                                child: Icon(CupertinoIcons.chevron_up),
                               ),
                             ),
                           )
@@ -200,17 +200,12 @@ class _BaseCardState extends State<BaseCard> {
             ),
           AnimatedAlign(
             duration: DesignSystem.animation.defaultDurationMS250,
-            heightFactor:
-                !this.widget.expandable && this.widget.onExpand == null
-                    ? 1.0
-                    : _expandedTurn % 2 == 0
-                        ? 1.0
-                        : 0.0,
+            heightFactor: _expandedIfExpandable() ? 1.0 : 0,
             alignment: const Alignment(0, -1),
             curve: Curves.easeInCubic,
             child: AnimatedOpacity(
               duration: DesignSystem.animation.defaultDurationMS250,
-              opacity: _expandedTurn % 2 == 0 ? 1.0 : 0.0,
+              opacity: _expandedIfExpandable() ? 1.0 : 0,
               curve: Curves.easeInCubic,
               child: Column(
                 children: [
