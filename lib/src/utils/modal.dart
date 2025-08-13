@@ -143,6 +143,7 @@ class ModalUtils {
     bool fullscreen = false,
     bool forceExpand = false,
     bool includeCloseButton = true,
+    bool popOnClose = true,
     void Function()? onClose,
   }) =>
       showModalBottomSheet(
@@ -169,7 +170,9 @@ class ModalUtils {
               child: IconButton(
                 onPressed: () {
                   onClose?.call();
-                  Navigator.of(context).pop();
+                  if (popOnClose) {
+                    Navigator.of(context).pop();
+                  }
                 },
                 icon: const Icon(CupertinoIcons.clear),
               ),
