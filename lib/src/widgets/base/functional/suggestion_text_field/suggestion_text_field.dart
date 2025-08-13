@@ -127,9 +127,9 @@ class _BaseSuggestionTextField<T> extends State<BaseSuggestionTextField<T>>
   void didUpdateWidget(covariant BaseSuggestionTextField<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if ((this.widget.selection ?? '') != _controller.text) {
+    if (this.widget.selection != null && oldWidget.selection == null) {
       SchedulerBinding.instance.addPostFrameCallback(
-          (_) => _controller.text = this.widget.selection ?? '');
+          (_) => _controller.text = this.widget.selection!);
     }
   }
 

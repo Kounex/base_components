@@ -164,7 +164,7 @@ class _SuggestionOverlayState<T> extends State<SuggestionOverlay<T>> {
                             (index, suggestion) => [
                               SuggestionListTile(
                                 suggestion: suggestion,
-                                controller: this.widget.controller,
+                                text: this.widget.controller.text,
                                 focus: this.widget.focus,
                                 currentSuggestions:
                                     this.widget.currentSuggestions,
@@ -193,7 +193,7 @@ class _SuggestionOverlayState<T> extends State<SuggestionOverlay<T>> {
                           (this.widget.onCreateNew != null ||
                               this.widget.currentSuggestions.isEmpty))
                         SuggestionListTile(
-                          controller: this.widget.controller,
+                          text: this.widget.controller.text,
                           focus: this.widget.focus,
                           currentSuggestions: this.widget.currentSuggestions,
                           onCreateNew: this.widget.onCreateNew,
