@@ -46,7 +46,7 @@ class BaseSuggestionTextField<T> extends StatefulWidget {
     this.suggestionBuilder,
     this.onSuggestionTapped,
     this.onCreateNew,
-    required this.onDeleteSelection,
+    this.onDeleteSelection,
     this.sort,
     this.hintText,
     this.anchorType = AnchorType.left,
