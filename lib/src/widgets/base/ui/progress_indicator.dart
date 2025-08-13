@@ -28,6 +28,8 @@ class BaseProgressIndicator extends StatefulWidget {
 
   final Color? color;
 
+  final TextStyle? style;
+
   BaseProgressIndicator({
     super.key,
     this.text,
@@ -39,6 +41,7 @@ class BaseProgressIndicator extends StatefulWidget {
     this.size = 32.0,
     this.strokeWidth = 2.0,
     this.color,
+    this.style,
   })  : assert(text != null && text.isNotEmpty || text == null),
         assert(
           countdownInSeconds != null
@@ -130,7 +133,7 @@ class _BaseProgressIndicatorState extends State<BaseProgressIndicator> {
             child: Text(
               this.widget.text!,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: this.widget.style ?? Theme.of(context).textTheme.bodySmall,
             ),
           )
       ],
