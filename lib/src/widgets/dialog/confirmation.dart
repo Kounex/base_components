@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'adaptive_dialog/adaptive_dialog.dart';
 
 class BaseConfirmationDialog extends StatelessWidget {
-  final String title;
+  final String? title;
   final String? body;
   final Widget? bodyWidget;
   final bool popDialogOnOk;
@@ -15,11 +15,13 @@ class BaseConfirmationDialog extends StatelessWidget {
 
   final bool enableDontShowAgainOption;
 
+  final TargetPlatform? platform;
+
   final void Function(bool isDontShowAgainChecked) onYes;
 
   const BaseConfirmationDialog({
     super.key,
-    required this.title,
+    this.title,
     this.body,
     this.bodyWidget,
     required this.onYes,
@@ -28,16 +30,19 @@ class BaseConfirmationDialog extends StatelessWidget {
     this.yesText = 'Yes',
     this.noText = 'No',
     this.enableDontShowAgainOption = false,
+    this.platform,
   }) : assert(body != null && bodyWidget == null ||
             body == null && bodyWidget != null);
 
   @override
   Widget build(BuildContext context) {
     return BaseAdaptiveDialog(
-      title: this.title,
-      body: this.body,
+      title: this.title ?? 'Warning',
+      body: this.body ??
+          'Are you sure you want to do this? This action can\'t be undone!',
       bodyWidget: this.bodyWidget,
       enableDontShowAgainOption: this.enableDontShowAgainOption,
+      platform: this.platform,
       actions: [
         BaseDialogAction(
           child: Text(this.noText),
