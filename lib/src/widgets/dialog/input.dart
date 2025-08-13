@@ -26,21 +26,23 @@ class BaseInputDialog extends StatefulWidget {
   /// the error text which should be displayed (prevents the 'Ok' dialog callback)
   final String? Function(String?)? inputCheck;
 
-  const BaseInputDialog({
-    super.key,
-    required this.title,
-    required this.body,
-    this.onSave,
-    this.onDelete,
-    this.deleteText,
-    this.cancelText,
-    this.saveText,
-    this.inputText,
-    this.inputPlaceholder,
-    this.inputCheck,
-    this.clearButton = true,
-    this.clearButtonVisibleWithoutFocus = true,
-  });
+  final TargetPlatform? platform;
+
+  const BaseInputDialog(
+      {super.key,
+      required this.title,
+      required this.body,
+      this.onSave,
+      this.onDelete,
+      this.deleteText,
+      this.cancelText,
+      this.saveText,
+      this.inputText,
+      this.inputPlaceholder,
+      this.inputCheck,
+      this.clearButton = true,
+      this.clearButtonVisibleWithoutFocus = true,
+      this.platform});
 
   @override
   _BaseInputDialogState createState() => _BaseInputDialogState();
@@ -68,6 +70,7 @@ class _BaseInputDialogState extends State<BaseInputDialog> {
   Widget build(BuildContext context) {
     return BaseAdaptiveDialog(
       title: this.widget.title,
+      platform: this.widget.platform,
       bodyWidget: Column(
         children: [
           Text(this.widget.body),

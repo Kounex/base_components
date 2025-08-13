@@ -11,19 +11,22 @@ class BaseInfoDialog extends StatelessWidget {
 
   final Function(bool isDontShowAgainChecked)? onPressed;
 
-  const BaseInfoDialog({
-    super.key,
-    required this.body,
-    this.title,
-    this.enableDontShowAgainOption = false,
-    this.onPressed,
-  });
+  final TargetPlatform? platform;
+
+  const BaseInfoDialog(
+      {super.key,
+      required this.body,
+      this.title,
+      this.enableDontShowAgainOption = false,
+      this.onPressed,
+      this.platform});
 
   @override
   Widget build(BuildContext context) {
     return BaseAdaptiveDialog(
       title: this.title,
       body: this.body,
+      platform: this.platform,
       enableDontShowAgainOption: this.enableDontShowAgainOption,
       actions: [
         BaseDialogAction(
