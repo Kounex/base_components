@@ -36,6 +36,8 @@ class BaseSuggestionTextField<T> extends StatefulWidget {
   final bool paintBorder;
   final Color? borderColor;
 
+  final bool clearOnLoseFocus;
+
   const BaseSuggestionTextField({
     super.key,
     this.selection,
@@ -51,6 +53,7 @@ class BaseSuggestionTextField<T> extends StatefulWidget {
     this.minWidth,
     this.paintBorder = true,
     this.borderColor,
+    this.clearOnLoseFocus = false,
   }) : assert(suggestionText != null || suggestionBuilder != null);
 
   @override
@@ -111,7 +114,9 @@ class _BaseSuggestionTextField<T> extends State<BaseSuggestionTextField<T>>
     if (_focus.hasFocus && !_entry.mounted) {
       Overlay.of(context).insert(_entry);
     } else if (!_focus.hasFocus && _entry.mounted) {
-      _controller.text = this.widget.selection ?? '';
+      if (this.widget.clearOnLoseFocus) {
+        _controller.text = this.widget.selection ?? '';
+      }
       _animController.reverse().whenComplete(() {
         _entry.remove();
       });

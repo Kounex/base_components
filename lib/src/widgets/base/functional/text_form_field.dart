@@ -83,7 +83,7 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
         counterText: '',
         suffixIcon: AnimatedSwitcher(
           duration: DesignSystem.animation.defaultDurationMS250,
-          child: _focus.hasFocus
+          child: _focus.hasFocus && _controller.text.isNotEmpty
               ? IconButton(
                   onPressed: () => _controller.clear(),
                   icon: const Icon(CupertinoIcons.clear_circled_solid),
