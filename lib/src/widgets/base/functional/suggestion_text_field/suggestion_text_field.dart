@@ -182,7 +182,10 @@ class _BaseSuggestionTextField<T> extends State<BaseSuggestionTextField<T>>
                 Positioned(
                   right: 0.0,
                   child: IconButton(
-                    onPressed: this.widget.onDeleteSelection,
+                    onPressed: () {
+                      _controller.text = '';
+                      this.widget.onDeleteSelection;
+                    },
                     icon: const Icon(CupertinoIcons.clear_circled_solid),
                   ),
                 ),
