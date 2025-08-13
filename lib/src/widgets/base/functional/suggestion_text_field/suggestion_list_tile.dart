@@ -5,7 +5,7 @@ import 'press_done_tag.dart';
 
 class SuggestionListTile<T> extends StatelessWidget {
   final T? suggestion;
-  final String text;
+  final TextEditingController controller;
   final FocusNode focus;
   final List<T> currentSuggestions;
   final String Function(T item)? suggestionText;
@@ -16,7 +16,7 @@ class SuggestionListTile<T> extends StatelessWidget {
   const SuggestionListTile({
     super.key,
     this.suggestion,
-    required this.text,
+    required this.controller,
     required this.focus,
     required this.currentSuggestions,
     this.suggestionText,
@@ -32,8 +32,9 @@ class SuggestionListTile<T> extends StatelessWidget {
         if (this.suggestion != null) {
           this.onSuggestionTapped?.call(this.suggestion as T);
         } else {
-          this.onCreateNew?.call(this.text);
+          this.onCreateNew?.call(this.controller.text);
         }
+        this.controller.text = '';
         this.focus.unfocus();
       },
       child: Row(

@@ -172,8 +172,10 @@ class _BaseSuggestionTextField<T> extends State<BaseSuggestionTextField<T>>
                 hintText: this.widget.hintText,
                 onFieldSubmitted: (text) {
                   if (_suggestions.length == 1) {
+                    _controller.text = '';
                     this.widget.onSuggestionTapped?.call(_suggestions.first);
                   } else if (_suggestions.isEmpty) {
+                    _controller.text = '';
                     this.widget.onCreateNew?.call(_controller.text);
                   }
                 },
