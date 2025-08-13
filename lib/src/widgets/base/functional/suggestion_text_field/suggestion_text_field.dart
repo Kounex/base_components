@@ -19,7 +19,7 @@ class BaseSuggestionTextField<T> extends StatefulWidget {
   final Widget Function(T item)? suggestionBuilder;
   final void Function(T item)? onSuggestionTapped;
   final void Function(String text)? onCreateNew;
-  final VoidCallback? onDeleteSelection;
+  final VoidCallback onDeleteSelection;
 
   final int Function(T a, T b)? sort;
 
@@ -46,7 +46,7 @@ class BaseSuggestionTextField<T> extends StatefulWidget {
     this.suggestionBuilder,
     this.onSuggestionTapped,
     this.onCreateNew,
-    this.onDeleteSelection,
+    required this.onDeleteSelection,
     this.sort,
     this.hintText,
     this.anchorType = AnchorType.left,
@@ -183,10 +183,8 @@ class _BaseSuggestionTextField<T> extends State<BaseSuggestionTextField<T>>
                   right: 0.0,
                   child: IconButton(
                     onPressed: () {
-                      setState((() {
-                        _controller.text = '';
-                        this.widget.onDeleteSelection;
-                      }));
+                      _controller.text = '';
+                      this.widget.onDeleteSelection();
                     },
                     icon: const Icon(CupertinoIcons.clear_circled_solid),
                   ),
