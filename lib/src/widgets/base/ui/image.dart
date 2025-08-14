@@ -14,8 +14,19 @@ import 'progress_indicator.dart';
 
 class BaseImage extends StatelessWidget {
   final String? imageBase64;
-  final String? imageUuid;
   final XFile? image;
+
+  /// Used as the name on the file system and matched with:
+  /// [basePath]/[subPath]/[imageUuid]
+  final String? imageUuid;
+
+  /// If for whatever reason the base path should be something else than
+  /// [getApplicationDocumentsDirectory()], we can define it here explicitly
+  final String? basePath;
+
+  /// By default it's looking on the root of [basePath], with subPath it's
+  /// looking for the path inside it
+  final String? subPath;
 
   final double? height;
   final double? width;
@@ -30,8 +41,10 @@ class BaseImage extends StatelessWidget {
   const BaseImage({
     super.key,
     this.imageBase64,
-    this.imageUuid,
     this.image,
+    this.imageUuid,
+    this.basePath,
+    this.subPath,
     this.height,
     this.width,
     this.borderRadius,
@@ -94,9 +107,29 @@ class BaseImage extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {
+                          String? basePath;
+                          String? subPath;
+
+                          if (this.basePath != null) {
+                            basePath = this.basePath!.endsWith('/')
+                                ? this
+                                    .basePath!
+                                    .substring(0, this.basePath!.length - 1)
+                                : this.basePath;
+                          }
+
+                          if (this.subPath != null) {
+                            subPath = this.subPath!.endsWith('/')
+                                ? this
+                                    .subPath!
+                                    .substring(0, this.subPath!.length - 1)
+                                : this.subPath;
+                          }
+
                           return Image(
                             image: FileImage(
-                              File('${snapshot.data!.path}/${this.imageUuid}'),
+                              File(
+                                  '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.imageUuid}'),
                             ),
                             height: this.height,
                             width: this.width,
