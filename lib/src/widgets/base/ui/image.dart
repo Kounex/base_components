@@ -33,10 +33,14 @@ class BaseImage extends StatelessWidget {
 
   final double? borderRadius;
   final double? borderWidth;
+  final Color? borderColor;
 
   final double actionSize;
   final IconData? icon;
   final void Function()? onAction;
+
+  final IconData? additionalIcon;
+  final double additionalIconSize;
 
   const BaseImage({
     super.key,
@@ -49,9 +53,12 @@ class BaseImage extends StatelessWidget {
     this.width,
     this.borderRadius,
     this.borderWidth,
+    this.borderColor,
     this.actionSize = 32.0,
     this.icon,
     this.onAction,
+    this.additionalIcon,
+    this.additionalIconSize = 32.0,
   }) : assert(imageBase64 != null || imageUuid != null || image != null);
 
   @override
@@ -64,7 +71,8 @@ class BaseImage extends StatelessWidget {
           width: this.width,
           foregroundDecoration: BoxDecoration(
             border: Border.all(
-              color: Theme.of(context).colorScheme.primaryContainer,
+              color: this.borderColor ??
+                  Theme.of(context).colorScheme.primaryContainer,
               width: this.borderWidth ?? DesignSystem.border.width3,
             ),
             borderRadius: BorderRadius.circular(
@@ -162,7 +170,8 @@ class BaseImage extends StatelessWidget {
               height: this.actionSize,
               width: this.actionSize,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: this.borderColor ??
+                    Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(
                       this.borderRadius ?? DesignSystem.border.radius12),
@@ -171,13 +180,49 @@ class BaseImage extends StatelessWidget {
                 ),
               ),
               child: FittedBox(
-                  child: Padding(
-                padding: EdgeInsets.all(DesignSystem.spacing.x8),
-                child: Icon(
-                  this.icon,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                child: Padding(
+                  padding: EdgeInsets.all(DesignSystem.spacing.x8),
+                  child: Icon(
+                    this.icon,
+                    color: this.borderColor != null
+                        ? DesignSystem.surroundingAwareAccent(
+                            surroundingColor: this.borderColor)
+                        : Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
                 ),
-              )),
+              ),
+            ),
+          ),
+        if (this.additionalIcon != null)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Container(
+              alignment: Alignment.center,
+              height: this.additionalIconSize,
+              width: this.additionalIconSize,
+              decoration: BoxDecoration(
+                color: this.borderColor ??
+                    Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(
+                      this.borderRadius ?? DesignSystem.border.radius12),
+                  topRight: Radius.circular(
+                      this.borderRadius ?? DesignSystem.border.radius12),
+                ),
+              ),
+              child: FittedBox(
+                child: Padding(
+                  padding: EdgeInsets.all(DesignSystem.spacing.x8),
+                  child: Icon(
+                    this.icon,
+                    color: this.borderColor != null
+                        ? DesignSystem.surroundingAwareAccent(
+                            surroundingColor: this.borderColor)
+                        : Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                ),
+              ),
             ),
           ),
       ],
