@@ -28,6 +28,7 @@ class ModalUtils {
       showDialog(
         useSafeArea: false,
         context: context,
+        barrierColor: transparent ? Colors.transparent : null,
         builder: (context) => Fader(
           child: Material(
             color: transparent ? Colors.transparent : Colors.black,
