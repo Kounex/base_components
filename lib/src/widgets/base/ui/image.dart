@@ -12,7 +12,7 @@ import '../../dialog/confirmation.dart';
 import '../functional/cached_memory_image.dart';
 import 'progress_indicator.dart';
 
-class BaseImage extends StatelessWidget {
+class BaseImage extends StatefulWidget {
   final String? imageBase64;
   final XFile? image;
 
@@ -62,43 +62,64 @@ class BaseImage extends StatelessWidget {
   }) : assert(imageBase64 != null || imageUuid != null || image != null);
 
   @override
+  State<BaseImage> createState() => _BaseImageState();
+}
+
+class _BaseImageState extends State<BaseImage> {
+  late final Future<Uint8List>? _image;
+  late final Future<Directory> _dir;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (this.widget.image != null) {
+      _image = this.widget.image!.readAsBytes();
+    }
+
+    if (this.widget.imageUuid != null) {
+      _dir = getApplicationDocumentsDirectory();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
         Container(
-          height: this.height,
-          width: this.width,
+          height: this.widget.height,
+          width: this.widget.width,
           foregroundDecoration: BoxDecoration(
             border: Border.all(
-              color: this.borderColor ??
+              color: this.widget.borderColor ??
                   Theme.of(context).colorScheme.primaryContainer,
-              width: this.borderWidth ?? DesignSystem.border.width3,
+              width: this.widget.borderWidth ?? DesignSystem.border.width3,
             ),
             borderRadius: BorderRadius.circular(
-                this.borderRadius ?? DesignSystem.border.radius12),
+                this.widget.borderRadius ?? DesignSystem.border.radius12),
           ),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(
-                  this.borderRadius ?? DesignSystem.border.radius12),
+                  this.widget.borderRadius ?? DesignSystem.border.radius12),
               child: () {
-                if (this.imageBase64 != null) {
+                if (this.widget.imageBase64 != null) {
                   return BaseCachedMemoryImage(
-                    imageBase64: this.imageBase64!,
-                    height: this.height,
-                    width: this.width,
+                    imageBase64: this.widget.imageBase64!,
+                    height: this.widget.height,
+                    width: this.widget.width,
                   );
                 }
-                if (this.image != null) {
+                if (this.widget.image != null) {
                   return FutureBuilder<Uint8List>(
-                    future: this.image!.readAsBytes(),
+                    future: _image,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {
                           return BaseCachedMemoryImage(
                             imageBase64: base64Encode(snapshot.data!),
-                            height: this.height,
-                            width: this.width,
+                            height: this.widget.height,
+                            width: this.widget.width,
                           );
                         }
                       }
@@ -109,38 +130,36 @@ class BaseImage extends StatelessWidget {
                     },
                   );
                 }
-                if (this.imageUuid != null) {
+                if (this.widget.imageUuid != null) {
                   return FutureBuilder<Directory>(
-                    future: getApplicationDocumentsDirectory(),
+                    future: _dir,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {
                           String? basePath;
                           String? subPath;
 
-                          if (this.basePath != null) {
-                            basePath = this.basePath!.endsWith('/')
-                                ? this
-                                    .basePath!
-                                    .substring(0, this.basePath!.length - 1)
-                                : this.basePath;
+                          if (this.widget.basePath != null) {
+                            basePath = this.widget.basePath!.endsWith('/')
+                                ? this.widget.basePath!.substring(
+                                    0, this.widget.basePath!.length - 1)
+                                : this.widget.basePath;
                           }
 
-                          if (this.subPath != null) {
-                            subPath = this.subPath!.endsWith('/')
-                                ? this
-                                    .subPath!
-                                    .substring(0, this.subPath!.length - 1)
-                                : this.subPath;
+                          if (this.widget.subPath != null) {
+                            subPath = this.widget.subPath!.endsWith('/')
+                                ? this.widget.subPath!.substring(
+                                    0, this.widget.subPath!.length - 1)
+                                : this.widget.subPath;
                           }
 
                           return Image(
                             image: FileImage(
                               File(
-                                  '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.imageUuid}'),
+                                  '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
                             ),
-                            height: this.height,
-                            width: this.width,
+                            height: this.widget.height,
+                            width: this.widget.width,
                             fit: BoxFit.cover,
                           );
                         }
@@ -154,71 +173,71 @@ class BaseImage extends StatelessWidget {
                 }
               }()),
         ),
-        if (this.icon != null && this.onAction != null)
+        if (this.widget.icon != null && this.widget.onAction != null)
           GestureDetector(
             onTap: () => ModalUtils.showBaseDialog(
               context,
               BaseConfirmationDialog(
                 title: 'Delete Image',
                 body: 'Are you sure you want to delete this image?',
-                onYes: (_) => this.onAction?.call(),
+                onYes: (_) => this.widget.onAction?.call(),
                 isYesDestructive: true,
               ),
             ),
             child: Container(
               alignment: Alignment.center,
-              height: this.actionSize,
-              width: this.actionSize,
+              height: this.widget.actionSize,
+              width: this.widget.actionSize,
               decoration: BoxDecoration(
-                color: this.borderColor ??
+                color: this.widget.borderColor ??
                     Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(
-                      this.borderRadius ?? DesignSystem.border.radius12),
+                      this.widget.borderRadius ?? DesignSystem.border.radius12),
                   topRight: Radius.circular(
-                      this.borderRadius ?? DesignSystem.border.radius12),
+                      this.widget.borderRadius ?? DesignSystem.border.radius12),
                 ),
               ),
               child: FittedBox(
                 child: Padding(
                   padding: EdgeInsets.all(DesignSystem.spacing.x8),
                   child: Icon(
-                    this.icon,
-                    color: this.borderColor != null
+                    this.widget.icon,
+                    color: this.widget.borderColor != null
                         ? DesignSystem.surroundingAwareAccent(
-                            surroundingColor: this.borderColor)
+                            surroundingColor: this.widget.borderColor)
                         : Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
                 ),
               ),
             ),
           ),
-        if (this.additionalIcon != null)
+        if (this.widget.additionalIcon != null)
           Positioned(
             bottom: 0,
             left: 0,
             child: Container(
               alignment: Alignment.center,
-              height: this.additionalIconSize,
-              width: this.additionalIconSize,
+              height: this.widget.additionalIconSize,
+              width: this.widget.additionalIconSize,
               decoration: BoxDecoration(
-                color: this.borderColor ??
+                color: this.widget.borderColor ??
                     Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(
-                      this.borderRadius ?? DesignSystem.border.radius12),
+                      this.widget.borderRadius ?? DesignSystem.border.radius12),
                   topRight: Radius.circular(
-                      this.borderRadius ?? DesignSystem.border.radius12),
+                      this.widget.borderRadius ?? DesignSystem.border.radius12),
                 ),
               ),
               child: FittedBox(
                 child: Padding(
                   padding: EdgeInsets.all(DesignSystem.spacing.x8),
                   child: Icon(
-                    this.additionalIcon,
-                    color: this.borderColor != null
+                    this.widget.additionalIcon,
+                    color: this.widget.borderColor != null
                         ? DesignSystem.surroundingAwareAccent(
-                            surroundingColor: this.borderColor)
+                            surroundingColor: this.widget.borderColor)
                         : Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
                 ),
