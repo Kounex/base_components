@@ -22,6 +22,7 @@ class ModalUtils {
     required BuildContext context,
     required Widget content,
     bool transparent = false,
+    bool includeClose = true,
     void Function()? onClose,
   }) async =>
       showDialog(
@@ -35,17 +36,18 @@ class ModalUtils {
               alignment: Alignment.center,
               children: [
                 content,
-                Positioned(
-                  top: 12.0 + MediaQuery.paddingOf(context).top,
-                  right: 12.0 + MediaQuery.paddingOf(context).right,
-                  child: IconButton(
-                    onPressed: () {
-                      onClose?.call();
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(CupertinoIcons.clear),
+                if (includeClose)
+                  Positioned(
+                    top: 12.0 + MediaQuery.paddingOf(context).top,
+                    right: 12.0 + MediaQuery.paddingOf(context).right,
+                    child: IconButton(
+                      onPressed: () {
+                        onClose?.call();
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(CupertinoIcons.clear),
+                    ),
                   ),
-                ),
               ],
             ),
           ),
