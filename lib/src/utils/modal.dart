@@ -27,41 +27,43 @@ class ModalUtils {
           final curvedSigma = DesignSystem.sigmaBlur * curved.value;
           final curvedTint = tint * curved.value;
 
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned.fill(
-                child: GestureDetector(
-                  onTap: () =>
-                      barrierDismissible ? Navigator.of(context).pop() : null,
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                        sigmaX: blur ? curvedSigma : 0,
-                        sigmaY: blur ? curvedSigma : 0),
-                    child: Container(
-                      color: Colors.black.withValues(
-                          alpha: transparent ? curvedTint : curved.value),
+          return Builder(builder: (context) {
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  child: GestureDetector(
+                    onTap: () =>
+                        barrierDismissible ? Navigator.of(context).pop() : null,
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: blur ? curvedSigma : 0,
+                          sigmaY: blur ? curvedSigma : 0),
+                      child: Container(
+                        color: Colors.black.withValues(
+                            alpha: transparent ? curvedTint : curved.value),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              FadeTransition(
-                opacity: curved,
-                child: content,
-              ),
-              if (includeClose)
-                Positioned(
-                  top: 12.0 + MediaQuery.paddingOf(context).top,
-                  right: 12.0 + MediaQuery.paddingOf(context).right,
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(CupertinoIcons.clear),
-                  ),
+                FadeTransition(
+                  opacity: curved,
+                  child: content,
                 ),
-            ],
-          );
+                if (includeClose)
+                  Positioned(
+                    top: 12.0 + MediaQuery.paddingOf(context).top,
+                    right: 12.0 + MediaQuery.paddingOf(context).right,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(CupertinoIcons.clear),
+                    ),
+                  ),
+              ],
+            );
+          });
         },
       );
 
