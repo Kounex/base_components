@@ -161,7 +161,7 @@ class BaseImage extends StatelessWidget {
               BaseConfirmationDialog(
                 title: 'Delete Image',
                 body: 'Are you sure you want to delete this image?',
-                onYes: (_) => this.onAction,
+                onYes: (_) => this.onAction?.call(),
                 isYesDestructive: true,
               ),
             ),
