@@ -21,6 +21,7 @@ class ModalUtils {
   static Future<T?> showFullscreen<T>({
     required BuildContext context,
     required Widget content,
+    bool transparent = false,
     void Function()? onClose,
   }) async =>
       showDialog(
@@ -28,7 +29,8 @@ class ModalUtils {
         context: context,
         builder: (context) => Fader(
           child: Material(
-            color: Colors.black,
+            color: transparent ? Colors.transparent : Colors.black,
+            type: transparent ? MaterialType.transparency : MaterialType.canvas,
             child: Stack(
               alignment: Alignment.center,
               children: [
