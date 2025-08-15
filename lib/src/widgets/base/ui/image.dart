@@ -215,7 +215,7 @@ class BaseImage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(DesignSystem.spacing.x8),
                   child: Icon(
-                    this.icon,
+                    this.additionalIcon,
                     color: this.borderColor != null
                         ? DesignSystem.surroundingAwareAccent(
                             surroundingColor: this.borderColor)
