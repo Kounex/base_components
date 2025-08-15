@@ -4,55 +4,65 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/animation/fader.dart';
 import 'design_system.dart';
-
-// A translucent color that is painted on top of the blurred backdrop as the
-// dialog's background color
-// Extracted from https://developer.apple.com/design/resources/.
-const Color kDialogColor = CupertinoDynamicColor.withBrightness(
-  color: Color(0xCCF2F2F2),
-  darkColor: Color(0xBF1E1E1E),
-);
-
-const double kDialogBlurAmount = 20.0;
 
 class ModalUtils {
   static Future<T?> showFullscreen<T>({
     required BuildContext context,
     required Widget content,
     bool transparent = false,
+    double tint = 0.54,
+    bool blur = false,
     bool includeClose = true,
+    bool barrierDismissible = false,
     void Function()? onClose,
   }) async =>
-      showDialog(
-        useSafeArea: false,
+      showGeneralDialog(
         context: context,
-        barrierColor: transparent ? Colors.transparent : null,
-        builder: (context) => Fader(
-          child: Material(
-            color: transparent ? Colors.transparent : Colors.black,
-            type: transparent ? MaterialType.transparency : MaterialType.canvas,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                content,
-                if (includeClose)
-                  Positioned(
-                    top: 12.0 + MediaQuery.paddingOf(context).top,
-                    right: 12.0 + MediaQuery.paddingOf(context).right,
-                    child: IconButton(
-                      onPressed: () {
-                        onClose?.call();
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(CupertinoIcons.clear),
+        barrierColor: Colors.transparent,
+        pageBuilder: (_, __, ___) => const SizedBox.shrink(),
+        transitionBuilder: (context, animation, _, __) {
+          final curved =
+              CurvedAnimation(parent: animation, curve: Curves.easeOut);
+          final curvedSigma = DesignSystem.sigmaBlur * curved.value;
+          final curvedTint = tint * curved.value;
+
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned.fill(
+                child: GestureDetector(
+                  onTap: () =>
+                      barrierDismissible ? Navigator.of(context).pop() : null,
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                        sigmaX: blur ? curvedSigma : 0,
+                        sigmaY: blur ? curvedSigma : 0),
+                    child: Container(
+                      color: Colors.black.withValues(
+                          alpha: transparent ? curvedTint : curved.value),
                     ),
                   ),
-              ],
-            ),
-          ),
-        ),
+                ),
+              ),
+              FadeTransition(
+                opacity: curved,
+                child: content,
+              ),
+              if (includeClose)
+                Positioned(
+                  top: 12.0 + MediaQuery.paddingOf(context).top,
+                  right: 12.0 + MediaQuery.paddingOf(context).right,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(CupertinoIcons.clear),
+                  ),
+                ),
+            ],
+          );
+        },
       );
 
   static Future<T?> showBaseDialog<T>(
