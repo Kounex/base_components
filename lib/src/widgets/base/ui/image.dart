@@ -105,6 +105,7 @@ class _BaseImageState extends State<BaseImage> {
               child: () {
                 if (this.widget.imageBase64 != null) {
                   return BaseCachedMemoryImage(
+                    key: ValueKey(this.widget.imageBase64),
                     imageBase64: this.widget.imageBase64!,
                     height: this.widget.height,
                     width: this.widget.width,
@@ -117,6 +118,7 @@ class _BaseImageState extends State<BaseImage> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {
                           return BaseCachedMemoryImage(
+                            key: ValueKey(this.widget.image),
                             imageBase64: base64Encode(snapshot.data!),
                             height: this.widget.height,
                             width: this.widget.width,
@@ -154,6 +156,7 @@ class _BaseImageState extends State<BaseImage> {
                           }
 
                           return Image(
+                            key: ValueKey(this.widget.imageUuid),
                             image: FileImage(
                               File(
                                   '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
