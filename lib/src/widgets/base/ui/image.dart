@@ -67,7 +67,7 @@ class BaseImage extends StatefulWidget {
 
 class _BaseImageState extends State<BaseImage> {
   late final Future<Uint8List>? _image;
-  late final Future<Directory> _dir;
+  late final Future<Directory>? _dir;
 
   @override
   void initState() {
@@ -113,6 +113,7 @@ class _BaseImageState extends State<BaseImage> {
                 }
                 if (this.widget.image != null) {
                   return FutureBuilder<Uint8List>(
+                    key: ValueKey(_image),
                     future: _image,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
@@ -134,6 +135,7 @@ class _BaseImageState extends State<BaseImage> {
                 }
                 if (this.widget.imageUuid != null) {
                   return FutureBuilder<Directory>(
+                    key: ValueKey(_dir),
                     future: _dir,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
