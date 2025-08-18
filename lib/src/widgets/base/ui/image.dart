@@ -66,10 +66,10 @@ class BaseImage extends StatefulWidget {
   State<BaseImage> createState() => _BaseImageState();
 }
 
-class _BaseImageState extends State<BaseImage>
-    with AutomaticKeepAliveClientMixin {
+class _BaseImageState extends State<BaseImage> {
   late final Future<Uint8List>? _image;
   late final Future<Directory>? _dir;
+  Directory? _lastDir;
 
   @override
   void initState() {
@@ -86,7 +86,6 @@ class _BaseImageState extends State<BaseImage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Stack(
       alignment: Alignment.topRight,
       children: [
@@ -132,12 +131,15 @@ class _BaseImageState extends State<BaseImage>
                     return const SizedBox();
                   },
                 ),
-              _ when this.widget.imageUuid != null => FutureBuilder<Directory>(
+              _ when this.widget.imageUuid != null => FutureBuilder<Directory?>(
                   key: ValueKey(_dir),
                   future: _dir,
+                  initialData: _lastDir,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
+                        _lastDir = snapshot.data;
+
                         String? basePath;
                         String? subPath;
 
@@ -253,8 +255,4 @@ class _BaseImageState extends State<BaseImage>
       ],
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
