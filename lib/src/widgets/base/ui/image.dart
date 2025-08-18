@@ -69,7 +69,6 @@ class BaseImage extends StatefulWidget {
 class _BaseImageState extends State<BaseImage> {
   late final Future<Uint8List>? _image;
   late final Future<Directory>? _dir;
-  Directory? _lastDir;
 
   @override
   void initState() {
@@ -130,50 +129,46 @@ class _BaseImageState extends State<BaseImage> {
                     return const SizedBox();
                   },
                 ),
-              _ when this.widget.imageUuid != null => FutureBuilder<Directory?>(
+              _ when this.widget.imageUuid != null => FutureBuilder<Directory>(
                   future: _dir,
-                  initialData: _lastDir,
                   builder: (context, snapshot) {
-                    final dir = snapshot.data ?? _lastDir;
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        String? basePath;
+                        String? subPath;
 
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.hasData) {
-                      _lastDir = snapshot.data;
-                    }
-                    if (dir != null) {
-                      String? basePath;
-                      String? subPath;
+                        if (this.widget.basePath != null) {
+                          basePath = this.widget.basePath!.endsWith('/')
+                              ? this.widget.basePath!.substring(
+                                  0, this.widget.basePath!.length - 1)
+                              : this.widget.basePath;
+                        }
 
-                      if (this.widget.basePath != null) {
-                        basePath = this.widget.basePath!.endsWith('/')
-                            ? this
-                                .widget
-                                .basePath!
-                                .substring(0, this.widget.basePath!.length - 1)
-                            : this.widget.basePath;
+                        if (this.widget.subPath != null) {
+                          subPath = this.widget.subPath!.endsWith('/')
+                              ? this
+                                  .widget
+                                  .subPath!
+                                  .substring(0, this.widget.subPath!.length - 1)
+                              : this.widget.subPath;
+                        }
+
+                        return Image(
+                          key: ValueKey(this.widget.imageUuid),
+                          image: FileImage(
+                            File(
+                                '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
+                          ),
+                          height: this.widget.height,
+                          width: this.widget.width,
+                          fit: BoxFit.cover,
+                        );
                       }
-
-                      if (this.widget.subPath != null) {
-                        subPath = this.widget.subPath!.endsWith('/')
-                            ? this
-                                .widget
-                                .subPath!
-                                .substring(0, this.widget.subPath!.length - 1)
-                            : this.widget.subPath;
-                      }
-
-                      return Image(
-                        key: ValueKey(this.widget.imageUuid),
-                        image: FileImage(
-                          File(
-                              '${(basePath ?? dir.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
-                        ),
-                        height: this.widget.height,
-                        width: this.widget.width,
-                        fit: BoxFit.cover,
-                      );
                     }
-                    return BaseProgressIndicator();
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return BaseProgressIndicator();
+                    }
+                    return const SizedBox();
                   },
                 ),
               _ => const BasePlaceholder(text: 'Missing image'),
