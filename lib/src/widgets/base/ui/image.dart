@@ -66,7 +66,8 @@ class BaseImage extends StatefulWidget {
   State<BaseImage> createState() => _BaseImageState();
 }
 
-class _BaseImageState extends State<BaseImage> {
+class _BaseImageState extends State<BaseImage>
+    with AutomaticKeepAliveClientMixin {
   late final Future<Uint8List>? _image;
   late final Future<Directory>? _dir;
 
@@ -85,6 +86,7 @@ class _BaseImageState extends State<BaseImage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Stack(
       alignment: Alignment.topRight,
       children: [
@@ -251,4 +253,8 @@ class _BaseImageState extends State<BaseImage> {
       ],
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
