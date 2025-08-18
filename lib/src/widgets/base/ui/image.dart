@@ -112,7 +112,6 @@ class _BaseImageState extends State<BaseImage> {
                   width: this.widget.width,
                 ),
               _ when this.widget.image != null => FutureBuilder<Uint8List>(
-                  key: ValueKey(_image),
                   future: _image,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
@@ -132,49 +131,49 @@ class _BaseImageState extends State<BaseImage> {
                   },
                 ),
               _ when this.widget.imageUuid != null => FutureBuilder<Directory?>(
-                  key: ValueKey(_dir),
                   future: _dir,
                   initialData: _lastDir,
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        _lastDir = snapshot.data;
+                    final dir = snapshot.data ?? _lastDir;
 
-                        String? basePath;
-                        String? subPath;
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      _lastDir = snapshot.data;
+                    }
+                    if (dir != null) {
+                      String? basePath;
+                      String? subPath;
 
-                        if (this.widget.basePath != null) {
-                          basePath = this.widget.basePath!.endsWith('/')
-                              ? this.widget.basePath!.substring(
-                                  0, this.widget.basePath!.length - 1)
-                              : this.widget.basePath;
-                        }
-
-                        if (this.widget.subPath != null) {
-                          subPath = this.widget.subPath!.endsWith('/')
-                              ? this
-                                  .widget
-                                  .subPath!
-                                  .substring(0, this.widget.subPath!.length - 1)
-                              : this.widget.subPath;
-                        }
-
-                        return Image(
-                          key: ValueKey(this.widget.imageUuid),
-                          image: FileImage(
-                            File(
-                                '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
-                          ),
-                          height: this.widget.height,
-                          width: this.widget.width,
-                          fit: BoxFit.cover,
-                        );
+                      if (this.widget.basePath != null) {
+                        basePath = this.widget.basePath!.endsWith('/')
+                            ? this
+                                .widget
+                                .basePath!
+                                .substring(0, this.widget.basePath!.length - 1)
+                            : this.widget.basePath;
                       }
+
+                      if (this.widget.subPath != null) {
+                        subPath = this.widget.subPath!.endsWith('/')
+                            ? this
+                                .widget
+                                .subPath!
+                                .substring(0, this.widget.subPath!.length - 1)
+                            : this.widget.subPath;
+                      }
+
+                      return Image(
+                        key: ValueKey(this.widget.imageUuid),
+                        image: FileImage(
+                          File(
+                              '${(basePath ?? dir.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
+                        ),
+                        height: this.widget.height,
+                        width: this.widget.width,
+                        fit: BoxFit.cover,
+                      );
                     }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return BaseProgressIndicator();
-                    }
-                    return const SizedBox();
+                    return BaseProgressIndicator();
                   },
                 ),
               _ => const BasePlaceholder(text: 'Missing image'),
