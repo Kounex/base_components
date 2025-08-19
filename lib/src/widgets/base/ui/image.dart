@@ -54,7 +54,7 @@ class BaseImage extends StatefulWidget {
     this.basePath,
     this.subPath,
     this.fit = BoxFit.cover,
-    this.stackFit = StackFit.loose,
+    this.stackFit = StackFit.expand,
     this.height,
     this.width,
     this.borderRadius,
