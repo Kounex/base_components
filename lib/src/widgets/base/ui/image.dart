@@ -85,23 +85,23 @@ class _BaseImageState extends State<BaseImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        DecoratedBox(
-          position: DecorationPosition.foreground,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: this.widget.borderColor ??
-                  Theme.of(context).colorScheme.primaryContainer,
-              width: this.widget.borderWidth ?? DesignSystem.border.width3,
+    return SizedBox(
+      height: this.widget.height,
+      width: this.widget.width,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          DecoratedBox(
+            position: DecorationPosition.foreground,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: this.widget.borderColor ??
+                    Theme.of(context).colorScheme.primaryContainer,
+                width: this.widget.borderWidth ?? DesignSystem.border.width3,
+              ),
+              borderRadius: BorderRadius.circular(
+                  this.widget.borderRadius ?? DesignSystem.border.radius12),
             ),
-            borderRadius: BorderRadius.circular(
-                this.widget.borderRadius ?? DesignSystem.border.radius12),
-          ),
-          child: SizedBox(
-            height: this.widget.height,
-            width: this.widget.width,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(
                   this.widget.borderRadius ?? DesignSystem.border.radius12),
@@ -170,25 +170,57 @@ class _BaseImageState extends State<BaseImage> {
               },
             ),
           ),
-        ),
-        if (this.widget.icon != null && this.widget.onAction != null)
-          Positioned(
-            top: 0,
-            right: 0,
-            child: GestureDetector(
-              onTap: () => ModalUtils.showBaseDialog(
-                context,
-                BaseConfirmationDialog(
-                  title: 'Delete Image',
-                  body: 'Are you sure you want to delete this image?',
-                  onYes: (_) => this.widget.onAction?.call(),
-                  isYesDestructive: true,
+          if (this.widget.icon != null && this.widget.onAction != null)
+            Positioned(
+              top: 0,
+              right: 0,
+              child: GestureDetector(
+                onTap: () => ModalUtils.showBaseDialog(
+                  context,
+                  BaseConfirmationDialog(
+                    title: 'Delete Image',
+                    body: 'Are you sure you want to delete this image?',
+                    onYes: (_) => this.widget.onAction?.call(),
+                    isYesDestructive: true,
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: this.widget.actionSize,
+                  width: this.widget.actionSize,
+                  decoration: BoxDecoration(
+                    color: this.widget.borderColor ??
+                        Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(this.widget.borderRadius ??
+                          DesignSystem.border.radius12),
+                      topRight: Radius.circular(this.widget.borderRadius ??
+                          DesignSystem.border.radius12),
+                    ),
+                  ),
+                  child: FittedBox(
+                    child: Padding(
+                      padding: EdgeInsets.all(DesignSystem.spacing.x8),
+                      child: Icon(
+                        this.widget.icon,
+                        color: this.widget.borderColor != null
+                            ? DesignSystem.surroundingAwareAccent(
+                                surroundingColor: this.widget.borderColor)
+                            : Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                    ),
+                  ),
                 ),
               ),
+            ),
+          if (this.widget.additionalIcon != null)
+            Positioned(
+              bottom: 0,
+              left: 0,
               child: Container(
                 alignment: Alignment.center,
-                height: this.widget.actionSize,
-                width: this.widget.actionSize,
+                height: this.widget.additionalIconSize,
+                width: this.widget.additionalIconSize,
                 decoration: BoxDecoration(
                   color: this.widget.borderColor ??
                       Theme.of(context).colorScheme.primaryContainer,
@@ -203,7 +235,7 @@ class _BaseImageState extends State<BaseImage> {
                   child: Padding(
                     padding: EdgeInsets.all(DesignSystem.spacing.x8),
                     child: Icon(
-                      this.widget.icon,
+                      this.widget.additionalIcon,
                       color: this.widget.borderColor != null
                           ? DesignSystem.surroundingAwareAccent(
                               surroundingColor: this.widget.borderColor)
@@ -213,40 +245,8 @@ class _BaseImageState extends State<BaseImage> {
                 ),
               ),
             ),
-          ),
-        if (this.widget.additionalIcon != null)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Container(
-              alignment: Alignment.center,
-              height: this.widget.additionalIconSize,
-              width: this.widget.additionalIconSize,
-              decoration: BoxDecoration(
-                color: this.widget.borderColor ??
-                    Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(
-                      this.widget.borderRadius ?? DesignSystem.border.radius12),
-                  topRight: Radius.circular(
-                      this.widget.borderRadius ?? DesignSystem.border.radius12),
-                ),
-              ),
-              child: FittedBox(
-                child: Padding(
-                  padding: EdgeInsets.all(DesignSystem.spacing.x8),
-                  child: Icon(
-                    this.widget.additionalIcon,
-                    color: this.widget.borderColor != null
-                        ? DesignSystem.surroundingAwareAccent(
-                            surroundingColor: this.widget.borderColor)
-                        : Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
-                ),
-              ),
-            ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
