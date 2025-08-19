@@ -88,20 +88,20 @@ class _BaseImageState extends State<BaseImage> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        SizedBox(
-          height: this.widget.height,
-          width: this.widget.width,
-          child: DecoratedBox(
-            position: DecorationPosition.foreground,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: this.widget.borderColor ??
-                    Theme.of(context).colorScheme.primaryContainer,
-                width: this.widget.borderWidth ?? DesignSystem.border.width3,
-              ),
-              borderRadius: BorderRadius.circular(
-                  this.widget.borderRadius ?? DesignSystem.border.radius12),
+        DecoratedBox(
+          position: DecorationPosition.foreground,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: this.widget.borderColor ??
+                  Theme.of(context).colorScheme.primaryContainer,
+              width: this.widget.borderWidth ?? DesignSystem.border.width3,
             ),
+            borderRadius: BorderRadius.circular(
+                this.widget.borderRadius ?? DesignSystem.border.radius12),
+          ),
+          child: SizedBox(
+            height: this.widget.height,
+            width: this.widget.width,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(
                   this.widget.borderRadius ?? DesignSystem.border.radius12),
@@ -109,8 +109,6 @@ class _BaseImageState extends State<BaseImage> {
                 _ when this.widget.imageBase64 != null => BaseCachedMemoryImage(
                     key: ValueKey(this.widget.imageBase64),
                     imageBase64: this.widget.imageBase64!,
-                    height: this.widget.height,
-                    width: this.widget.width,
                   ),
                 _ when this.widget.image != null => FutureBuilder<Uint8List>(
                     future: _image,
@@ -120,8 +118,6 @@ class _BaseImageState extends State<BaseImage> {
                           return BaseCachedMemoryImage(
                             key: ValueKey(this.widget.image),
                             imageBase64: base64Encode(snapshot.data!),
-                            height: this.widget.height,
-                            width: this.widget.width,
                           );
                         }
                       }
