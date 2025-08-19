@@ -29,6 +29,8 @@ class BaseImage extends StatefulWidget {
   /// looking for the path inside it
   final String? subPath;
 
+  final BoxFit fit;
+
   final double? height;
   final double? width;
 
@@ -50,6 +52,7 @@ class BaseImage extends StatefulWidget {
     this.imageUuid,
     this.basePath,
     this.subPath,
+    this.fit = BoxFit.cover,
     this.height,
     this.width,
     this.borderRadius,
@@ -110,6 +113,7 @@ class _BaseImageState extends State<BaseImage> {
                 _ when this.widget.imageBase64 != null => BaseCachedMemoryImage(
                     key: ValueKey(this.widget.imageBase64),
                     imageBase64: this.widget.imageBase64!,
+                    fit: this.widget.fit,
                   ),
                 _ when this.widget.image != null => FutureBuilder<Uint8List>(
                     future: _image,
@@ -119,6 +123,7 @@ class _BaseImageState extends State<BaseImage> {
                           return BaseCachedMemoryImage(
                             key: ValueKey(this.widget.image),
                             imageBase64: base64Encode(snapshot.data!),
+                            fit: this.widget.fit,
                           );
                         }
                       }
@@ -157,7 +162,7 @@ class _BaseImageState extends State<BaseImage> {
                               File(
                                   '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
                             ),
-                            fit: BoxFit.cover,
+                            fit: this.widget.fit,
                           );
                         }
                       }
