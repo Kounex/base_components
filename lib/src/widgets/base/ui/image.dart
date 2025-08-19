@@ -30,6 +30,7 @@ class BaseImage extends StatefulWidget {
   final String? subPath;
 
   final BoxFit fit;
+  final StackFit stackFit;
 
   final double? height;
   final double? width;
@@ -53,6 +54,7 @@ class BaseImage extends StatefulWidget {
     this.basePath,
     this.subPath,
     this.fit = BoxFit.cover,
+    this.stackFit = StackFit.loose,
     this.height,
     this.width,
     this.borderRadius,
@@ -93,6 +95,7 @@ class _BaseImageState extends State<BaseImage> {
       width: this.widget.width,
       child: Stack(
         alignment: Alignment.center,
+        fit: this.widget.stackFit,
         children: [
           DecoratedBox(
             position: DecorationPosition.foreground,
@@ -113,8 +116,6 @@ class _BaseImageState extends State<BaseImage> {
                     key: ValueKey(this.widget.imageBase64),
                     imageBase64: this.widget.imageBase64!,
                     fit: this.widget.fit,
-                    height: this.widget.height,
-                    width: this.widget.width,
                   ),
                 _ when this.widget.image != null => FutureBuilder<Uint8List>(
                     future: _image,
@@ -125,8 +126,6 @@ class _BaseImageState extends State<BaseImage> {
                             key: ValueKey(this.widget.image),
                             imageBase64: base64Encode(snapshot.data!),
                             fit: this.widget.fit,
-                            height: this.widget.height,
-                            width: this.widget.width,
                           );
                         }
                       }
@@ -166,8 +165,6 @@ class _BaseImageState extends State<BaseImage> {
                                   '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
                             ),
                             fit: this.widget.fit,
-                            height: this.widget.height,
-                            width: this.widget.width,
                           );
                         }
                       }
