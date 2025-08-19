@@ -92,6 +92,7 @@ class _BaseImageState extends State<BaseImage> {
           height: this.widget.height,
           width: this.widget.width,
           child: DecoratedBox(
+            position: DecorationPosition.foreground,
             decoration: BoxDecoration(
               border: Border.all(
                 color: this.widget.borderColor ??
