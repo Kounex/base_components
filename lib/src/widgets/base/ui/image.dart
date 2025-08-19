@@ -90,6 +90,7 @@ class _BaseImageState extends State<BaseImage> {
       width: this.widget.width,
       child: Stack(
         alignment: Alignment.center,
+        fit: StackFit.expand,
         children: [
           DecoratedBox(
             position: DecorationPosition.foreground,
