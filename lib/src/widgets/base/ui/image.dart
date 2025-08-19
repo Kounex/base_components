@@ -88,90 +88,91 @@ class _BaseImageState extends State<BaseImage> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        DecoratedBox(
-          position: DecorationPosition.foreground,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: this.widget.borderColor ??
-                  Theme.of(context).colorScheme.primaryContainer,
-              width: this.widget.borderWidth ?? DesignSystem.border.width3,
+        SizedBox(
+          height: this.widget.height,
+          width: this.widget.width,
+          child: DecoratedBox(
+            position: DecorationPosition.foreground,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: this.widget.borderColor ??
+                    Theme.of(context).colorScheme.primaryContainer,
+                width: this.widget.borderWidth ?? DesignSystem.border.width3,
+              ),
+              borderRadius: BorderRadius.circular(
+                  this.widget.borderRadius ?? DesignSystem.border.radius12),
             ),
-            borderRadius: BorderRadius.circular(
-                this.widget.borderRadius ?? DesignSystem.border.radius12),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(
-                this.widget.borderRadius ?? DesignSystem.border.radius12),
-            child: switch (true) {
-              _ when this.widget.imageBase64 != null => BaseCachedMemoryImage(
-                  key: ValueKey(this.widget.imageBase64),
-                  imageBase64: this.widget.imageBase64!,
-                  height: this.widget.height,
-                  width: this.widget.width,
-                ),
-              _ when this.widget.image != null => FutureBuilder<Uint8List>(
-                  future: _image,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        return BaseCachedMemoryImage(
-                          key: ValueKey(this.widget.image),
-                          imageBase64: base64Encode(snapshot.data!),
-                          height: this.widget.height,
-                          width: this.widget.width,
-                        );
-                      }
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return BaseProgressIndicator();
-                    }
-                    return const SizedBox();
-                  },
-                ),
-              _ when this.widget.imageUuid != null => FutureBuilder<Directory>(
-                  future: _dir,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        String? basePath;
-                        String? subPath;
-
-                        if (this.widget.basePath != null) {
-                          basePath = this.widget.basePath!.endsWith('/')
-                              ? this.widget.basePath!.substring(
-                                  0, this.widget.basePath!.length - 1)
-                              : this.widget.basePath;
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  this.widget.borderRadius ?? DesignSystem.border.radius12),
+              child: switch (true) {
+                _ when this.widget.imageBase64 != null => BaseCachedMemoryImage(
+                    key: ValueKey(this.widget.imageBase64),
+                    imageBase64: this.widget.imageBase64!,
+                    height: this.widget.height,
+                    width: this.widget.width,
+                  ),
+                _ when this.widget.image != null => FutureBuilder<Uint8List>(
+                    future: _image,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          return BaseCachedMemoryImage(
+                            key: ValueKey(this.widget.image),
+                            imageBase64: base64Encode(snapshot.data!),
+                            height: this.widget.height,
+                            width: this.widget.width,
+                          );
                         }
-
-                        if (this.widget.subPath != null) {
-                          subPath = this.widget.subPath!.endsWith('/')
-                              ? this
-                                  .widget
-                                  .subPath!
-                                  .substring(0, this.widget.subPath!.length - 1)
-                              : this.widget.subPath;
-                        }
-
-                        return Image(
-                          key: ValueKey(this.widget.imageUuid),
-                          image: FileImage(
-                            File(
-                                '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
-                          ),
-                          height: this.widget.height,
-                          width: this.widget.width,
-                          fit: BoxFit.cover,
-                        );
                       }
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return BaseProgressIndicator();
-                    }
-                    return const SizedBox();
-                  },
-                ),
-              _ => const BasePlaceholder(text: 'Missing image'),
-            },
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return BaseProgressIndicator();
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                _ when this.widget.imageUuid != null =>
+                  FutureBuilder<Directory>(
+                    future: _dir,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          String? basePath;
+                          String? subPath;
+
+                          if (this.widget.basePath != null) {
+                            basePath = this.widget.basePath!.endsWith('/')
+                                ? this.widget.basePath!.substring(
+                                    0, this.widget.basePath!.length - 1)
+                                : this.widget.basePath;
+                          }
+
+                          if (this.widget.subPath != null) {
+                            subPath = this.widget.subPath!.endsWith('/')
+                                ? this.widget.subPath!.substring(
+                                    0, this.widget.subPath!.length - 1)
+                                : this.widget.subPath;
+                          }
+
+                          return Image(
+                            key: ValueKey(this.widget.imageUuid),
+                            image: FileImage(
+                              File(
+                                  '${(basePath ?? snapshot.data!.path)}/${(subPath != null ? '$subPath/' : '')}${this.widget.imageUuid}'),
+                            ),
+                            fit: BoxFit.cover,
+                          );
+                        }
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return BaseProgressIndicator();
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                _ => const BasePlaceholder(text: 'Missing image'),
+              },
+            ),
           ),
         ),
         if (this.widget.icon != null && this.widget.onAction != null)
