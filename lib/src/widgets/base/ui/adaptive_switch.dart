@@ -34,6 +34,7 @@ class BaseAdaptiveSwitch extends StatelessWidget {
           ? FutureBuilder<IosDeviceInfo>(
               future: DeviceInfoPlugin().iosInfo,
               builder: (context, snapshot) {
+                print(snapshot);
                 if (snapshot.hasData) {
                   print(snapshot.data!.systemVersion);
                   return CupertinoSwitch(
