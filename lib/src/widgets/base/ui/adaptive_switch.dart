@@ -1,3 +1,4 @@
+import 'package:cupertino_native/components/switch.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,18 @@ class BaseAdaptiveSwitch extends StatelessWidget {
           ? FutureBuilder<IosDeviceInfo>(
               future: DeviceInfoPlugin().iosInfo,
               builder: (context, snapshot) {
-                print(snapshot);
                 if (snapshot.hasData) {
-                  print(snapshot.data!.systemVersion);
+                  if (DesignSystem.isLiquidGlass(snapshot.data!)) {
+                    return CNSwitch(
+                      value: this.value,
+                      color: this.activeColor ??
+                          Theme.of(context)
+                              .switchTheme
+                              .trackColor
+                              ?.resolve({WidgetState.selected}),
+                      onChanged: this.onChanged ?? (_) {},
+                    );
+                  }
                   return CupertinoSwitch(
                     value: this.value,
                     activeTrackColor: this.activeColor ??

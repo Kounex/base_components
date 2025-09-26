@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -140,6 +141,9 @@ final class DesignSystem {
   static bool isApple(BuildContext context, {TargetPlatform? platform}) =>
       (platform ?? Theme.of(context).platform) == TargetPlatform.iOS ||
       (platform ?? Theme.of(context).platform) == TargetPlatform.macOS;
+
+  static bool isLiquidGlass(IosDeviceInfo info) =>
+      int.parse(info.systemVersion.split('.')[0]) >= 26;
 
   static Breakpoint breakpoint({double? width, BuildContext? context}) {
     assert(width != null || context != null);
