@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,14 +31,23 @@ class BaseAdaptiveSwitch extends StatelessWidget {
               )
           : null,
       child: DesignSystem.isApple(context)
-          ? CupertinoSwitch(
-              value: this.value,
-              activeTrackColor: this.activeColor ??
-                  Theme.of(context)
-                      .switchTheme
-                      .trackColor
-                      ?.resolve({WidgetState.selected}),
-              onChanged: this.onChanged,
+          ? FutureBuilder<IosDeviceInfo>(
+              future: DeviceInfoPlugin().iosInfo,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  print(snapshot.data!.systemVersion);
+                  return CupertinoSwitch(
+                    value: this.value,
+                    activeTrackColor: this.activeColor ??
+                        Theme.of(context)
+                            .switchTheme
+                            .trackColor
+                            ?.resolve({WidgetState.selected}),
+                    onChanged: this.onChanged,
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             )
           : Switch(
               value: this.value,
