@@ -1,5 +1,4 @@
 import 'package:base_components/base_components.dart';
-import 'package:base_components/src/widgets/base/ui/adaptive_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -79,22 +78,24 @@ class BaseDescriptiveSlider extends StatelessWidget {
             ),
             Expanded(
               child: BaseAdaptiveSlider(
-                value: value,
-                onChanged: onChanged != null
+                value: this.value,
+                onChanged: this.onChanged != null
                     ? (newValue) {
                         if (newValue.toInt() != value.toInt() &&
                             newValue.toInt() >= localMin &&
                             newValue.toInt() <= localMax) {
-                          if (feedback) {
+                          if (this.feedback) {
                             HapticFeedback.lightImpact();
                           }
-                          onChanged!.call(newValue);
+                          this.onChanged!.call(newValue);
                         }
                       }
                     : null,
-                min: min,
-                max: max,
-                divisions: divisions,
+                min: this.min,
+                max: this.max,
+                softMin: this.softMin,
+                softMax: this.softMax,
+                divisions: this.divisions,
               ),
             ),
             ConstrainedBox(
