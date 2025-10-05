@@ -27,6 +27,7 @@ export 'src/widgets/base/functional/suggestion_text_field/suggestion_list_tile.d
 export 'src/widgets/base/functional/suggestion_text_field/suggestion_overlay.dart';
 export 'src/widgets/base/functional/suggestion_text_field/suggestion_text_field.dart';
 export 'src/widgets/base/functional/text_form_field.dart';
+export 'src/widgets/base/ui/adaptive_slider.dart';
 export 'src/widgets/base/ui/adaptive_switch.dart';
 export 'src/widgets/base/ui/button.dart';
 export 'src/widgets/base/ui/card.dart';
@@ -53,6 +54,7 @@ export 'src/widgets/cupertino/dropdown.dart';
 export 'src/widgets/cupertino/number_text_field.dart';
 export 'src/widgets/custom/column_separated.dart';
 export 'src/widgets/custom/described_box.dart';
+export 'src/widgets/custom/descriptive_slider.dart';
 export 'src/widgets/custom/formatted_text.dart';
 export 'src/widgets/custom/question_mark_tooltip.dart';
 export 'src/widgets/custom/social_block.dart';
