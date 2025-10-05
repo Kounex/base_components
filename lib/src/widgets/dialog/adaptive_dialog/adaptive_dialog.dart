@@ -78,9 +78,7 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
                 ),
         backgroundColor: Theme.of(context).cardTheme.color,
         elevation: 0,
-        scrollable: false,
         content: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             this.widget.bodyWidget ?? Text(this.widget.body!),
             if (this.widget.enableDontShowAgainOption)
