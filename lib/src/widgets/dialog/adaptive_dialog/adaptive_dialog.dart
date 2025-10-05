@@ -78,6 +78,7 @@ class _BaseAdaptiveDialogState extends State<BaseAdaptiveDialog> {
                 ),
         backgroundColor: Theme.of(context).cardTheme.color,
         elevation: 0,
+        scrollable: false,
         content: Column(
           children: [
             this.widget.bodyWidget ?? Text(this.widget.body!),
