@@ -61,7 +61,9 @@ class BaseAdaptiveSlider extends StatelessWidget {
                     },
                     min: this.min,
                     max: this.max,
-                    step: this.divisions?.toDouble(),
+                    step: this.divisions != null
+                        ? this.max - this.min / this.divisions!
+                        : null,
                   );
                 }
                 return CupertinoSlider(
