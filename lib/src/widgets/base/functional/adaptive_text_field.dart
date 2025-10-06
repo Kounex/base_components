@@ -262,44 +262,51 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
 
     Widget textField =
         switch (this.widget.platform ?? Theme.of(context).platform) {
-      TargetPlatform.iOS || TargetPlatform.macOS => CupertinoTextField(
-          focusNode: _focusNode,
-          controller: this.widget.controller,
-          expands: this.widget.expands,
-          scrollPadding: this.widget.scrollPadding,
-          style: this.widget.style,
-          textAlignVertical: this.widget.textAlignVertical,
-          cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
-          placeholder: this.widget.placeholder,
-          keyboardType: this.widget.keyboardType,
-          inputFormatters: _textInputFormatter(),
-          decoration: _validationText != null
-              ? _kDefaultRoundedBorderDecoration.copyWith(
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.error,
-                    width: 0.0,
-                  ),
-                )
-              : _kDefaultRoundedBorderDecoration,
-          minLines: this.widget.expands ? null : this.widget.minLines,
-          maxLines: this.widget.expands
-              ? null
-              : this.widget.maxLines ?? this.widget.minLines,
-          autocorrect: this.widget.autocorrect,
-          obscureText: this.widget.obscureText,
-          enabled: this.widget.enabled,
-          readOnly: this.widget.readOnly,
-          prefix: this.widget.prefix,
-          // clearButtonMode: this.widget.clearButton
-          //     ? OverlayVisibilityMode.editing
-          //     : OverlayVisibilityMode.never,
-          // suffix: !this.widget.clearButton
-          //     ? this.widget.suffix ?? this.widget.suffixIcon,
-          suffix: this.widget.clearButton
-              ? clearButton
-              : this.widget.suffix ?? this.widget.suffixIcon,
-          onChanged: this.widget.onChanged,
-          onSubmitted: this.widget.onSubmitted,
+      TargetPlatform.iOS || TargetPlatform.macOS => SizedBox(
+          /// Hotfix: for some reason if any decorations like prefix, suffix,
+          /// placeholder etc. is used, the rendering leads to no having the
+          /// size at layout time and therefore leads to scrolling in
+          /// dialog. Have to set a fixed height for now
+          height: 32,
+          child: CupertinoTextField(
+            focusNode: _focusNode,
+            controller: this.widget.controller,
+            expands: this.widget.expands,
+            scrollPadding: this.widget.scrollPadding,
+            style: this.widget.style,
+            textAlignVertical: this.widget.textAlignVertical,
+            cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+            placeholder: this.widget.placeholder,
+            keyboardType: this.widget.keyboardType,
+            inputFormatters: _textInputFormatter(),
+            decoration: _validationText != null
+                ? _kDefaultRoundedBorderDecoration.copyWith(
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.error,
+                      width: 0.0,
+                    ),
+                  )
+                : _kDefaultRoundedBorderDecoration,
+            minLines: this.widget.expands ? null : this.widget.minLines,
+            maxLines: this.widget.expands
+                ? null
+                : this.widget.maxLines ?? this.widget.minLines,
+            autocorrect: this.widget.autocorrect,
+            obscureText: this.widget.obscureText,
+            enabled: this.widget.enabled,
+            readOnly: this.widget.readOnly,
+            prefix: this.widget.prefix,
+            // clearButtonMode: this.widget.clearButton
+            //     ? OverlayVisibilityMode.editing
+            //     : OverlayVisibilityMode.never,
+            // suffix: !this.widget.clearButton
+            //     ? this.widget.suffix ?? this.widget.suffixIcon,
+            suffix: this.widget.clearButton
+                ? clearButton
+                : this.widget.suffix ?? this.widget.suffixIcon,
+            onChanged: this.widget.onChanged,
+            onSubmitted: this.widget.onSubmitted,
+          ),
         ),
       _ => Padding(
           padding: EdgeInsets.only(bottom: DesignSystem.spacing.x4),
@@ -313,6 +320,8 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
             cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
             decoration: InputDecoration(
               hintText: this.widget.placeholder,
+              hintStyle:
+                  const TextStyle(color: CupertinoColors.placeholderText),
               labelText: this.widget.labelText,
               prefix: this.widget.prefix,
               suffix:
