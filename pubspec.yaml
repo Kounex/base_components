@@ -3,8 +3,8 @@ description: "Base components which are reused for my apps"
 version: 1.0.0
 
 environment:
-  sdk: '>=3.3.1 <4.0.0'
-  flutter: ">=1.17.0"
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.32.0"
 
 dependencies:
   flutter:
