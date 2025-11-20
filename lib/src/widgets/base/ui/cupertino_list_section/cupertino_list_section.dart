@@ -33,7 +33,7 @@ class BaseCupertinoListSection extends StatelessWidget {
     return CupertinoListSection.insetGrouped(
       backgroundColor: Colors.transparent,
       decoration: BoxDecoration(
-          color: this.backgroundColor ?? Theme.of(context).cardColor),
+          color: this.backgroundColor ?? Theme.of(context).cardTheme.color),
       margin: EdgeInsets.zero,
       dividerMargin: this.hasLeading ? (this.dividerMargin ?? 23.0) : 0,
       hasLeading: this.hasLeading,
