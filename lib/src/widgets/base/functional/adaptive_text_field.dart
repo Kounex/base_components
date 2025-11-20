@@ -263,7 +263,7 @@ class BaseAdaptiveTextFieldState extends State<BaseAdaptiveTextField> {
     Widget textField =
         switch (this.widget.platform ?? Theme.of(context).platform) {
       TargetPlatform.iOS || TargetPlatform.macOS => SizedBox(
-          /// Hotfix: for some reason if any decorations like prefix, suffix,
+          /// Workaround: for some reason if any decorations like prefix, suffix,
           /// placeholder etc. is used, the rendering leads to no having the
           /// size at layout time and therefore leads to scrolling in
           /// dialog. Have to set a fixed height for now
