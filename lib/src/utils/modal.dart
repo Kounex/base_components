@@ -348,9 +348,10 @@ class ModalUtils {
   }) {
     Widget child = Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLow.withValues(
-              alpha: blurryBackground ? DesignSystem.opacityForBlur : 1,
-            ),
+        color:
+            Theme.of(context).bottomSheetTheme.modalBackgroundColor!.withValues(
+                  alpha: blurryBackground ? DesignSystem.opacityForBlur : 1,
+                ),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(DesignSystem.border.radius12),
         ),
@@ -359,8 +360,8 @@ class ModalUtils {
         children: [
           if (includeCloseButton)
             Positioned(
-              top: DesignSystem.spacing.x12,
-              right: DesignSystem.spacing.x12,
+              top: DesignSystem.spacing.x8,
+              right: DesignSystem.spacing.x8,
               child: Container(
                 padding: EdgeInsets.only(right: DesignSystem.spacing.x4),
                 alignment: Alignment.centerRight,
