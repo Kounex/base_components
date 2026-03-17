@@ -43,8 +43,8 @@ class ModalUtils {
   /// * [onClose]: A callback triggered when the generated close button is pressed.
   /// * [additionalBottomViewInsets]: Pushes the content upwards by a specific value, typically to avoid keyboard overlap manually if needed.
   /// * [blurryBackground]: Casts a blur effect on the surface behind the active bottom sheet.
-  static Future<T?> showCustomBottomSheet<T>({
-    required BuildContext context,
+  static Future<T?> showCustomBottomSheet<T>(
+    BuildContext context, {
     required WidgetBuilder builder,
     BottomSheetType type = BottomSheetType.standard,
     bool? isDismissible,
@@ -348,10 +348,9 @@ class ModalUtils {
   }) {
     Widget child = Container(
       decoration: BoxDecoration(
-        color: Theme.of(context)
-            .cardTheme
-            .color!
-            .withOpacity(blurryBackground ? DesignSystem.opacityForBlur : 1),
+        color: Theme.of(context).cardTheme.color!.withValues(
+              alpha: blurryBackground ? DesignSystem.opacityForBlur : 1,
+            ),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(DesignSystem.border.radius12),
         ),
@@ -378,7 +377,7 @@ class ModalUtils {
             ),
           Padding(
             padding: EdgeInsets.only(
-                top: includeCloseButton ? DesignSystem.spacing.x24 : 0),
+                top: includeCloseButton ? DesignSystem.spacing.x12 : 0),
             child: modalWidget,
           ),
         ],
