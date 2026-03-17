@@ -53,7 +53,7 @@ class ModalUtils {
     bool includeCloseButton = false,
     bool forceExpand = false,
     bool popOnClose = true,
-    void Function()? onClose,
+    void Function(BuildContext context)? onClose,
     double additionalBottomViewInsets = 0,
     bool blurryBackground = false,
   }) async {
@@ -343,7 +343,7 @@ class ModalUtils {
     bool blurryBackground = false,
     bool includeCloseButton = false,
     bool popOnClose = true,
-    void Function()? onClose,
+    void Function(BuildContext context)? onClose,
     double additionalBottomViewInsets = 0,
   }) {
     Widget child = Container(
@@ -367,7 +367,7 @@ class ModalUtils {
                 child: IconButton(
                   icon: const Icon(CupertinoIcons.clear_circled_solid),
                   onPressed: () {
-                    onClose?.call();
+                    onClose?.call(context);
                     if (popOnClose) {
                       Navigator.of(context).pop();
                     }
