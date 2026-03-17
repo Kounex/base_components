@@ -348,7 +348,7 @@ class ModalUtils {
   }) {
     Widget child = Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardTheme.color!.withValues(
+        color: Theme.of(context).bottomSheetTheme.backgroundColor!.withValues(
               alpha: blurryBackground ? DesignSystem.opacityForBlur : 1,
             ),
         borderRadius: BorderRadius.vertical(
