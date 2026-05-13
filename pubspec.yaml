@@ -22,8 +22,8 @@ dependencies:
   fluentui_system_icons: ^1.1.231
   keyboard_actions: ^4.2.0
   url_launcher: ^6.2.5
-  package_info_plus: ^10.1.0
-  device_info_plus: ^13.1.0
+  package_info_plus: ^9.0.0
+  device_info_plus: ">=12.1.0 <12.4.0" # 12.4.0+ has isiOSAppOnVision iOS build bug
   cupertino_native: ^0.1.1
 
 dev_dependencies:
